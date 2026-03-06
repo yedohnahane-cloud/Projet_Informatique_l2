@@ -2,6 +2,8 @@
 
 ## 👋 Welcome !
 
+- Lien du design Figma : https://www.figma.com/design/VSfKeqeOc5h5S8Zjy5xBkT/Projet-Informatique?node-id=0-1&t=kzVESDc2uIcSCOfX-1
+
 Bienvenue dans le repository du projet **[JAVA MASTERY IA]**.  
 Ce dépôt contient tous les documents et ressources liés à notre travail.
 
