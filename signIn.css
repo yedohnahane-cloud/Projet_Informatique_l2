@@ -1,0 +1,71 @@
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(#47117a, #000000);
+    font-family: Arial, Helvetica, sans-serif , sans-serif;
+}
+
+.SignIn{
+    background: #a538a5;
+    border-radius: 20px;
+    border-color: #a1fffa;
+    border-style: solid;
+}
+
+.SignIn-inset{
+    border-radius: 20px;
+    box-shadow: inset 10px 10px 20px, inset -10px -10px 20px 20px;
+}
+
+.SignIn-card{
+    display: flex 2;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    width: 450px;
+    text-align: center;
+}
+
+h1{
+    /*color: #2d2d2d;*/
+    color: #181d24;
+    margin-bottom: 20px;
+}
+
+.SignIn-input{
+    padding: 15px;
+    width: 80%;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    margin-bottom: 25px;
+    border-color: #a1fffa;
+    border-style: solid;
+}
+
+.SignIn-button{
+    padding: 15px 30px;
+    font-size: 16px;
+    border:none;
+    border-color: #a1fffa;
+    border-style: solid;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-end;
+
+}
+
+.link {
+    font-size: x-small;
+    color:#0d9cd4;
+    align-items: flex-end;
+    margin-top: 10px;
+}
+
+.SignIn-button:active{
+    box-shadow: inset 5px 5px 10px , inset -5px -5px 10px;
+}
