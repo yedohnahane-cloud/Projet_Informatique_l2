@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    background: linear-gradient(#47117a, #000000);
+    font-family: Arial, Helvetica, sans-serif , sans-serif;
+}
+
+.SignIn{
+    background: #a538a5;
+    border-radius: 20px;
+    border-color: #a1fffa;
+    border-style: solid;
+}
+
+.Image{
+    width:50%;
+    border-radius: 20px;
+}
+
+.card{
+    text-align: center;
+}
+
+h1{
+    /*color: #2d2d2d;*/
+    color: #181d24;
+    margin-bottom: 20px;
+}
+
+.input{
+    padding: 15px;
+    width: 80%;
+    font-size: 16px;
+    margin-bottom: 3%;
+}
+
+.button{
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-items: flex-end;
+
+}
+
+#Image{
+    border-radius: 20px;
+}
