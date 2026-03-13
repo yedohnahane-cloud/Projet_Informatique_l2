@@ -1,51 +1,234 @@
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    background: linear-gradient(#47117a, #000000);
-    font-family: Arial, Helvetica, sans-serif , sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
+/* BODY */
+
+body{
+  height:100vh;
+  display:flex;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(#47117a, #000000);
+}
+/* BLOC GAUCHE */
+.gauche{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color: white;
+}
+
+.Bienvenue{
+  color:#7C2E87;
+}
+
+.page_princ{
+  display: flex;
+}
+
+/* CARTE SIGN IN */
 .SignIn{
-    background: #a538a5;
-    border-radius: 20px;
-    border-color: #a1fffa;
-    border-style: solid;
+  background:none;
+  border-radius:20px;
+  padding:40px;
+  width:60%;
+  text-align:center;
 }
 
-.Image{
-    width:50%;
-    border-radius: 20px;
-}
-
-.card{
-    text-align: center;
-}
-
-h1{
-    /*color: #2d2d2d;*/
-    color: #181d24;
-    margin-bottom: 20px;
-}
-
+/* INPUTS */
 .input{
-    padding: 15px;
-    width: 80%;
-    font-size: 16px;
-    margin-bottom: 3%;
+  padding:15px;
+  width:80%;
+  font-size:16px;
+  margin-bottom:15px;
+  border-radius:8px;
+  border-color:white;
+  background: none;
 }
 
+/* BOUTON */
 .button{
-    padding: 15px 30px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    align-items: flex-end;
-
+  padding:15px 30px;
+  background-color: #7C2E87;
+  font-size:16px;
+  color: white;
+  cursor:pointer;
+  border:none;
+  border-radius:8px;
+  transition:0.3s;
 }
 
-#Image{
-    border-radius: 20px;
+.button:hover{
+  transform:scale(1.05);
+}
+/* ========================= */
+/* DROITE (PERSONNAGE) */
+/* ========================= */
+
+.bloc-droit{
+  width:50%;
+  background:linear-gradient(180deg,#230D26 0%,#7C2E87 100%);
+  border-radius:70px;
+  padding:5vh 4vw;
+  position:relative;
+  color:white;
+  display:flex;
+  flex-direction:column;
+}
+
+/* TITRE */
+
+.titre-page{
+  text-align:center;
+  font-size:clamp(20px,2vw,34px);
+  margin-bottom:6vh;
+}
+
+.titre-page span{
+  color:#C975D4;
+}
+
+/* NOM PERSONNAGE */
+
+.nom-perso{
+  font-size:clamp(40px,4vw,60px);
+  color:#C975D4;
+  font-weight:700;
+  margin-bottom:40px;
+}
+
+/* STATS */
+
+.stats{
+  display:flex;
+  flex-direction:column;
+  gap:30px;
+}
+
+.stat-nom{
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+/* BARRES */
+
+.barre{
+  width:60%;
+  max-width:350px;
+  height:16px;
+  background:rgba(255,255,255,0.15);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.remplissage{
+  height:100%;
+  background:#C975D4;
+  border-radius:20px;
+}
+
+.r1{width:100%;}
+.r2{width:100%;}
+.r3{width:100%;}
+
+/* IMAGE PERSONNAGE */
+
+.perso{
+  position:absolute;
+  right:8%;
+  top:28%;
+  width:22%;
+  min-width:140px;
+}
+
+.perso img{
+  width:100%;
+  height:auto;
+  border-radius:20px;
+}
+
+/* FLECHES */
+
+.fleche{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:60px;
+  height:60px;
+  background:#9e9e9e;
+  border:2px solid white;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.fleche:hover{
+  background:#cfcfcf;
+}
+
+.gauche-fleche{
+  left:52%;
+  clip-path:polygon(100% 0%,0% 50%,100% 100%);
+}
+
+.droite-fleche{
+  right:20px;
+  clip-path:polygon(0% 0%,100% 50%,0% 100%);
+}
+
+/* BOUTON CHOISIR */
+
+.btn-choisir{
+  position:absolute;
+  bottom:-50px;
+  left:50%;
+  transform:translateX(-50%);
+  width:220px;
+  height:100px;
+  border-radius:200px 200px 0 0;
+  background:radial-gradient(circle,#230D26 0%,#0b061a 100%);
+  border:1px solid rgba(255,255,255,0.2);
+  color:#C975D4;
+  font-size:22px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media(max-width:900px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .bloc-gauche{
+    width:100%;
+    height:50%;
+  }
+
+  .bloc-droit{
+    width:100%;
+    border-radius:0;
+  }
+
+  .perso{
+    position:relative;
+    top:20px;
+    right:auto;
+    margin:auto;
+    width:40%;
+  }
+
+  .barre{
+    width:80%;
+  }
+
 }
