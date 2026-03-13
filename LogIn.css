@@ -6,13 +6,14 @@ body {
     align-items: stretch;
     background: linear-gradient(#47117a, #000000);
     font-family: Arial, Helvetica, sans-serif , sans-serif;
+    color: white;
 }
 
 .login{
-    background: #a538a5;
+    background: none;
     border-radius: 20px;
-    border-color: #a1fffa;
-    border-style: solid;
+    border-color: none;
+    
 }
 
 .Image{
@@ -28,7 +29,7 @@ body {
 
 h1{
     /*color: #2d2d2d;*/
-    color: #181d24;
+    color: white;
     margin-bottom: 20px;
 }
 
@@ -37,15 +38,26 @@ h1{
     width: 80%;
     font-size: 16px;
     margin-bottom: 3%;
+    color:white;
 }
 
-.button{
-    padding: 15px 30px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    align-items: flex-end;
+.btn_fld{
+    width: 100%;
+    padding-top: 10%;
+    display: flex;
+    justify-content:space-evenly;
+}
 
+.btn_fld button{
+    background-color: #7C2E87;
+    flex-basis: 45%;
+    padding: 15px 50px;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    color:white;
+    transition: all 0.3s ease;
+    margin-bottom: 10%;
 }
 
 #Image{
