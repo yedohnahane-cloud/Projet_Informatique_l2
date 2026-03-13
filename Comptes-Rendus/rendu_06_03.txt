@@ -1,0 +1,35 @@
+Compte rendu – Réunion du projet
+
+Projet : Projet informatique
+Date : 06/03/2026
+Lieu : Salle de TP
+Participants : Équipe du projet + enseignant
+
+1️⃣ Objectif de la réunion
+
+Faire le point sur l’avancement du projet, valider les pages front-end déjà réalisées 
+et définir l’organisation finale du travail.
+
+2️⃣ Points abordés
+
+-Présentation et validation des pages front-end déjà développées.
+-Discussion sur la répartition finale des tâches entre les membres de l’équipe.
+-Choix des outils techniques à utiliser pour le développement du projet.
+-Échange avec l’enseignant concernant l’orientation technique du projet.
+
+3️⃣ Intervention de l’enseignant
+
+-Le professeur a donné des conseils supplémentaires pour améliorer le projet.
+-Il a précisé certains éléments à ajouter afin d’enrichir les fonctionnalités.
+-Il a validé l’approche technique choisie par l’équipe.
+
+4️⃣ Décisions prises
+
+-Validation des pages front-end déjà réalisées.
+-Confirmation de la répartition des tâches entre les membres du groupe.
+-Adoption des outils techniques discutés.
+Intégration des recommandations du professeur dans le développement du projet.
+
+5️⃣ Conclusion
+
+La réunion a permis de clarifier l’organisation du travail et de confirmer les choix techniques du projet. Les recommandations du professeur serviront de guide pour la suite du développement
