@@ -1,0 +1,154 @@
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    background: radial-gradient(circle at top left,#000557);
+    overflow:hidden;
+}
+
+/* ================= LEFT BOX ================= */
+
+/* LEFT BOX */
+.leftbox{
+    width:300px;
+    margin:20px;
+    padding:20px;
+    border-radius:35px;
+    background: linear-gradient(180deg,#7a35e8,#3b1671);
+    box-shadow:
+        inset -8px -8px 20px rgba(0,0,0,0.5),
+        inset 8px 8px 20px rgba(255,255,255,0.1),
+        15px 15px 30px rgba(0,0,0,0.6);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between; /* logo+menu en haut, image en bas */
+    color:white;
+    height: calc(100vh - 40px); /* optionnel, pour occuper toute la hauteur */
+}
+
+/* Logo et titre */
+.logo{
+    text-align:center;
+    margin-top:0;
+}
+
+.logo img{
+    width:45px;      /* logo plus petit */
+    margin-bottom:5px;
+}
+
+.logo h2{
+    font-size:16px;  /* texte plus petit */
+    margin:0;
+    font-weight:600;
+}
+
+/* Menu simplifié */
+.menu{
+    margin-top:20px;
+}
+
+.menu a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:white;
+    margin-bottom:18px;
+    transition:0.3s;
+}
+
+.menu a:hover{
+    color:#ffa726;
+}
+
+/* Image en bas */
+.left-image{
+    text-align:center;
+}
+
+.left-image img{
+    width:160px;  /* garde la taille actuelle */
+}
+/* ================= RIGHT BOX ================= */
+
+.rightbox{
+    flex:1;
+    padding:60px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:50px;
+}
+/* ================= WELCOME BOX ================= */
+
+.welcome-box{
+    grid-column: 1 / -1;
+    align-self:center;
+    justify-self:center;
+    max-width:800px;
+    text-align:center;
+    padding:60px;
+    border-radius:30px;
+    background: linear-gradient(160deg,#821bad);
+    box-shadow:
+        inset -10px -10px 20px rgba(0,0,0,0.6),
+        inset 10px 10px 20px rgba(255,255,255,0.05),
+        20px 20px 40px rgba(0,0,0,0.7);
+}
+
+.welcome-box h1{
+    font-size:38px;
+    margin-bottom:15px;
+}
+
+.welcome-box h2{
+    font-size:24px;
+    margin-bottom:25px;
+    opacity:0.9;
+}
+
+.welcome-box p{
+    font-size:17px;
+    margin-bottom:18px;
+    opacity:0.85;
+    line-height:1.6;
+}
+
+.highlight{
+    font-weight:bold;
+    font-size:18px;
+    color:#ffa726;
+}
+
+
+/* TITRE */
+.card h2{
+    margin-top:40px;
+    margin-bottom:10px;
+    font-size:22px;
+}
+
+.card p{
+    opacity:0.8;
+    font-size:15px;
+}
+
+/* NUMERO GEANT */
+.number{
+    position:absolute;
+    bottom:-30px;
+    right:10px;
+    font-size:200px;
+    font-weight:bold;
+    color:white;
+    opacity:0.04;
+}
+
+
