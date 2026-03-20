@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in</title>
+<link rel="stylesheet" href="Signin.css"/>
+<link rel="stylesheet" href="LogIn.css"/> 
+</head>
+
+<body>
+
+<div class="page_princ" id = "prince">
+
+<!-- GAUCHE Sign In-->
+<div class="gauche-signin" id = "Signin">
+
+<div class="SignIn">
+<h1><span class = "Bienvenue">Bienvenue</span> parmi nous</h1>
+
+<input type="text" class="input" placeholder="Nom d'utilisateur">
+<input type="email" class="input" placeholder="Adresse email">
+<input type="password" class="input" placeholder="Mot de passe">
+<input type="password" class="input" placeholder="Confirmez le mot de passe">
+
+<button class="button">Créer un compte</button>
+<button class ="button" id = "ToLoginBtn">Connectez vous maintenant</button>
+
+</div>
+</div>
+
+<!-- DROITE Sign In-->
+<div class="bloc-droit-signin" id = "Perso">
+
+<h2 class="titre-page">
+Choisissez <span>votre personnage</span>
+</h2>
+
+<div class="nom-perso">
+Lucie
+</div>
+
+<div class="stats">
+
+<div>
+<div class="stat-nom">Rigoureuse</div>
+<div class="barre">
+<div class="remplissage r1"></div>
+</div>
+</div>
+
+<div>
+<div class="stat-nom">Méthodique</div>
+<div class="barre">
+<div class="remplissage r2"></div>
+</div>
+</div>
+
+<div>
+<div class="stat-nom">Analytique</div>
+<div class="barre">
+<div class="remplissage r3"></div>
+</div>
+</div>
+
+</div>
+<div class="perso">
+<img src="image_lucie.png" alt="personnage">
+</div>
+
+<button class="fleche gauche-fleche"></button>
+<button class="fleche droite-fleche"></button>
+
+<button class="btn-choisir">
++ Choisir
+</button>
+</div>
+
+<!--Gauche Login-->
+<div class = "Image" id = "décor">
+        <img src="./imageLogin.png" width="100%" height="100%" id="Image"> <!--image temporaire-->
+</div>
+
+<!-- Droite Login-->
+<div class="login card" id = "Login">
+    <h1 id = "titre">LOGIN</h1>
+    <input type="email" id = "email" class="login input" placeholder="Votre email">
+    <input type="password" id = "password" class="login input" placeholder="Password">
+    <div class = "btn_fld">
+        <button type ="button" id = "LoginBtn">Login</button>
+    </div>
+    <div class = "btn_fld">
+        <button type ="button" id = "ToSigninBtn">Créer un compte</button>
+    </div>
+</div>
+
+</div>
+
+ 
+<script src = "./LoginSignin.js"></script>
+</body>
+</html>
