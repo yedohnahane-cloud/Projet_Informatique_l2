@@ -53,3 +53,12 @@ def auth_page_view(request):
     return render(request, "accounts/auth.html", {
         "signup_form": signup_form
     })
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+@api_view(['GET'])
+def test_api(request):
+    return Response({
+        'message': 'API Django REST Framework fonctionnelle'
+    })
