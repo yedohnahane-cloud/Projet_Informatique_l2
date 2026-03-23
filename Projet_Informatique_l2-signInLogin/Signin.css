@@ -1,0 +1,264 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+/* BODY */
+body{
+  min-height:100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, #0f1230 0%, #17153a 45%, #3e2f79 100%);
+}
+
+/* CONTENEUR PRINCIPAL */
+.page_princ{
+  display:flex;
+  width:100%;
+  min-height:100vh;
+}
+
+/* ========================= */
+/* BLOC GAUCHE SIGNIN */
+/* ========================= */
+.gauche-signin{
+  width:50%;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  padding:40px;
+}
+
+.SignIn{
+  width:100%;
+  max-width:620px;
+  text-align:center;
+}
+
+.SignIn h1{
+  font-size:58px;
+  font-weight:700;
+  margin-bottom:50px;
+  color:white;
+}
+
+.Bienvenue{
+  color:#c86cdb;
+}
+
+/* INPUTS */
+.input{
+  display:block;
+  width:80%;
+  margin:0 auto 18px auto;
+  padding:18px 20px;
+  font-size:18px;
+  color:white;
+  background:transparent;
+  border:1.5px solid rgba(255,255,255,0.8);
+  border-radius:10px;
+  outline:none;
+}
+
+.input::placeholder{
+  color:rgba(255,255,255,0.85);
+}
+
+/* BOUTONS */
+.button{
+  padding:16px 32px;
+  background-color:#7C2E87;
+  font-size:20px;
+  color:white;
+  cursor:pointer;
+  border:none;
+  border-radius:12px;
+  transition:0.3s;
+  margin-top:12px;
+}
+
+.button:hover{
+  transform:scale(1.03);
+}
+
+/* ========================= */
+/* DROITE SIGNIN */
+/* ========================= */
+.bloc-droit-signin{
+  width:50%;
+  min-height:100vh;
+  background:linear-gradient(180deg,#2a0d2f 0%, #7b2d86 100%);
+  border-radius:50px 50px 50px 50px;
+  padding:55px 55px 40px 55px;
+  position:relative;
+  color:white;
+  overflow:hidden;
+}
+
+/* TITRE */
+.titre-page{
+  text-align:center;
+  font-size:clamp(36px, 2.8vw, 54px);
+  font-weight:700;
+  margin-bottom:85px;
+}
+
+.titre-page span{
+  color:#d07be0;
+}
+
+/* NOM */
+.nom-perso{
+  font-size:clamp(56px, 4vw, 82px);
+  font-weight:700;
+  color:#c86cdb;
+  margin-bottom:35px;
+  margin-top:70px;
+}
+
+/* STATS */
+.stats{
+  display:flex;
+  flex-direction:column;
+  gap:34px;
+  width:52%;
+}
+
+.stat-nom{
+  font-size:clamp(22px, 1.5vw, 32px);
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.barre{
+  width:100%;
+  height:15px;
+  background:rgba(255,255,255,0.15);
+  border-radius:30px;
+  overflow:hidden;
+}
+
+.remplissage{
+  width:100%;
+  height:100%;
+  background:#c975d4;
+  border-radius:30px;
+}
+
+/* PHOTO AU MILIEU DES FLÈCHES */
+.perso{
+  position:absolute;
+  top:50%;
+  right:80px;
+  transform:translateY(-50%);
+  width:260px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.perso img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+}
+
+/* FLÈCHES */
+.fleche{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:46px;
+  height:46px;
+  background:#9e9e9e;
+  border:2px solid rgba(255,255,255,0.9);
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.fleche:hover{
+  filter:brightness(1.15);
+}
+
+.gauche-fleche{
+  right:360px; /* à gauche de l'image */
+  clip-path:polygon(100% 0%, 0% 50%, 100% 100%);
+}
+
+.droite-fleche{
+  right:20px; /* à droite de l'image */
+  clip-path:polygon(0% 0%, 100% 50%, 0% 100%);
+}
+
+/* BOUTON CHOISIR */
+.btn-choisir{
+  position:absolute;
+  bottom:28px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:20px 52px;
+  font-size:22px;
+  font-weight:500;
+  background:#34306a;
+  color:#d48ae2;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.btn-choisir:hover{
+  transform:translateX(-50%) scale(1.03);
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .page_princ{
+    flex-direction:column;
+  }
+
+  .gauche-signin,
+  .bloc-droit-signin{
+    width:100%;
+  }
+
+  .bloc-droit-signin{
+    border-radius:0;
+    min-height:auto;
+  }
+
+  .stats{
+    width:100%;
+  }
+
+  .perso{
+    position:relative;
+    top:auto;
+    right:auto;
+    margin:30px auto;
+    width:220px;
+  }
+
+  .btn-choisir{
+    position:relative;
+    bottom:auto;
+    left:auto;
+    transform:none;
+    display:block;
+    margin:30px auto 0;
+  }
+
+  .btn-choisir:hover{
+    transform:scale(1.03);
+  }
+
+  .gauche-fleche{
+    left:20px;
+  }
+
+  .droite-fleche{
+    right:20px;
+  }
+}
