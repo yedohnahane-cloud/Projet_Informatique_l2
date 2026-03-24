@@ -46,3 +46,5 @@ class StudentCourseProgress(models.Model):
 
     def __str__(self):
         return f"{self.student.email} - {self.course.title}"
+    
+    #
