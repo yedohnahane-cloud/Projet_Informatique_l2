@@ -12,4 +12,5 @@ urlpatterns = [
     path("", home_view, name="home"),
     path("accounts/", include("accounts.urls")),
     path("courses/", include("courses.urls")),
+    path("quiz/", include("quiz.urls")),
 ]
