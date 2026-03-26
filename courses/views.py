@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Course, StudentCourseProgress
-
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required
 def courses_list(request):
@@ -77,3 +78,191 @@ def course_detail(request, course_id):
     }
 
     return JsonResponse(data, status=200)
+
+#//////////////////////////PROFESSEUR/////////////////////////////
+@login_required
+def teacher_courses_list(request):
+    if request.user.role != "teacher":
+        return JsonResponse(
+            {"error": "Accès réservé aux professeurs."},
+            status=403
+        )
+
+    courses = Course.objects.filter(teacher=request.user).order_by("order")
+
+    data = [
+        {
+            "id": course.id,
+            "title": course.title,
+            "content": course.content,
+            "order": course.order,
+            "is_published": course.is_published,
+            "created_at": course.created_at.isoformat(),
+        }
+        for course in courses
+    ]
+
+    return JsonResponse({"courses": data}, status=200)
+
+
+@login_required
+def teacher_course_detail(request, course_id):
+    if request.user.role != "teacher":
+        return JsonResponse(
+            {"error": "Accès réservé aux professeurs."},
+            status=403
+        )
+
+    try:
+        course = Course.objects.get(id=course_id, teacher=request.user)
+    except Course.DoesNotExist:
+        return JsonResponse(
+            {"error": "Cours introuvable."},
+            status=404
+        )
+
+    return JsonResponse({
+        "id": course.id,
+        "title": course.title,
+        "content": course.content,
+        "order": course.order,
+        "is_published": course.is_published,
+        "created_at": course.created_at.isoformat(),
+    }, status=200)
+
+
+@csrf_exempt
+@login_required
+def create_course(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Méthode non autorisée."}, status=405)
+
+    if request.user.role != "teacher":
+        return JsonResponse(
+            {"error": "Accès réservé aux professeurs."},
+            status=403
+        )
+
+    try:
+        body = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "JSON invalide."}, status=400)
+
+    title = body.get("title")
+    content = body.get("content")
+    order = body.get("order")
+    is_published = body.get("is_published", False)
+
+    if not title or not content or order is None:
+        return JsonResponse(
+            {"error": "Les champs title, content et order sont obligatoires."},
+            status=400
+        )
+
+    if Course.objects.filter(order=order).exists():
+        return JsonResponse(
+            {"error": "Un cours avec cet ordre existe déjà."},
+            status=400
+        )
+
+    course = Course.objects.create(
+        teacher=request.user,
+        title=title,
+        content=content,
+        order=order,
+        is_published=is_published
+    )
+
+    return JsonResponse({
+        "message": "Cours créé avec succès.",
+        "course": {
+            "id": course.id,
+            "title": course.title,
+            "content": course.content,
+            "order": course.order,
+            "is_published": course.is_published,
+            "created_at": course.created_at.isoformat(),
+        }
+    }, status=201)
+
+
+@csrf_exempt
+@login_required
+def update_course(request, course_id):
+    if request.method not in ["PUT", "PATCH"]:
+        return JsonResponse({"error": "Méthode non autorisée."}, status=405)
+
+    if request.user.role != "teacher":
+        return JsonResponse(
+            {"error": "Accès réservé aux professeurs."},
+            status=403
+        )
+
+    try:
+        course = Course.objects.get(id=course_id, teacher=request.user)
+    except Course.DoesNotExist:
+        return JsonResponse(
+            {"error": "Cours introuvable."},
+            status=404
+        )
+
+    try:
+        body = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "JSON invalide."}, status=400)
+
+    title = body.get("title", course.title)
+    content = body.get("content", course.content)
+    order = body.get("order", course.order)
+    is_published = body.get("is_published", course.is_published)
+
+    if order != course.order and Course.objects.filter(order=order).exists():
+        return JsonResponse(
+            {"error": "Un cours avec cet ordre existe déjà."},
+            status=400
+        )
+
+    course.title = title
+    course.content = content
+    course.order = order
+    course.is_published = is_published
+    course.save()
+
+    return JsonResponse({
+        "message": "Cours mis à jour avec succès.",
+        "course": {
+            "id": course.id,
+            "title": course.title,
+            "content": course.content,
+            "order": course.order,
+            "is_published": course.is_published,
+            "created_at": course.created_at.isoformat(),
+        }
+    }, status=200)
+
+
+@csrf_exempt
+@login_required
+def delete_course(request, course_id):
+    if request.method != "DELETE":
+        return JsonResponse({"error": "Méthode non autorisée."}, status=405)
+
+    if request.user.role != "teacher":
+        return JsonResponse(
+            {"error": "Accès réservé aux professeurs."},
+            status=403
+        )
+
+    try:
+        course = Course.objects.get(id=course_id, teacher=request.user)
+    except Course.DoesNotExist:
+        return JsonResponse(
+            {"error": "Cours introuvable."},
+            status=404
+        )
+
+    course.delete()
+
+    return JsonResponse({
+        "message": "Cours supprimé avec succès."
+    }, status=200)
