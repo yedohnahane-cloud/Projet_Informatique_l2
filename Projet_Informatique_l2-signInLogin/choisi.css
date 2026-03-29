@@ -1,0 +1,120 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+/* BODY */
+body{
+  min-height:100vh;
+  font-family: Arial;
+  background: linear-gradient(180deg, #0f1230 0%, #17153a 45%, #3e2f79 100%);
+}
+
+/* CONTAINER */
+.page_princ{
+  display:flex;
+  min-height:100vh;
+}
+
+/* ===== LEFT ===== */
+.gauche-signin{
+  width:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+}
+
+.SignIn{
+  width:100%;
+  max-width:600px;
+  text-align:center;
+}
+
+.SignIn h1{
+  font-size:56px;
+  margin-bottom:50px;
+}
+
+.Bienvenue{
+  color:#c86cdb;
+}
+
+.input{
+  width:80%;
+  margin:0 auto 15px;
+  padding:16px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.8);
+  border-radius:10px;
+  color:white;
+}
+
+.button{
+  width:80%;
+  padding:15px;
+  background:#7C2E87;
+  border:none;
+  border-radius:10px;
+  color:white;
+  margin-top:10px;
+  cursor:pointer;
+}
+
+.login-link{
+  margin-top:20px;
+}
+
+.login-link span{
+  color:#c86cdb;
+}
+
+
+
+
+/* ===== DROITE ===== */
+.bloc-droit-signin{
+  width:50%;
+  height:100vh;
+
+  background:linear-gradient(180deg,#230D26,#7C2E87);
+
+  border-radius:50px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:60px 40px;
+  text-align:center;
+  color:white;
+}
+
+/* TITRE */
+.titre{
+  font-size:40px;
+}
+
+.titre span{
+  color:#C975D4;
+}
+
+/* IMAGE */
+.image-lucie{
+  width:300px;
+}
+
+.image-lucie img{
+  width:100%;
+}
+
+/* TEXTE */
+.texte{
+  font-size:18px;
+}
+
+.lien{
+  color:#C975D4;
+}

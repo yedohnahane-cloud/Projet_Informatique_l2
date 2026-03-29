@@ -3,126 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Confirmation Lucie</title>
+<title>Choix personnage</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="choisi.css">
 
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
-}
-
-body{
-background:#0b061a;
-height:100vh;
-}
-
-/* CONTENEUR */
-.container{
-display:flex;
-height:100vh;
-width:100%;
-}
-
-/* BLOC GAUCHE */
-.bloc-gauche{
-width:50%;
-}
-
-/* BLOC DROIT (VIOLET) */
-.bloc-droit{
-
-width:50%;
-height:100%;
-
-background:linear-gradient(180deg,#230D26 0%,#7C2E87 100%);
-
-border-radius:70px 70px 70px 70px;
-
-display:flex;
-flex-direction:column;
-justify-content:space-between; /* HAUT - MILIEU - BAS */
-
-align-items:center;
-text-align:center;
-
-padding:60px 40px;
-color:white;
-
-}
-
-/* TITRE */
-.titre{
-font-size:40px;
-font-weight:700;
-}
-
-.titre span{
-color:#C975D4;
-}
-
-/* IMAGE */
-.image-lucie{
-width:320px;
-}
-
-.image-lucie img{
-width:100%;
-}
-
-/* TEXTE BAS */
-.texte{
-font-size:18px;
-line-height:1.6;
-}
-
-/* LIEN */
-.lien{
-color:#C975D4;
-font-weight:700;
-text-decoration:none;
-}
-
-.lien:hover{
-text-decoration:underline;
-}
-
-</style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="page_princ">
 
-<div class="bloc-gauche"></div>
+<!-- ===== GAUCHE ===== -->
+<div class="gauche-signin">
 
-<div class="bloc-droit">
+<div class="SignIn">
+<h1><span class="Bienvenue">Bienvenue</span> parmi nous</h1>
+
+<input type="text" class="input" placeholder="Nom d'utilisateur">
+<input type="email" class="input" placeholder="Adresse email">
+<input type="password" class="input" placeholder="Mot de passe">
+<input type="password" class="input" placeholder="Confirmez le mot de passe">
+
+<button class="button">Créer un compte</button>
+
+<p class="login-link">
+Déjà un compte ?
+<span onclick="window.location.href='login.html'" style="cursor:pointer;">
+Connectez vous maintenant
+</span>
+</p>
+
+</div>
+</div>
+
+<!-- ===== DROITE ===== -->
+<div class="bloc-droit-signin">
 
 <h1 class="titre">
-Vous avez choisi <span>Leo</span>
+Vous avez choisi <span id="nomPerso">Leo</span>
 </h1>
 
 <div class="image-lucie">
-<img src="image leo.png" alt="Lucie">
+<img id="imagePerso" src="image_leo.png">
 </div>
 
 <p class="texte">
-Clique sur <a href="#" class="lien">Créer mon compte</a> et code avec Leo
+Clique sur <a href="SignIn.html" class="lien">Créer mon compte</a> et code avec <span id="nomPerso2">Leo</span>
 </p>
 
 </div>
 
 </div>
 
-<script>
-
-console.log("Interface Lucie chargée");
-
-</script>
+<script src="event.js" defer></script>
 
 </body>
 </html>
