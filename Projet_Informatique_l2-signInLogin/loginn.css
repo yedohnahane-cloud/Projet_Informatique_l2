@@ -1,0 +1,286 @@
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html, body{
+  width:100%;
+  height:100%;
+}
+
+body{
+  font-family:'Inter', sans-serif;
+  background:#1f2454;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* ===== PAGE ===== */
+.container{
+  width:100%;
+  height:100vh;
+  display:flex;
+}
+
+/* ===== LEFT PANEL ===== */
+.left{
+  width:50.2%;
+  height:100%;
+  background:linear-gradient(180deg,#2d0f3d 0%, #5a1d65 100%);
+  border-radius:50px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  position:relative;
+  padding-top:123px;
+}
+
+.left-content{
+  width:100%;
+  max-width:615px;
+  position:relative;
+}
+
+/* ===== TITLE LEFT ===== */
+.left h1{
+  width:494px;
+  font-size:37px;
+  font-weight:700;
+  line-height:1;
+  text-align:center;
+  color:#ffffff;
+  margin:0 auto;
+}
+
+.left h1 span{
+  color:#d47ae2;
+}
+
+/* ===== IMAGE LEFT ===== */
+.left img{
+  width:615px;
+  height:575px;
+  object-fit:contain;
+  display:block;
+  margin:70px auto 0;
+}
+
+/* ===== RIGHT PANEL ===== */
+.right{
+  width:49.8%;
+  height:100%;
+  padding-top:55px;
+  padding-left:87px;
+  padding-right:72px;
+  position:relative;
+}
+
+/* ===== MAIN TITLE ===== */
+.right h2{
+  font-size:33px;
+  font-weight:700;
+  margin-bottom:55px;
+  text-align:center;
+}
+
+.right h2 span{
+  color:#c85fd6;
+}
+
+/* ===== SOCIAL ===== */
+.social{
+  display:flex;
+  justify-content:center;
+  gap:36px;
+  margin-bottom:44px;
+}
+
+/* GOOGLE */
+.btn-google{
+  width:332px;
+  height:47px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(90deg,#87439e,#8f4aa7);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  font-size:17px;
+  cursor:pointer;
+}
+
+/* G ICON */
+.g-icon{
+  font-size:22px;
+  font-weight:700;
+}
+
+/* FACEBOOK */
+.btn-facebook{
+  width:102px;
+  height:47px;
+  border-radius:999px;
+  border:1px solid rgba(133,65,151,0.9);
+  background:#f5f2f4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+.btn-facebook::before{
+  content:"f";
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:#87439e;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+  font-weight:700;
+}
+
+/* ===== DIVIDER ===== */
+.divider{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  margin-bottom:56px;
+  color:rgba(255,255,255,0.7);
+}
+
+.divider::before,
+.divider::after{
+  content:"";
+  width:187px;
+  height:1px;
+  background:rgba(255,255,255,0.28);
+}
+
+/* ===== INPUTS ===== */
+.right input{
+  width:381px;
+  height:39px;
+  display:block;
+  margin:0 auto 36px;
+  padding:0 16px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.72);
+  background:transparent;
+  color:#fff;
+}
+
+.right input:focus{
+  border-color:#d676e0;
+}
+
+/* PASSWORD */
+.password-wrap{
+  width:381px;
+  margin:0 auto 56px;
+  position:relative;
+}
+
+.password-wrap input{
+  width:100%;
+  padding-right:40px;
+}
+
+.password-wrap .eye{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+/* ===== LOGIN BUTTON ===== */
+.btn-login{
+  width:381px;
+  height:45px;
+  display:block;
+  margin:0 auto;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(90deg,#944a9a,#8f4a96);
+  color:#fff;
+  font-size:18px;
+  font-weight:700;
+}
+
+/* ===== SIGNUP ===== */
+.signup{
+  text-align:center;
+  margin-top:92px;
+}
+
+.signup a{
+  color:#d15ccf;
+  text-decoration:none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:1100px){
+
+  body{
+    overflow:auto;
+  }
+
+  .container{
+    flex-direction:column;
+    height:auto;
+  }
+
+  .left,
+  .right{
+    width:100%;
+    border-radius:0;
+  }
+
+  /* LEFT FIX */
+  .left{
+    min-height:100vh;
+    padding:60px 20px;
+    align-items:center;
+    justify-content:center;
+    border-radius:30px;
+    
+  }
+
+  .left-content{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .left h1{
+    width:100%;
+    max-width:494px;
+    font-size:30px;
+  }
+
+  .left img{
+    width:100%;
+    max-width:420px;
+    height:auto;
+    margin-top:40px;
+  }
+
+  .right{
+    padding:60px 20px;
+  }
+
+  .right input,
+  .password-wrap,
+  .btn-login{
+    width:100%;
+    max-width:381px;
+  }
+}
+
