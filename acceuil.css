@@ -167,156 +167,70 @@ body {
     font-weight: bold;
 }
 
-/* --- FOOTER GENERAL (COULEURS D'ORIGINE) --- */
+/* Fond du footer */
 footer {
-    /* Le fond sombre du design d'origine */
     background-color: #0d0c24; 
     padding: 60px 5% 20px;
-    font-family: 'Poppins', sans-serif;
-    color: #e0e0e0;
-    position: relative;
+    color: white;
 }
 
-/* Grille pour les 3 colonnes principales */
+/* Alignement horizontal des 3 blocs */
 .footer-container {
-    display: grid;
-    /* 3 colonnes de largeur égale */
-    grid-template-columns: 1fr 1fr 1fr; 
-    gap: 40px;
+    display: flex;
+    justify-content: space-between; /* Espace les blocs sur toute la largeur */
+    align-items: flex-start;
     padding-bottom: 40px;
-    align-items: start;
 }
 
-/* --- COLONNE 1: LOGO ET SOCIAUX --- */
-
+/* TAILLE DU LOGO AGRANDIE */
 .footer-logo {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 25px;
 }
 
-/* !!! CORRECTION DE LA TAILLE DU LOGO ICI !!! */
 .footer-logo img {
-    /* Empêche le logo de prendre tout l'espace */
-    width: 40px; 
-    height: 40px;
-    object-fit: contain; /* Garde les proportions */
+    width: 100px; /* J'ai agrandi la photo ici */
+    height: auto;
+    object-fit: contain;
 }
 
 .brand-name {
-    font-size: 1.3rem;
-    font-weight: 600;
-    /* La couleur de texte claire du design */
-    color: #ffffff; 
+    font-size: 1.4rem;
+    font-weight: bold;
 }
 
-.footer-socials {
-    display: flex;
-    gap: 15px;
-}
-
-/* Icônes de réseaux sociaux */
-.footer-socials img {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    /* Assure qu'elles soient blanches si elles sont sombres à l'origine */
-    filter: brightness(0) invert(1); 
-    opacity: 0.7;
-    transition: opacity 0.3s;
-}
-
-.footer-socials a:hover img {
-    opacity: 1;
-}
-
-/* --- TITRES DES COLONNES (STYLE D'ORIGINE) --- */
+/* Style des titres et listes */
 .footer-heading {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ffffff;
     margin-bottom: 20px;
-    text-transform: none; /* Pas de majuscules automatiques */
+    font-size: 1.1rem;
 }
 
-/* --- LISTES ET LIENS (COULEURS D'ORIGINE) --- */
 .footer-links, .footer-contact-info {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 .footer-links li, .footer-contact-info li {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    color: #bbb;
     font-size: 0.9rem;
-    /* La couleur de texte plus sombre pour les liens */
-    color: #b0b0b0; 
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 
 .footer-links a {
     text-decoration: none;
-    color: #b0b0b0;
-    transition: color 0.3s;
+    color: #bbb;
 }
 
-.footer-links a:hover {
-    color: #ffffff;
-}
-
-/* --- SEPARATEUR ET BAS DU FOOTER --- */
+/* Bas de page */
 .footer-divider {
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin: 0 0 20px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 20px;
 }
 
 .footer-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-}
-
-.copyright {
-    font-size: 0.8rem;
-    color: #808080;
-}
-
-/* --- BOUTON RETOUR EN HAUT --- */
-.back-to-top-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    gap: 5px;
-}
-
-.back-to-top-circle {
-    width: 35px;
-    height: 35px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: border-color 0.3s;
-}
-
-.back-to-top-container:hover .back-to-top-circle {
-    border-color: #ffffff;
-}
-
-.arrow-up {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.back-to-top-text {
-    font-size: 0.7rem;
-    color: #808080;
 }
