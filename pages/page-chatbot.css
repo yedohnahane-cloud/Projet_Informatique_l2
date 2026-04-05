@@ -1,0 +1,169 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Background global */
+body {
+    background: linear-gradient(120deg, #1b1d3a, #0f1230);
+    height: 100vh;
+}
+
+/* Layout */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #5b2a6d, #7a3c8c);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+/* Logo */
+.logo {
+    text-align: center;
+    color: white;
+}
+
+.logo img {
+    width: 60px;
+    margin-bottom: 10px;
+}
+
+/* Menu */
+.menu {
+    margin-top: 40px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menu-item img {
+    width: 20px;
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Active */
+.menu-item.active {
+    background: #a66cff;
+}
+
+/* Illustration */
+.sidebar-illustration img {
+    width: 100%;
+}
+
+/* Main */
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Chat container */
+.chat-container {
+    height: 100%;
+    background: #0b0e2a;
+    border-radius: 20px;
+    position: relative;
+    padding: 20px;
+}
+
+/* Settings icon */
+.settings {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.settings img {
+    width: 20px;
+    cursor: pointer;
+}
+
+/* Center */
+.chat-center {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #cfd3ff;
+}
+
+.bot-icon {
+    width: 40px;
+    margin-bottom: 15px;
+}
+
+.chat-center h1 {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+/* Input */
+.chat-input {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    background: #1a1e3f;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+/* Buttons */
+.plus-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Input field */
+.chat-input input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #aaa;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Mic */
+.mic-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.mic-btn img {
+    width: 18px;
+}
