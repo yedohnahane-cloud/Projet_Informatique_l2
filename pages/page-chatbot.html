@@ -13,25 +13,27 @@
     <aside class="sidebar">
         <div class="logo">
             <img src="logo.png" alt="logo">
-            <h2>JavaMastery AI</h2>
+            
         </div>
 
         <nav class="menu">
-            <div class="menu-item">
-                <img src="logo-cours.png" alt="">
-                <span>Mes cours</span>
-            </div>
 
-            <div class="menu-item active">
-                <img src="logo-chatbot.png" alt="">
-                <span>Chatbot</span>
-            </div>
+    <a href="cours.html" class="menu-item">
+        <img src="logo-cours.png" alt="">
+        <span>Mes cours</span>
+    </a>
 
-            <div class="menu-item">
-                <img src="logo-jeu.png" alt="">
-                <span>Quizzz et jeux</span>
-            </div>
-        </nav>
+    <a href="page-chatbot.html" class="menu-item active">
+        <img src="logo-chatbot.png" alt="">
+        <span>Chatbot</span>
+    </a>
+
+    <a href="quiz.html" class="menu-item">
+        <img src="logo-jeu.png" alt="">
+        <span>Quizzz et jeux</span>
+    </a>
+
+</nav>
 
         <div class="sidebar-illustration">
             <img src="image.png" alt="">
@@ -56,18 +58,41 @@
 
             <!-- Input -->
             <div class="chat-input">
-                <button class="plus-btn">+</button>
+                <button class="plus-btn" id="uploadBtn">+</button>
+                <input type="file" id="fileInput" style="display: none;">
                 <input type="text" placeholder="Décris le quiz que tu veux générer">
                 <button class="mic-btn">
                     <img src="vocal.icon.png" alt="">
                 </button>
             </div>
-
+            
         </div>
 
     </main>
 
 </div>
 
+<script>
+const uploadBtn = document.getElementById("uploadBtn");
+const fileInput = document.getElementById("fileInput");
+
+// Clique sur +
+uploadBtn.addEventListener("click", () => {
+    fileInput.click();
+});
+
+// Quand fichier choisi
+fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+
+    if (file) {
+        console.log("Fichier sélectionné :", file.name);
+
+        // Exemple : afficher le nom dans l'input
+        const input = document.querySelector(".chat-input input");
+        input.value = file.name;
+    }
+});
+</script>
 </body>
 </html>
