@@ -58,29 +58,10 @@ body {
     font-size: 15px;
     color: #f1eaff;
     text-decoration: none;
-    transition: 0.3s;
-}
-
-.menu-item img {
-    width: 18px;
-}
-
-.menu-item:hover {
-    background: rgba(255, 255, 255, 0.1);
 }
 
 .menu-item.active {
     background: #a66cff;
-    font-weight: 600;
-}
-
-/* ILLUSTRATION */
-.sidebar-illustration {
-    margin-top: auto;
-}
-
-.sidebar-illustration img {
-    width: 100%;
 }
 
 /* MAIN */
@@ -91,22 +72,21 @@ body {
     align-items: center;
 }
 
-/* QUIZ CONTAINER */
+/* QUIZ */
 .quiz-container {
     width: 500px;
     background: linear-gradient(145deg, #2a2f5a, #1d2147);
-    padding: 30px;
+    padding: 80px 30px 30px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    position: relative;
 }
 
-/* HEADER */
-.quiz-header {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
+/* PROGRESS */
 .progress {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 60px;
     height: 60px;
     background: #3a3f7a;
@@ -114,76 +94,84 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto;
-    font-weight: bold;
-    color: #ff9d4d;
-    margin-bottom: 10px;
+    color: orange;
 }
 
-.quiz-header h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
+/* QUESTION BOX */
+.quiz-header-text {
+    background: #4b52ac;
+    padding: 40px 20px 20px;
+    border-radius: 15px;
+    text-align: center;
 }
 
-.quiz-header h2 span {
-    color: #ff9d4d;
-}
-
-.quiz-header p {
-    font-size: 14px;
-    color: #cfcfff;
+/* ANSWERS */
+.answers {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 /* ANSWER */
-.answer {
-    cursor: pointer;
-}
-
-/* contenu interne */
-.answer-content {
-    background: #3a3f5a;
-    padding: 14px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: 0.3s;
-    border: 2px solid transparent;
-}
-
-/* hover */
-.answer:hover .answer-content {
-    background: #4a4f7a;
-}
-
-/* cercle à droite */
-.circle {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-    transition: 0.3s;
-}
-
-/* cacher input */
 .answer input {
     display: none;
 }
 
-/* ✅ état sélectionné */
+.answer-content {
+    background: #3a3f5a;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* HOVER */
+.answer:hover .answer-content {
+    background: #4a4f7a;
+}
+
+/* CIRCLE */
+.circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid white;
+    position: relative;
+}
+
+/* INNER DOT (IMPORTANT) */
+.circle::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 0.2s;
+}
+
+/* SELECTED BACKGROUND */
 .answer input:checked + .answer-content {
     background: linear-gradient(90deg, #7b4dff, #a66cff);
-    border: 2px solid #a66cff;
-    box-shadow: 0 0 10px rgba(166,108,255,0.6);
 }
 
-/* texte sélectionné */
-.answer input:checked + .answer-content span {
-    font-weight: bold;
+/* 🔥 DOT QUI SE REMPLIT */
+.answer input:checked + .answer-content .circle::after {
+    transform: translate(-50%, -50%) scale(1);
 }
 
-/* cercle rempli */
-.answer input:checked + .answer-content .circle {
-    background: white;
-    border-color: white;
+/* ILLUSTRATION */
+.sidebar-illustration {
+    margin-top: auto;
+}
+
+.sidebar-illustration img {
+    width: 100%;
 }
