@@ -45,3 +45,9 @@ def logout_view(request):
     logout(request)
     messages.success(request, "Vous avez été déconnecté.")
     return redirect("signin")
+
+def leo_choisi_view(request):
+    return render(request, "accounts/leo_choisi.html")
+
+def lucie_choisi_view(request):
+    return render(request, "accounts/lucie_choisi.html")

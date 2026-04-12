@@ -6,7 +6,7 @@
 <title>Choix personnage</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="choisi.css">
+<link rel="stylesheet" href="{% static 'css/choisi.css' %}">
 
 </head>
 
@@ -45,18 +45,18 @@ Vous avez choisi <span id="nomPerso">Leo</span>
 </h1>
 
 <div class="image-lucie">
-<img id="imagePerso" src="image_leo.png">
+<img src="{% static 'images/image_leo.png' %}">
 </div>
 
 <p class="texte">
-Clique sur <a href="SignIn.html" class="lien">Créer mon compte</a> et code avec <span id="nomPerso2">Leo</span>
+Clique sur <a href="{% url 'signup' %}">Créer mon compte</a> et code avec <span id="nomPerso2">Leo</span>
 </p>
 
 </div>
 
 </div>
 
-<script src="event.js" defer></script>
+<script src="{% static 'js/event.js' %}" defer></script>
 
 </body>
 </html>
