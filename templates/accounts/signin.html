@@ -1,76 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign in</title>
-<link rel="stylesheet" href="Signin.css"/>
-<script src="event.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/loginn.css' %}">
 </head>
-
 <body>
 
-<div class="page_princ">
+<div class="container">
 
-<!-- GAUCHE -->
-<div class="gauche-signin">
+  <div class="left">
+    <div class="left-content">
+      <h1>
+        Continue à apprendre <span>Java</span><br>
+        en relevant des défis<br>
+        niveau après niveau
+      </h1>
 
-<div class="SignIn">
-<h1><span class="Bienvenue">Bienvenue</span> parmi nous</h1>
+      <img src="{% static 'images/image1.png' %}" alt="illustration">
+    </div>
+  </div>
 
-<input type="text" class="input" placeholder="Nom d'utilisateur">
-<input type="email" class="input" placeholder="Adresse email">
-<input type="password" class="input" placeholder="Mot de passe">
-<input type="password" class="input" placeholder="Confirmez le mot de passe">
+  <div class="right">
+    <h2><span>Bienvenue</span> à nouveau</h2>
 
-<button class="button">Créer un compte</button>
-<p class="login-link">
-  Déjà un compte ?
-  <span onclick="window.location.href='login.html'" style="cursor:pointer;">
-    Connectez vous maintenant
-  </span>
-</p>
-</div>
-</div>
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    {% endif %}
 
-<!-- DROITE -->
-<div class="bloc-droit-signin">
+    <form method="POST">
+      {% csrf_token %}
+      <input type="email" name="email" placeholder="Adresse email" required>
+      <input type="password" name="password" placeholder="Mot de passe" required>
+      <button type="submit" class="btn-login">Se connecter</button>
+    </form>
 
-<h2 class="titre-page">
-Choisissez <span>votre personnage</span>
-</h2>
-
-<div class="nom-perso">Lucie</div>
-
-<div class="stats">
-
-<div>
-<div class="stat-nom">Rigoureuse</div>
-<div class="barre"><div class="remplissage"></div></div>
-</div>
-
-<div>
-<div class="stat-nom">Méthodique</div>
-<div class="barre"><div class="remplissage"></div></div>
-</div>
-
-<div>
-<div class="stat-nom">Analytique</div>
-<div class="barre"><div class="remplissage"></div></div>
-</div>
-
-</div>
-
-<div class="perso">
-<img src="image_lucie.png">
-</div>
-
-<button class="fleche gauche-fleche"></button>
-<button class="fleche droite-fleche"></button>
-
-<button class="btn-choisir" id="choisirBtn">+ Choisir</button>
-
-</div>
+    <p class="signup">
+      Première fois ici ? <a href="{% url 'signup' %}">Inscrivez vous maintenant</a>
+    </p>
+  </div>
 
 </div>
 

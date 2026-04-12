@@ -8,17 +8,15 @@ from .forms import SignUpForm
 def signup_view(request):
     if request.user.is_authenticated:
         return redirect("home")
-    
+
+    form = SignUpForm()
 
     if request.method == "POST":
         form = SignUpForm(request.POST)
-
         if form.is_valid():
             form.save()
             messages.success(request, "Votre compte a été créé avec succès.")
             return redirect("signin")
-    else:
-        form = SignUpForm()
 
     return render(request, "accounts/signup.html", {"form": form})
 
@@ -37,8 +35,8 @@ def signin_view(request):
             login(request, user)
             messages.success(request, "Connexion réussie.")
             return redirect("home")
-        else:
-            messages.error(request, "Email ou mot de passe incorrect.")
+
+        messages.error(request, "Email ou mot de passe incorrect.")
 
     return render(request, "accounts/signin.html")
 
@@ -47,18 +45,3 @@ def logout_view(request):
     logout(request)
     messages.success(request, "Vous avez été déconnecté.")
     return redirect("signin")
-
-def auth_page_view(request):
-    signup_form = SignUpForm()
-    return render(request, "accounts/auth.html", {
-        "signup_form": signup_form
-    })
-
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-
-@api_view(['GET'])
-def test_api(request):
-    return Response({
-        'message': 'API Django REST Framework fonctionnelle'
-    })
