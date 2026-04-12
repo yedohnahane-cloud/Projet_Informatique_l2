@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choix personnage</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="choisi.css">
+
+</head>
+
+<body>
+
+<div class="page_princ">
+
+<!-- ===== GAUCHE ===== -->
+<div class="gauche-signin">
+
+<div class="SignIn">
+<h1><span class="Bienvenue">Bienvenue</span> parmi nous</h1>
+
+<input type="text" class="input" placeholder="Nom d'utilisateur">
+<input type="email" class="input" placeholder="Adresse email">
+<input type="password" class="input" placeholder="Mot de passe">
+<input type="password" class="input" placeholder="Confirmez le mot de passe">
+
+<button class="button">Créer un compte</button>
+
+<p class="login-link">
+Déjà un compte ?
+<span onclick="window.location.href='login.html'" style="cursor:pointer;">
+Connectez vous maintenant
+</span>
+</p>
+
+</div>
+</div>
+
+<!-- ===== DROITE ===== -->
+<div class="bloc-droit-signin">
+
+<h1 class="titre">
+Vous avez choisi <span id="nomPerso">Leo</span>
+</h1>
+
+<div class="image-lucie">
+<img id="imagePerso" src="image_leo.png">
+</div>
+
+<p class="texte">
+Clique sur <a href="SignIn.html" class="lien">Créer mon compte</a> et code avec <span id="nomPerso2">Leo</span>
+</p>
+
+</div>
+
+</div>
+
+<script src="event.js" defer></script>
+
+</body>
+</html>

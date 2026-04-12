@@ -1,0 +1,319 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+/* BODY */
+body{
+  min-height:100vh;
+  font-family: Arial;
+  background: linear-gradient(180deg, #0f1230 0%, #17153a 45%, #3e2f79 100%);
+}
+
+/* CONTAINER */
+.page_princ{
+  display:flex;
+  min-height:100vh;
+}
+
+/* ===== LEFT ===== */
+.gauche-signin{
+  width:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+}
+
+.SignIn{
+  width:100%;
+  max-width:600px;
+  text-align:center;
+}
+
+.SignIn h1{
+  font-size:56px;
+  margin-bottom:50px;
+}
+
+.Bienvenue{
+  color:#c86cdb;
+}
+
+.input{
+  width:80%;
+  margin:0 auto 15px;
+  padding:16px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.8);
+  border-radius:10px;
+  color:white;
+}
+
+.button{
+  width:80%;
+  padding:15px;
+  background:#7C2E87;
+  border:none;
+  border-radius:10px;
+  color:white;
+  margin-top:10px;
+  cursor:pointer;
+}
+
+.login-link{
+  margin-top:20px;
+}
+
+.login-link span{
+  color:#c86cdb;
+}
+
+/* ===== RIGHT ===== */
+.bloc-droit-signin{
+  width:50%;
+  background:linear-gradient(180deg,#2a0d2f,#7b2d86);
+  border-radius:50px;
+  position:relative;
+  padding:60px;
+  color:white;
+}
+
+/* TITLE */
+.titre-page{
+  text-align:center;
+  font-size:40px;
+  margin-bottom:80px;
+}
+
+.titre-page span{
+  color:#d07be0;
+}
+
+/* NAME */
+.nom-perso{
+  position:absolute;
+  top:180px;
+  left:60px;
+  font-size:70px;
+  color:#c86cdb;
+}
+
+/* STATS */
+.stats{
+  position:absolute;
+  top:300px;
+  left:60px;
+  width:40%;
+}
+
+.stat-nom{
+  margin-bottom:8px;
+}
+
+.barre{
+  height:12px;
+  background:rgba(255,255,255,0.2);
+  border-radius:20px;
+  margin-bottom:20px;
+}
+
+.remplissage{
+  height:100%;
+  width:100%;
+  background:#c975d4;
+  border-radius:20px;
+}
+
+/* IMAGE */
+.perso{
+  position:absolute;
+  top:50%;
+  right:60px;
+  transform:translateY(-50%);
+  width:250px;
+}
+
+.perso img{
+  width:100%;
+}
+
+/* FLÈCHES */
+.fleche{
+  position:absolute;
+  top:50%;
+  width:40px;
+  height:40px;
+  background:#aaa;
+}
+
+.gauche-fleche{
+  right:320px;
+  clip-path:polygon(100% 0%, 0% 50%, 100% 100%);
+}
+
+.droite-fleche{
+  right:10px;
+  clip-path:polygon(0% 0%, 100% 50%, 0% 100%);
+}
+
+/* ===== BOUTON CHOISIR (ARRONDI SIMPLE) ===== */
+.btn-choisir{
+  position:absolute;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+
+  padding:18px 60px;
+  font-size:22px;
+
+  background:#34306a;
+  color:#d48ae2;
+
+  border:none;
+  border-radius:50px; /* ✅ arrondi simple */
+  cursor:pointer;
+}
+/* ===== RESPONSIVE TABLET ===== */
+@media(max-width:1100px){
+
+  body{
+    overflow:auto;
+  }
+
+  .page_princ{
+    flex-direction:column;
+  }
+
+  .gauche-signin,
+  .bloc-droit-signin{
+    width:100%;
+  }
+
+  /* ===== LEFT ===== */
+  .gauche-signin{
+    min-height:100vh;
+    padding:60px 20px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+
+  .SignIn{
+    max-width:500px;
+  }
+
+  .SignIn h1{
+    font-size:40px;
+    margin-bottom:40px;
+  }
+
+  .input{
+    width:100%;
+    font-size:16px;
+  }
+
+  .button{
+    width:100%;
+  }
+
+  /* ===== RIGHT ===== */
+  .bloc-droit-signin{
+    border-radius:30px;
+    
+    min-height:auto;
+  }
+
+  .titre-page{
+    font-size:32px;
+    margin-bottom:60px;
+  }
+
+  /* NOM */
+  .nom-perso{
+    position:static;
+    text-align:center;
+    font-size:48px;
+    margin-bottom:20px;
+  }
+
+  /* STATS */
+  .stats{
+    position:static;
+    width:100%;
+    max-width:400px;
+    margin:0 auto;
+  }
+
+  /* IMAGE */
+  .perso{
+    position:relative;
+    top:auto;
+    right:auto;
+    transform:none;
+    margin:30px auto;
+    width:200px;
+  }
+
+  /* FLÈCHES */
+  .gauche-fleche{
+    left:20px;
+    right:auto;
+  }
+
+  .droite-fleche{
+    right:20px;
+  }
+
+  /* BOUTON */
+  .btn-choisir{
+    position:relative;
+    bottom:auto;
+    left:auto;
+    transform:none;
+
+    display:block;
+    margin:30px auto 0;
+  }
+}
+
+
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+
+  .SignIn h1{
+    font-size:28px;
+  }
+
+  .titre-page{
+    font-size:26px;
+  }
+
+  .nom-perso{
+    font-size:36px;
+  }
+
+  .stat-nom{
+    font-size:16px;
+  }
+
+  .barre{
+    height:10px;
+  }
+
+  .perso{
+    width:160px;
+  }
+
+  .btn-choisir{
+    width:90%;
+    font-size:18px;
+    padding:14px;
+  }
+
+  .input{
+    padding:14px;
+  }
+}
