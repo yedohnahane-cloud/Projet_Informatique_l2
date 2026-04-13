@@ -7,7 +7,7 @@ const personnages = [
   },
   {
     nom: "Leo",
-    image: "image_leo.png",
+    image: "/static/images/image_leo.png",
     stats: ["Dynamique", "Motivant", "Stimulant"]
   }
 ];
