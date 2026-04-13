@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaMastery AI</title>
+    <link rel="stylesheet" href="page-cours.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="logo.png" alt="">
+            
+        </div>
+
+        <nav class="menu">
+            <a href="#" class="menu-item active">
+                <img src="logo-cours.png" alt="">
+                <span>Mes cours</span>
+            </a>
+
+            <a href="page-chatbot.html" class="menu-item">
+                <img src="logo-chatbot.png" alt="">
+                <span>Chatbot</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <img src="logo-jeu.png" alt="">
+                <span>Quizzz et jeux</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-illustration">
+            <img src="image.png" alt="">
+        </div>
+    </aside>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="main">
+
+        <!-- ZONE COURS -->
+        <section class="course-wrapper">
+
+            <!-- BOUTON QUIZZ -->
+            <div class="quiz-top">
+                <button class="quiz-btn">
+                    <img src="icone-quiz.png" alt="">
+                    <span>Passer le quizz</span>
+                </button>
+            </div>
+
+            <!-- SECTION COURS -->
+            <div class="course-section">
+                <!-- Ici tu affiches ton PDF / cours -->
+            </div>
+
+        </section>
+
+        <!-- CHATBOT -->
+        <div class="chatbot" id="chatbot">
+
+            <!-- HEADER -->
+            <div class="chat-header">
+                <img src="retirer-chat.png" class="icon" alt="">
+                <img src="delete-chat.icon.png" class="icon" id="closeChat" alt="">
+            </div>
+
+            <!-- CONTENU -->
+            <div class="chat-body">
+                <img src="chat-box.icon.png" class="bot-icon" alt="">
+                <h1>Ton assistant de cours</h1>
+            </div>
+
+            <!-- INPUT -->
+            <div class="chat-input">
+                <button class="plus-btn">+</button>
+                <input type="text" placeholder="Posez une question">
+                <button class="mic-btn">
+                    <img src="vocal.icon.png" alt="">
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+const chatbot = document.getElementById("chatbot");
+const closeBtn = document.getElementById("closeChat");
+
+closeBtn.onclick = () => {
+    chatbot.style.display = "none";
+};
+</script>
+
+</body>
+</html>

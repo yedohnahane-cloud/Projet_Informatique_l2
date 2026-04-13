@@ -1,0 +1,323 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* GLOBAL */
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(120deg, #1b1d3a, #0f1230);
+    height: 100vh;
+    color: white;
+}
+
+/* LAYOUT GLOBAL */
+.container {
+    display: flex;
+    height: 100vh;
+    padding: 10px;
+    gap: 10px;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #5b2a6d, #7a3c8c);
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+}
+
+/* LOGO */
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.logo img {
+    width: 110px;
+    height: auto;
+    object-fit: contain;
+}
+
+.logo h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+    color: #d6c7ff;
+}
+
+/* MENU */
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* MENU ITEM */
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #f1eaff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.menu-item img {
+    width: 18px;
+}
+
+/* HOVER */
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ACTIVE */
+.menu-item.active {
+    background: #a66cff;
+    font-weight: 600;
+}
+
+/* ILLUSTRATION */
+.sidebar-illustration {
+    margin-top: auto;
+}
+
+.sidebar-illustration img {
+    width: 100%;
+}
+
+/* MAIN */
+.main {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+}
+
+/* ========================= */
+/* 📄 SECTION COURS */
+/* ========================= */
+
+.course-section {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* ========================= */
+/* 🤖 CHATBOT */
+/* ========================= */
+
+.chatbot {
+    width: 350px;
+    background: #0b0e2a;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* HEADER */
+.chat-header {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 15px;
+}
+
+.icon {
+    width: 18px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.icon:hover {
+    opacity: 1;
+}
+
+/* BODY */
+.chat-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #cfd3ff;
+    text-align: center;
+}
+
+.bot-icon {
+    width: 40px;
+    margin-bottom: 15px;
+}
+
+.chat-body h1 {
+    font-size: 18px;
+    font-weight: 500;
+    max-width: 250px;
+    line-height: 1.4;
+}
+
+/* INPUT */
+.chat-input {
+    margin: 15px;
+    background: #1a1e3f;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+/* INPUT FIELD */
+.chat-input input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ccc;
+    outline: none;
+    font-size: 14px;
+}
+
+/* BUTTON + */
+.plus-btn {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.plus-btn:hover {
+    color: white;
+}
+
+/* MIC */
+.mic-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.mic-btn img {
+    width: 18px;
+    opacity: 0.8;
+}
+
+.mic-btn:hover img {
+    opacity: 1;
+}
+.course-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.quiz-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quiz-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(90deg, #b14fa2, #6a2f7d);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.quiz-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+.quiz-btn:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+}
+
+.course-section {
+    flex: 1;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 20px;
+}
+/* MAIN LAYOUT */
+.main {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+}
+
+/* SECTION COURS */
+.course-section {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* CHATBOT */
+.chatbot {
+    width: 350px;
+    background: #0b0e2a;
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
+.chat-header {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 15px;
+}
+
+.icon {
+    width: 18px;
+    cursor: pointer;
+}
+
+/* BODY */
+.chat-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #cfd3ff;
+}
+
+/* INPUT */
+.chat-input {
+    margin: 15px;
+    background: #1a1e3f;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
