@@ -40,8 +40,8 @@
     </h1>
 
     <div class="image-lucie">
-      <img id="imagePerso" src="{% static 'images/image_leo.png' %}" alt="Leo">
-    </div>
+{% load static %}
+<img id="imagePerso" src="{% static 'images/image_leo.png' %}" alt="Leo">    </div>
 
     <p class="texte">
       Clique sur <a href="{% url 'signup' %}" class="lien">Créer mon compte</a> et code avec <span id="nomPerso2">Leo</span>
@@ -50,7 +50,7 @@
 
 </div>
 
-<script src="{% static 'js/event.js' %}" defer></script>
+<!--<script src="{% static 'js/event.js' %}" defer></script> -->
 
 </body>
 </html>
