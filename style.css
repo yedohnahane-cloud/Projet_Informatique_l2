@@ -1,0 +1,114 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+body {
+    background-color: #050614;
+    height: 100vh;
+    display: flex;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.app-container { display: flex; width: 100%; height: 100%; gap: 15px; }
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #53225E 0%, #AD47C4 100%);
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 15px;
+    flex-shrink: 0;
+}
+
+.logo { max-width: 130px; margin-bottom: 30px; }
+.navigation { display: flex; flex-direction: column; gap: 5px; }
+.nav-link {
+    background: transparent; border: none; color: white;
+    padding: 12px 15px; border-radius: 12px; display: flex;
+    align-items: center; gap: 12px; font-size: 0.9rem; cursor: pointer;
+}
+.nav-link.active { background-color: rgba(255, 255, 255, 0.2); font-weight: bold; }
+.side-img { width: 100%; border-radius: 20px; }
+
+/* MAIN CONTENT */
+.main-content {
+    flex: 1;
+    background-color: #0e0f25;
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #1e2246;
+}
+
+.scroll-area {
+    height: 100%;
+    overflow-y: auto;
+    padding: 80px 50px 100px 50px; /* Plus d'espace en haut pour les icônes */
+}
+
+/* GRILLE - Colonnes plus petites */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Réduit de 300px à 240px */
+    grid-gap: 70px 25px; /* Plus d'espace vertical pour l'ampoule */
+}
+
+/* CARTES - Taille réduite */
+.course-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 25px 20px;
+    position: relative;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    height: 200px; /* Réduit de 240px à 200px */
+    transition: 0.3s;
+}
+
+.bulb-icon {
+    width: 45px; height: 45px; /* Icône plus petite */
+    background: #2a2d4a; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    position: absolute; top: -23px; left: 50%;
+    transform: translateX(-50%);
+    color: #64748b; font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.bulb-icon.active { background: #ff8c00; color: white; box-shadow: 0 0 15px rgba(255, 140, 0, 0.6); }
+
+.course-card.active { background: rgba(35, 40, 75, 0.4); border: 1px solid #3b4270; }
+.highlight-title { color: #ff8c00; margin-bottom: 5px; }
+
+.card-info h3 { font-size: 1rem; }
+.card-info p { color: #94a3b8; font-size: 0.85rem; line-height: 1.3; }
+
+/* Chiffre géant mieux proportionné */
+.bg-number {
+    position: absolute;
+    right: 5px; bottom: -10px;
+    font-size: 8rem; /* Réduit de 11rem à 8rem */
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.03);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.lock { color: #cc9900; margin-top: auto; font-size: 0.9rem; }
+
+/* PERSONNAGE */
+.character-fixed {
+    position: absolute;
+    bottom: 0; right: 20px;
+    height: 300px; /* Plus petit pour ne pas masquer les box */
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* SCROLLBAR DISCRÈTE */
+.scroll-area::-webkit-scrollbar { width: 4px; }
+.scroll-area::-webkit-scrollbar-thumb { background: #2a2d4a; border-radius: 10px; }
