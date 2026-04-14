@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultat du quiz</title>
+    <link rel="stylesheet" href="/static/css/terminer-quiz-prof.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+    <div class="page-container">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Logo JavaMastery AI">
+            </div>
+
+            <nav class="menu">
+                <a href="#" class="menu-item active">
+                    <img src="/static/images/logo-cours.png" alt="">
+                    <span>Mes cours</span>
+                </a>
+
+                <a href="page-chatbot.html" class="menu-item">
+                    <img src="/static/images/logo-chatbot.png" alt="">
+                    <span>Chatbot</span>
+                </a>
+
+                <a href="#" class="menu-item">
+                    <img src="/static/images/logo-jeu.png" alt="">
+                    <span>Quizzs et jeux</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-illustration">
+                <img src="/static/images/image.png" alt="Illustration">
+            </div>
+        </aside>
+
+        <!-- CONTENU -->
+        <main class="main-content">
+
+            <section class="result-card">
+                <h1>
+                    Vous avez terminé le quizz de
+                    <span>Monsieur Guyslain</span>
+                </h1>
+
+                <div class="buttons-row">
+                    <a href="voir-erreurs.html" class="action-btn">Voir mes erreurs</a>
+                    <a href="page-chatbot.html" class="action-btn">Générer quizz erreurs</a>
+                </div>
+            </section>
+
+            <!-- PERSONNAGE -->
+            <div class="character-box">
+                <img id="personnageImage" src="/static/images/image_leo.png" alt="Personnage choisi">
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="/static/js/resultat-quiz.js"></script>
+</body>
+<script>
+const personnageImage = document.getElementById("personnageImage");
+const personnageChoisi = localStorage.getItem("personnageChoisi");
+
+if (personnageChoisi === "Lucie") {
+    personnageImage.src = "/static/images/image_lucie.png";
+    personnageImage.alt = "Lucie";
+} else {
+    personnageImage.src = "/static/images/image_leo.png";
+    personnageImage.alt = "Leo";
+}
+</script>
+</html>
