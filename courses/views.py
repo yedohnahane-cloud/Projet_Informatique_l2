@@ -6,6 +6,38 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 
 
+# =========================
+# PAGES ETUDIANT
+# =========================
+
+@login_required
+def subjects_page(request):
+    return render(request, "courses/subjects_list.html")
+
+
+@login_required
+def courses_page(request, subject_id):
+    return render(request, "courses/coursprincipal.html", {
+        "subject_id": subject_id
+    })
+
+
+@login_required
+def course_detail_page(request, course_id):
+    return render(request, "courses/page_cours.html", {
+        "course_id": course_id
+    })
+
+
+@login_required
+def chatbot_page(request):
+    return render(request, "courses/page_chatbot.html")
+
+
+# =========================
+# API ETUDIANT
+# =========================
+
 @login_required
 def subjects_list(request):
     user = request.user
@@ -28,8 +60,10 @@ def subjects_list(request):
     ]
 
     return JsonResponse({"subjects": data}, status=200)
+
+
 @login_required
-def courses_list(request):
+def courses_list(request, subject_id):
     user = request.user
 
     if user.role != "student":
@@ -38,14 +72,10 @@ def courses_list(request):
             status=403
         )
 
-    subject_id = request.GET.get("subject_id")
-
-    courses = Course.objects.filter(is_published=True)
-
-    if subject_id:
-        courses = courses.filter(subject_id=subject_id)
-
-    courses = courses.order_by("order")
+    courses = Course.objects.filter(
+        is_published=True,
+        subject_id=subject_id
+    ).order_by("order")
 
     progress_map = {
         progress.course_id: progress
@@ -59,6 +89,7 @@ def courses_list(request):
         data.append({
             "id": course.id,
             "title": course.title,
+            "content": course.content,
             "order": course.order,
             "subject_id": course.subject_id,
             "is_unlocked": progress.is_unlocked if progress else False,
@@ -67,22 +98,10 @@ def courses_list(request):
         })
 
     return JsonResponse({"courses": data}, status=200)
-@login_required
-def subjects_page(request):
-    return render(request, "courses/subjects_list.html")
 
 
 @login_required
-def courses_page(request):
-    return render(request, "courses/page_cours.html")
-
-
-@login_required
-def chatbot_page(request):
-    return render(request, "courses/page_chatbot.html")
-
-@login_required
-def course_detail(request, course_id):
+def course_detail_api(request, course_id):
     user = request.user
 
     if user.role != "student":
@@ -105,7 +124,7 @@ def course_detail(request, course_id):
 
     if not progress.is_unlocked:
         return JsonResponse(
-            {"error": "Ce cours est verrouillé."},
+            {"error": "Ce chapitre est verrouillé."},
             status=403
         )
 
@@ -125,7 +144,11 @@ def course_detail(request, course_id):
 
     return JsonResponse(data, status=200)
 
-#//////////////////////////PROFESSEUR/////////////////////////////
+
+# =========================
+# API PROFESSEUR
+# =========================
+
 @login_required
 def teacher_courses_list(request):
     if request.user.role != "teacher":
@@ -198,21 +221,23 @@ def create_course(request):
     content = body.get("content")
     order = body.get("order")
     is_published = body.get("is_published", False)
+    subject_id = body.get("subject_id")
 
-    if not title or not content or order is None:
+    if not title or not content or order is None or not subject_id:
         return JsonResponse(
-            {"error": "Les champs title, content et order sont obligatoires."},
+            {"error": "Les champs title, content, order et subject_id sont obligatoires."},
             status=400
         )
 
-    if Course.objects.filter(order=order).exists():
+    if Course.objects.filter(order=order, subject_id=subject_id).exists():
         return JsonResponse(
-            {"error": "Un cours avec cet ordre existe déjà."},
+            {"error": "Un chapitre avec cet ordre existe déjà dans ce cours."},
             status=400
         )
 
     course = Course.objects.create(
         teacher=request.user,
+        subject_id=subject_id,
         title=title,
         content=content,
         order=order,
@@ -220,7 +245,7 @@ def create_course(request):
     )
 
     return JsonResponse({
-        "message": "Cours créé avec succès.",
+        "message": "Chapitre créé avec succès.",
         "course": {
             "id": course.id,
             "title": course.title,
@@ -262,9 +287,12 @@ def update_course(request, course_id):
     order = body.get("order", course.order)
     is_published = body.get("is_published", course.is_published)
 
-    if order != course.order and Course.objects.filter(order=order).exists():
+    if order != course.order and Course.objects.filter(
+        order=order,
+        subject_id=course.subject_id
+    ).exclude(id=course.id).exists():
         return JsonResponse(
-            {"error": "Un cours avec cet ordre existe déjà."},
+            {"error": "Un chapitre avec cet ordre existe déjà dans ce cours."},
             status=400
         )
 
@@ -275,7 +303,7 @@ def update_course(request, course_id):
     course.save()
 
     return JsonResponse({
-        "message": "Cours mis à jour avec succès.",
+        "message": "Chapitre mis à jour avec succès.",
         "course": {
             "id": course.id,
             "title": course.title,
@@ -310,5 +338,5 @@ def delete_course(request, course_id):
     course.delete()
 
     return JsonResponse({
-        "message": "Cours supprimé avec succès."
+        "message": "Chapitre supprimé avec succès."
     }, status=200)

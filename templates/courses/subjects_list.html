@@ -3,137 +3,100 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>JavaMastery AI</title>
-    <link rel="stylesheet" href="{% static 'css/page-cours.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaMastery AI - Mes cours</title>
+    <link rel="stylesheet" href="{% static 'css/subjects_list.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-<div class="container">
+    <div class="app-container">
 
-    <aside class="sidebar">
-        <div class="logo">
-            <img src="{% static 'images/logo.png' %}" alt="">
-        </div>
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{% static 'images/logo.png' %}" alt="Logo JavaMastery AI">
+            </div>
 
-        <nav class="menu">
-            <a href="{% url 'subjects_page' %}" class="menu-item active">
-                <img src="{% static 'images/logo-cours.png' %}" alt="">
-                <span>Mes cours</span>
-            </a>
+            <nav class="menu">
+                <a href="{% url 'subjects_page' %}" class="menu-item active">
+                    <img src="{% static 'images/logo-cours.png' %}" alt="">
+                    <span>Mes cours</span>
+                </a>
 
-            <a href="{% url 'chatbot_page' %}" class="menu-item">
-                <img src="{% static 'images/logo-chatbot.png' %}" alt="">
-                <span>Chatbot</span>
-            </a>
+                <a href="{% url 'chatbot_page' %}" class="menu-item">
+                    <img src="{% static 'images/logo-chatbot.png' %}" alt="">
+                    <span>Chatbot</span>
+                </a>
 
-            <a href="#" class="menu-item">
-                <img src="{% static 'images/logo-jeu.png' %}" alt="">
-                <span>Quizzz et jeux</span>
-            </a>
-        </nav>
+                <a href="#" class="menu-item">
+                    <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                    <span>Quizs et jeux</span>
+                </a>
+            </nav>
 
-        <div class="sidebar-illustration">
-            <img src="{% static 'images/image.png' %}" alt="">
-        </div>
-    </aside>
+            <div class="sidebar-illustration">
+                <img src="{% static 'images/image.png' %}" alt="Illustration apprentissage">
+            </div>
+        </aside>
 
-    <main class="main">
-        <section class="course-wrapper">
-
-            <div class="quiz-top">
-                <button class="quiz-btn" type="button">
-                    <img src="{% static 'images/icone-quiz.png' %}" alt="">
-                    <span>Choisir un cours</span>
+        <main class="main-content">
+            <div class="topbar">
+                <button class="topbar-btn" aria-label="Ouvrir le menu">
+                    <i class="fa-solid fa-book-open"></i>
                 </button>
             </div>
 
-            <div class="course-section" id="subjects-section">
-                <p>Chargement des cours...</p>
-            </div>
+<div class="scroll-area">
 
-        </section>
+    <h1 class="page-title">Choisir un cours</h1>
 
-        <div class="chatbot" id="chatbot">
-            <div class="chat-header">
-                <img src="{% static 'images/retirer-chat.png' %}" class="icon" alt="">
-                <img src="{% static 'images/delete-chat.icon.png' %}" class="icon" id="closeChat" alt="">
-            </div>
-
-            <div class="chat-body">
-                <img src="{% static 'images/chat-box.icon.png' %}" class="bot-icon" alt="">
-                <h1>Ton assistant de cours</h1>
-            </div>
-
-            <div class="chat-input">
-                <button class="plus-btn">+</button>
-                <input type="text" placeholder="Posez une question">
-                <button class="mic-btn">
-                    <img src="{% static 'images/vocal.icon.png' %}" alt="">
-                </button>
-            </div>
-        </div>
-    </main>
+    <div id="subjects-grid" class="courses-grid"></div>
 
 </div>
+        </main>
 
-<script>
-const chatbot = document.getElementById("chatbot");
-const closeBtn = document.getElementById("closeChat");
+    </div>
 
-closeBtn.onclick = () => {
-    chatbot.style.display = "none";
-};
+    <script>
+        const grid = document.getElementById("subjects-grid");
 
-async function loadSubjects() {
-    const container = document.getElementById("subjects-section");
+        async function loadSubjects() {
+            try {
+                const response = await fetch("/courses/api/subjects/");
+                const data = await response.json();
 
-    try {
-        const response = await fetch("/courses/api/subjects/");
-        const data = await response.json();
+                if (!response.ok) {
+                    grid.innerHTML = `<p style="color:white;">${data.error || "Erreur lors du chargement des cours."}</p>`;
+                    return;
+                }
 
-        if (!response.ok) {
-            container.innerHTML = `<p>${data.error || "Erreur lors du chargement des cours."}</p>`;
-            return;
+                if (!data.subjects || data.subjects.length === 0) {
+                    grid.innerHTML = `<p style="color:white;">Aucun cours disponible.</p>`;
+                    return;
+                }
+
+                grid.innerHTML = data.subjects.map(subject => `
+                    <a href="/courses/${subject.id}/chapters/">
+                        <div class="course-card subject-card">
+                            <div class="bulb-icon active">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div class="card-info subject-info">
+                                <h3>${subject.title}</h3>
+                                <p>${subject.description || "Choisissez ce cours pour voir ses chapitres."}</p>
+                            </div>
+                        </div>
+                    </a>
+                `).join("");
+
+            } catch (error) {
+                grid.innerHTML = `<p style="color:white;">Erreur réseau lors du chargement.</p>`;
+                console.error(error);
+            }
         }
 
-        if (!data.subjects || data.subjects.length === 0) {
-            container.innerHTML = "<p>Aucun cours disponible.</p>";
-            return;
-        }
-
-        container.innerHTML = "";
-        container.classList.add("subjects-grid");
-
-        data.subjects.forEach((subject) => {
-            const card = document.createElement("div");
-            card.classList.add("subject-card");
-
-            card.innerHTML = `
-                <a href="/courses/page/?subject_id=${subject.id}" class="subject-card-link">
-                    <div class="subject-card-text">
-                        <h2>${subject.title}</h2>
-                        <p>${subject.description || "Aucune description disponible."}</p>
-                    </div>
-                    <div class="subject-card-action">
-                        <span>Ouvrir</span>
-                    </div>
-                </a>
-            `;
-
-            container.appendChild(card);
-        });
-
-    } catch (error) {
-        container.innerHTML = "<p>Erreur serveur.</p>";
-        console.error(error);
-    }
-}
-function goToSubjectCourses(subjectId) {
-    window.location.href = `/courses/page/?subject_id=${subjectId}`;
-}
-
-loadSubjects();
-</script>
+        loadSubjects();
+    </script>
 
 </body>
 </html>
