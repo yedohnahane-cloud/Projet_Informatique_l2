@@ -53,9 +53,9 @@
             </div>
 
             <!-- SECTION COURS -->
-            <div class="course-section">
-                <!-- Ici tu affiches ton PDF / cours -->
-            </div>
+<div class="course-section" id="course-section">
+    <p>Chargement des cours...</p>
+</div>
 
         </section>
 
@@ -88,7 +88,6 @@
     </main>
 
 </div>
-
 <script>
 const chatbot = document.getElementById("chatbot");
 const closeBtn = document.getElementById("closeChat");
@@ -96,7 +95,118 @@ const closeBtn = document.getElementById("closeChat");
 closeBtn.onclick = () => {
     chatbot.style.display = "none";
 };
+
+const urlParams = new URLSearchParams(window.location.search);
+const subjectId = urlParams.get("subject_id");
+
+async function loadCourses() {
+    const container = document.getElementById("course-section");
+
+    if (!subjectId) {
+        container.innerHTML = "<p>Aucun cours sélectionné.</p>";
+        return;
+    }
+
+    try {
+        const response = await fetch(`/courses/api/student/courses/?subject_id=${subjectId}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+            container.innerHTML = `<p>${data.error || "Erreur lors du chargement des chapitres."}</p>`;
+            return;
+        }
+
+        if (!data.courses || data.courses.length === 0) {
+            container.innerHTML = "<p>Aucun chapitre disponible.</p>";
+            return;
+        }
+
+        container.innerHTML = "";
+
+        data.courses.forEach(course => {
+            const card = document.createElement("div");
+
+container.classList.add("chapters-grid");
+
+data.courses.forEach(course => {
+    const card = document.createElement("div");
+    card.classList.add("chapter-card");
+
+    if (course.is_unlocked) {
+        card.classList.add("unlocked");
+    } else {
+        card.classList.add("locked");
+    }
+
+    const action = course.is_unlocked
+        ? `onclick="loadCourseDetail(${course.id})"`
+        : "";
+
+    card.innerHTML = `
+        <div class="chapter-card-inner" ${action}>
+            <div class="chapter-icon ${course.is_unlocked ? 'icon-active' : 'icon-locked'}">💡</div>
+
+            <div class="chapter-text">
+                <h3>${course.title}</h3>
+                <p>${course.is_completed ? "Chapitre terminé" : "Chapitre à parcourir"}</p>
+            </div>
+
+            <div class="chapter-number">${course.order}</div>
+
+            ${!course.is_unlocked ? '<div class="chapter-lock">🔒</div>' : ''}
+        </div>
+    `;
+
+    container.appendChild(card);
+});
+        });
+
+    } catch (error) {
+        container.innerHTML = "<p>Erreur serveur.</p>";
+        console.error(error);
+    }
+}
+
+async function loadCourseDetail(courseId) {
+    const container = document.getElementById("course-section");
+
+    try {
+        const response = await fetch(`/courses/api/student/courses/${courseId}/`);
+        const data = await response.json();
+
+        if (!response.ok) {
+            container.innerHTML = `<p>${data.error || "Erreur lors du chargement du chapitre."}</p>`;
+            return;
+        }
+        container.classList.remove("chapters-grid");
+
+        container.innerHTML = `
+            <div>
+                <h2>${data.title}</h2>
+                ${
+                    data.pdf_file
+                    ? `<iframe src="${data.pdf_file}" width="100%" height="600px" style="border:none;"></iframe>`
+                    : `<p>Aucun PDF disponible</p>`
+                }
+                <div style="margin-top: 16px;">
+                    <button onclick="loadCourses()">Retour</button>
+                    <button onclick="window.location.href='/courses/'">Tous les cours</button>
+                </div>
+            </div>
+        `;
+
+    } catch (error) {
+        container.innerHTML = "<p>Erreur serveur.</p>";
+        console.error(error);
+    }
+}
+
+loadCourses();
 </script>
+
+
+
+
 
 </body>
 </html>

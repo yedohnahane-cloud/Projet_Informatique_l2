@@ -1,10 +1,17 @@
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
-# Virtual env
+# Environnement virtuel
 venv/
+.env/
 
 # Django
 db.sqlite3
+<<<<<<< HEAD
 media/
+=======
+.envgit rm -r --cached venv
+>>>>>>> feature/courses

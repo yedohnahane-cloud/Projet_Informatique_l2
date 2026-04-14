@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaMastery AI</title>
+    <link rel="stylesheet" href="{% static 'css/page-cours.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="">
+        </div>
+
+        <nav class="menu">
+            <a href="{% url 'subjects_page' %}" class="menu-item active">
+                <img src="{% static 'images/logo-cours.png' %}" alt="">
+                <span>Mes cours</span>
+            </a>
+
+            <a href="{% url 'chatbot_page' %}" class="menu-item">
+                <img src="{% static 'images/logo-chatbot.png' %}" alt="">
+                <span>Chatbot</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                <span>Quizzz et jeux</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-illustration">
+            <img src="{% static 'images/image.png' %}" alt="">
+        </div>
+    </aside>
+
+    <main class="main">
+        <section class="course-wrapper">
+
+            <div class="quiz-top">
+                <button class="quiz-btn" type="button">
+                    <img src="{% static 'images/icone-quiz.png' %}" alt="">
+                    <span>Choisir un cours</span>
+                </button>
+            </div>
+
+            <div class="course-section" id="subjects-section">
+                <p>Chargement des cours...</p>
+            </div>
+
+        </section>
+
+        <div class="chatbot" id="chatbot">
+            <div class="chat-header">
+                <img src="{% static 'images/retirer-chat.png' %}" class="icon" alt="">
+                <img src="{% static 'images/delete-chat.icon.png' %}" class="icon" id="closeChat" alt="">
+            </div>
+
+            <div class="chat-body">
+                <img src="{% static 'images/chat-box.icon.png' %}" class="bot-icon" alt="">
+                <h1>Ton assistant de cours</h1>
+            </div>
+
+            <div class="chat-input">
+                <button class="plus-btn">+</button>
+                <input type="text" placeholder="Posez une question">
+                <button class="mic-btn">
+                    <img src="{% static 'images/vocal.icon.png' %}" alt="">
+                </button>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<script>
+const chatbot = document.getElementById("chatbot");
+const closeBtn = document.getElementById("closeChat");
+
+closeBtn.onclick = () => {
+    chatbot.style.display = "none";
+};
+
+async function loadSubjects() {
+    const container = document.getElementById("subjects-section");
+
+    try {
+        const response = await fetch("/courses/api/subjects/");
+        const data = await response.json();
+
+        if (!response.ok) {
+            container.innerHTML = `<p>${data.error || "Erreur lors du chargement des cours."}</p>`;
+            return;
+        }
+
+        if (!data.subjects || data.subjects.length === 0) {
+            container.innerHTML = "<p>Aucun cours disponible.</p>";
+            return;
+        }
+
+        container.innerHTML = "";
+        container.classList.add("subjects-grid");
+
+        data.subjects.forEach((subject) => {
+            const card = document.createElement("div");
+            card.classList.add("subject-card");
+
+            card.innerHTML = `
+                <a href="/courses/page/?subject_id=${subject.id}" class="subject-card-link">
+                    <div class="subject-card-text">
+                        <h2>${subject.title}</h2>
+                        <p>${subject.description || "Aucune description disponible."}</p>
+                    </div>
+                    <div class="subject-card-action">
+                        <span>Ouvrir</span>
+                    </div>
+                </a>
+            `;
+
+            container.appendChild(card);
+        });
+
+    } catch (error) {
+        container.innerHTML = "<p>Erreur serveur.</p>";
+        console.error(error);
+    }
+}
+function goToSubjectCourses(subjectId) {
+    window.location.href = `/courses/page/?subject_id=${subjectId}`;
+}
+
+loadSubjects();
+</script>
+
+</body>
+</html>

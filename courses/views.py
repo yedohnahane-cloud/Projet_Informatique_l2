@@ -1,9 +1,33 @@
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from .models import Course, StudentCourseProgress
+from django.shortcuts import render
+from .models import Subject, Course, StudentCourseProgress
 import json
 from django.views.decorators.csrf import csrf_exempt
 
+
+@login_required
+def subjects_list(request):
+    user = request.user
+
+    if user.role != "student":
+        return JsonResponse(
+            {"error": "Accès réservé aux étudiants."},
+            status=403
+        )
+
+    subjects = Subject.objects.filter(is_published=True).order_by("title")
+
+    data = [
+        {
+            "id": subject.id,
+            "title": subject.title,
+            "description": subject.description or "",
+        }
+        for subject in subjects
+    ]
+
+    return JsonResponse({"subjects": data}, status=200)
 @login_required
 def courses_list(request):
     user = request.user
@@ -14,7 +38,15 @@ def courses_list(request):
             status=403
         )
 
-    courses = Course.objects.filter(is_published=True).order_by("order")
+    subject_id = request.GET.get("subject_id")
+
+    courses = Course.objects.filter(is_published=True)
+
+    if subject_id:
+        courses = courses.filter(subject_id=subject_id)
+
+    courses = courses.order_by("order")
+
     progress_map = {
         progress.course_id: progress
         for progress in StudentCourseProgress.objects.filter(student=user)
@@ -28,13 +60,26 @@ def courses_list(request):
             "id": course.id,
             "title": course.title,
             "order": course.order,
+            "subject_id": course.subject_id,
             "is_unlocked": progress.is_unlocked if progress else False,
             "is_completed": progress.is_completed if progress else False,
             "attempt_count": progress.attempt_count if progress else 0,
         })
 
     return JsonResponse({"courses": data}, status=200)
+@login_required
+def subjects_page(request):
+    return render(request, "courses/subjects_list.html")
 
+
+@login_required
+def courses_page(request):
+    return render(request, "courses/page_cours.html")
+
+
+@login_required
+def chatbot_page(request):
+    return render(request, "courses/page_chatbot.html")
 
 @login_required
 def course_detail(request, course_id):
@@ -70,6 +115,7 @@ def course_detail(request, course_id):
         "id": course.id,
         "title": course.title,
         "content": course.content,
+        "pdf_file": course.pdf_file.url if course.pdf_file else None,
         "order": course.order,
         "is_published": course.is_published,
         "is_unlocked": progress.is_unlocked,
