@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <title>JavaMastery AI</title>
     <link rel="stylesheet" href="/static/css/page-cours.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
 <div class="container">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="logo">
-            <img src="/static/images/logo.png" alt="">
-            
+            <img src="/static/images/logo.png" alt="Logo JavaMastery AI">
         </div>
 
         <nav class="menu">
@@ -29,60 +28,49 @@
 
             <a href="#" class="menu-item">
                 <img src="/static/images/logo-jeu.png" alt="">
-                <span>Quizzz et jeux</span>
+                <span>Quizs et jeux</span>
             </a>
         </nav>
 
         <div class="sidebar-illustration">
-            <img src="/static/images/image.png" alt="">
+            <img src="/static/images/image.png" alt="Illustration">
         </div>
     </aside>
 
-    <!-- CONTENU PRINCIPAL -->
     <main class="main">
 
-        <!-- ZONE COURS -->
         <section class="course-wrapper">
-
-            <!-- BOUTON QUIZZ -->
             <div class="quiz-top">
-                <button class="quiz-btn">
+                <a href="quiz-debut.html" class="quiz-btn">
                     <img src="/static/images/icone-quiz.png" alt="">
-                    <span>Passer le quizz</span>
-                </button>
+                    <span>Passer le quiz</span>
+                </a>
             </div>
 
-            <!-- SECTION COURS -->
             <div class="course-section">
                 <!-- Ici tu affiches ton PDF / cours -->
             </div>
-
         </section>
 
-        <!-- CHATBOT -->
         <div class="chatbot" id="chatbot">
-
-            <!-- HEADER -->
-            <div class="chat-header">
-                <img src="/static/images/retirer-chat.png" class="icon" alt="">
-                <img src="/static/images/delete-chat.icon.png" class="icon" id="closeChat" alt="">
-            </div>
-
-            <!-- CONTENU -->
             <div class="chat-body">
-                <img src="/static/images/chat-box.icon.png" class="bot-icon" alt="">
+                <img src="/static/images/chat-box.icon.png" class="bot-icon" alt="Bot">
                 <h1>Ton assistant de cours</h1>
             </div>
 
-            <!-- INPUT -->
             <div class="chat-input">
-                <button class="plus-btn">+</button>
-                <input type="text" placeholder="Posez une question">
-                <button class="mic-btn">
-                    <img src="/static/images/vocal.icon.png" alt="">
+                <button class="plus-btn" id="uploadBtn" type="button">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+
+                <input type="file" id="fileInput" hidden>
+
+                <input type="text" id="messageInput" placeholder="Posez une question">
+
+                <button class="send-btn" id="sendBtn" type="button">
+                    <i class="fa-solid fa-paper-plane"></i>
                 </button>
             </div>
-
         </div>
 
     </main>
@@ -90,12 +78,42 @@
 </div>
 
 <script>
-const chatbot = document.getElementById("chatbot");
-const closeBtn = document.getElementById("closeChat");
+const uploadBtn = document.getElementById("uploadBtn");
+const fileInput = document.getElementById("fileInput");
+const messageInput = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
 
-closeBtn.onclick = () => {
-    chatbot.style.display = "none";
-};
+if (uploadBtn && fileInput) {
+    uploadBtn.addEventListener("click", () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener("change", () => {
+        const file = fileInput.files[0];
+
+        if (file) {
+            console.log("Fichier sélectionné :", file.name);
+            messageInput.value = file.name;
+        }
+    });
+}
+
+if (sendBtn && messageInput) {
+    sendBtn.addEventListener("click", () => {
+        const message = messageInput.value.trim();
+
+        if (message !== "") {
+            console.log("Message envoyé :", message);
+            messageInput.value = "";
+        }
+    });
+
+    messageInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            sendBtn.click();
+        }
+    });
+}
 </script>
 
 </body>
