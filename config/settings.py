@@ -43,13 +43,9 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework',
     'courses',
-<<<<<<< HEAD
     'quiz',
-    'games'
-=======
     'games',
     'chatbot'
->>>>>>> feature/llm
 ]
 
 MIDDLEWARE = [
@@ -149,11 +145,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     ],
 }
-<<<<<<< HEAD
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
-=======
-print("GEMINI_API_KEY =", GEMINI_API_KEY)
->>>>>>> feature/llm
