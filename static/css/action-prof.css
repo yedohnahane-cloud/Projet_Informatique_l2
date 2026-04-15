@@ -19,52 +19,91 @@ body {
   gap: 18px;
 }
 
-/* SIDEBAR (inchangée) */
+/* SIDEBAR */
 .sidebar {
   width: 250px;
-  background: linear-gradient(180deg, #4e1f68, #6a2f83);
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--sidebar-top), var(--sidebar-bottom));
   border-radius: 24px;
   padding: 22px 16px;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-soft);
+
+  position: fixed;   /* 🔥 ajoute ça */
+  top: 14px;         /* pour respecter ton padding global */
+  left: 14px;        /* pour rester dans ton layout */
+  height: calc(100vh - 28px); /* prend toute la hauteur écran */
+  overflow: hidden;  /* évite débordement */
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    margin-top: 22px;
+    margin-bottom: 28px;
 }
 
 .logo img {
-  width: 100px;
-  margin: auto;
+    width: 90px;
 }
 
 .menu {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .menu-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px;
-  border-radius: 12px;
-  color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.98rem;
+    color: #f6edff;
+    transition: 0.25s ease;
+}
+
+.menu-item img {
+    width: 18px;
+    height: 18px;
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.10);
 }
 
 .menu-item.active {
-  background: #b178ff;
-  color: #3c1d54;
+    background: var(--purple-light);
+    color: #4d205d;
 }
 
 .sidebar-illustration {
-  margin-top: auto;
+    margin-top: auto;
+    padding: 16px 6px 0;
+}
+
+.sidebar-illustration img {
+    width: 100%;
+    max-width: 165px;
+    margin: 0 auto;
 }
 
 /* MAIN */
 .main-content {
   flex: 1;
-  background: linear-gradient(90deg, #121739, #222753);
+  min-width: 0;
+  background: linear-gradient(90deg, #121739 0%, #222753 100%);
   border-radius: 24px;
-  padding: 40px;
+  padding: 36px 32px 48px;
+  box-shadow: var(--shadow-soft);
+
+  margin-left: 280px;
+
+  /* 🔥 AJOUT */
+  display: flex;
+  justify-content: center;
 }
 
 /* HEADER */
@@ -244,4 +283,9 @@ body {
   right: 20px;
   color: orange;
   font-size: 20px;
+}
+
+.content-wrapper {
+  width: 100%;
+  max-width: 900px;
 }
