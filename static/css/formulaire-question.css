@@ -123,7 +123,7 @@ a {
   padding: 36px 32px 48px;
   box-shadow: var(--shadow-soft);
 
-  margin-left: 280px; /* 👈 250px sidebar + marge */
+  margin-left: 280px; 
   overflow-y: auto;
 }
 

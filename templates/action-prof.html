@@ -3,69 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <title>Actions</title>
-  <link rel="stylesheet" href="/static/css/actions.css">
+  <link rel="stylesheet" href="/static/css/action-prof.css">
 </head>
 
 <body>
 <div class="app-container">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="logo">
-      <img src="/static/images/logo.png">
-    </div>
+   <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="/static/images/logo.png" alt="Logo JavaMastery AI">
+        </div>
 
-    <nav class="menu">
-      <a href="coursprincipal.html" class="menu-item">
-        <img src="/static/images/icon-cours.png">
-        <span>Mes cours</span>
-      </a>
+        <nav class="menu">
+            <a href="#" class="menu-item">
+                <img src="/static/images/icon-cours.png" alt="">
+                <span>Mes cours</span>
+            </a>
 
-      <a href="page-chatbot.html" class="menu-item">
-        <img src="/static/images/chat-box.icon.png">
-        <span>Chatbot</span>
-      </a>
+            <a href="#" class="menu-item">
+                <img src="/static/images/logo-chatbot.png" alt="">
+                <span>Chatbot</span>
+            </a>
 
-      <a href="#" class="menu-item active">
-        <img src="/static/images/icon-jeux.png">
-        <span>Actions</span>
-      </a>
-    </nav>
+            <a href="#" class="menu-item active">
+                <img src="/static/images/logo-jeu.png" alt="">
+                <span>Actions</span>
+            </a>
+        </nav>
 
-    <div class="sidebar-illustration">
-      <img src="/static/images/image-femme.png">
-    </div>
-  </aside>
+        <div class="sidebar-illustration">
+            <img src="/static/images/image.png" alt="Illustration">
+        </div>
+    </aside>
 
   <!-- MAIN -->
   <main class="main-content">
 
-    <div class="header">
-      <h1>Que voulez-vous créer aujourd’hui ?</h1>
-      <p>Créez un nouveau cours avec ses supports ou concevez un quiz pour évaluer vos étudiants</p>
-    </div>
+    <!-- 👇 AJOUT (juste ça) -->
+    <div class="content-wrapper">
 
-    <div class="cards">
-
-      <!-- CARD 1 -->
-      <div class="card" onclick="goTo('ajout-cours.html')">
-        <h2>Ajouter un cours</h2>
-        <p>Cliquez ici pour créer un nouveau cours et importer vos slides.</p>
-        <span class="arrow">➜</span>
+      <div class="header">
+        <h1>Que voulez-vous créer aujourd’hui ?</h1>
+        <p>Créez un nouveau cours avec ses supports ou concevez un quiz pour évaluer vos étudiants</p>
       </div>
 
-      <!-- CARD 2 -->
-      <div class="card" onclick="goTo('ajout-quiz.html')">
-        <h2>Ajouter un quizz</h2>
-        <p>Cliquez ici pour créer un quiz et associer chaque quizz à votre cours</p>
-        <span class="arrow">➜</span>
+      <div class="cards">
+
+        <div class="card" onclick="goTo('AjoutCours.html')">
+          <h2>Ajouter un cours</h2>
+          <p>Cliquez ici pour créer un nouveau cours et importer vos slides.</p>
+          <span class="arrow">➜</span>
+        </div>
+
+        <div class="card" onclick="goTo('formulaire-question.html')">
+          <h2>Ajouter un quizz</h2>
+          <p>Cliquez ici pour créer un quiz et associer chaque quizz à votre cours</p>
+          <span class="arrow">➜</span>
+        </div>
+
       </div>
 
     </div>
+    <!-- 👆 FIN AJOUT -->
 
   </main>
 </div>
 
-<script src="/static/js/actions.js"></script>
+<script src="/static/js/action-prof.js"></script>
 </body>
 </html>
