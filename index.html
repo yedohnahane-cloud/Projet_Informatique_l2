@@ -9,45 +9,33 @@
 <body>
 
   <!-- SIDEBAR NAV -->
-  <aside class="sidebar">
-    <div class="logo-area">
-      <div class="logo-circle">
-        <img src="images/logo.png" alt="JavaMastery AI Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-        <div class="logo-fallback">JM</div>
-      </div>
-      <span class="logo-text">Java<span class="logo-accent">Mastery</span> AI</span>
-    </div>
+   <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="logo-container">
+                    <img src="logo.png" alt="JavaMastery AI" class="logo">
+                </div>
 
-    <nav class="nav-menu">
-      <a href="coursprincipal.html" class="nav-item" id="nav-cours">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-          <path d="M2 17l10 5 10-5"/>
-          <path d="M2 12l10 5 10-5"/>
-        </svg>
-        <span>Mes cours</span>
-      </a>
+                <nav class="navigation">
+                    <button class="nav-link active">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Mes cours</span>
+                    </button>
+                    <button class="nav-link">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        <span>Chatbot</span>
+                    </button>
+                    <button class="nav-link">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <span>Quizzs et jeux</span>
+                    </button>
+                </nav>
+            </div>
 
-      <a href="chat-bot.html" class="nav-item" id="nav-chatbot">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-        </svg>
-        <span>Chatbot</span>
-      </a>
+            <div class="sidebar-bottom">
+                <img src="chatbot.PNG" alt="Illustration" class="side-img">
+            </div>
+        </aside>
 
-      <a href="#" class="nav-item active" id="nav-jeux">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="6" width="20" height="12" rx="3"/>
-          <path d="M12 12h0M8 9v6M6 12h4M16 10h2M16 14h2"/>
-        </svg>
-        <span>Quizzs et jeux</span>
-      </a>
-    </nav>
-
-    <div class="sidebar-bottom">
-      <img src="images/desk.png" alt="illustration bureau" class="desk-img" onerror="this.style.display='none'"/>
-    </div>
-  </aside>
 
   <!-- MAIN CONTENT -->
   <main class="main-content">

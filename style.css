@@ -38,140 +38,26 @@ body {
 
 /* ---------- SIDEBAR ---------- */
 .sidebar {
-  width: var(--sidebar-w);
-  height: 100vh;
-  background: linear-gradient(180deg, var(--purple-dark) 0%, #3a1248 60%, #2a0d38 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 24px 12px 0;
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 100;
-  border-right: 1px solid rgba(173, 71, 196, 0.25);
-  overflow: hidden;
+    width: 250px;
+    background: linear-gradient(180deg, #53225E 0%, #AD47C4 100%);
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 15px;
+    flex-shrink: 0;
 }
 
-/* Logo */
-.logo-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 40px;
+.logo { max-width: 130px; margin-bottom: 30px; }
+.navigation { display: flex; flex-direction: column; gap: 5px; }
+.nav-link {
+    background: transparent; border: none; color: white;
+    padding: 12px 15px; border-radius: 12px; display: flex;
+    align-items: center; gap: 12px; font-size: 0.9rem; cursor: pointer;
 }
+.nav-link.active { background-color: rgba(255, 255, 255, 0.2); font-weight: bold; }
+.side-img { width: 100%; border-radius: 20px; }
 
-.logo-circle {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: rgba(173, 71, 196, 0.18);
-  border: 2px solid rgba(173, 71, 196, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.logo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.logo-fallback {
-  display: none;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.logo-text {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-muted);
-  text-align: center;
-  letter-spacing: 0.03em;
-}
-
-.logo-accent {
-  color: var(--accent);
-}
-
-/* Nav */
-.nav-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 16px;
-  border-radius: var(--radius-btn);
-  text-decoration: none;
-  color: var(--text-muted);
-  font-size: 15px;
-  font-weight: 600;
-  transition: background var(--transition), color var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.nav-item::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(173, 71, 196, 0.12);
-  opacity: 0;
-  transition: opacity var(--transition);
-  border-radius: var(--radius-btn);
-}
-
-.nav-item:hover {
-  color: var(--text-main);
-}
-
-.nav-item:hover::before {
-  opacity: 1;
-}
-
-.nav-item.active {
-  background: rgba(173, 71, 196, 0.22);
-  color: var(--accent-light);
-  border: 1px solid rgba(173, 71, 196, 0.4);
-}
-
-.nav-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  stroke: currentColor;
-}
-
-/* Sidebar bottom illustration */
-.sidebar-bottom {
-  margin-top: auto;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-.desk-img {
-  width: 100%;
-  max-width: 240px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-}
 
 /* ---------- MAIN CONTENT ---------- */
 .main-content {
@@ -179,6 +65,9 @@ body {
   flex: 1;
   padding: 36px 40px 60px;
   min-height: 100vh;
+
+  max-width: 1200px;   /* limite la largeur */
+  margin-right: auto;  /* centre */
 }
 
 .page-header {
@@ -202,8 +91,10 @@ body {
 /* ---------- GAMES GRID ---------- */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 280px));
   gap: 22px;
+
+  justify-content: center; /* 🔥 ça centre les cartes */
 }
 
 /* ---------- GAME CARD ---------- */
