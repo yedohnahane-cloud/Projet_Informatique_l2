@@ -9,47 +9,47 @@ const GAMES = [
     url: "https://www.codingame.com/start/",
     emoji: "🦖",
     description: "Écrire du code Java pour attaquer, se défendre et vaincre un monstre.",
-    img: "img/game1.png"
+    img: "images/image1.png"
   },
   {
     id: 2,
-    name: "Codewars",
-    url: "https://www.codewars.com/",
-    emoji: "⚔️",
-    description: "Résoudre des énigmes avec du code pour sortir d'une pièce.",
-    img: "img/game2.png"
-  },
-  {
-    id: 3,
-    name: "Screeps",
-    url: "https://screeps.com/",
-    emoji: "🚀",
-    description: "Programmer les actions et trajectoires d'un vaisseau spatial.",
-    img: "img/game3.png"
-  },
-  {
-    id: 4,
-    name: "CheckiO",
-    url: "https://checkio.org/",
-    emoji: "🏙️",
-    description: "Créer des bâtiments et structures via des classes Java.",
-    img: "img/game4.png"
-  },
-  {
-    id: 5,
-    name: "CodeCombat",
-    url: "https://codecombat.com/",
-    emoji: "🕵️",
-    description: "Trouver et corriger des bugs pour résoudre des enquêtes.",
-    img: "img/game5.png"
-  },
-  {
-    id: 6,
     name: "Robocode",
     url: "https://robocode.sourceforge.io/",
     emoji: "🤖",
     description: "Programmer un robot pour exécuter des actions et combattre.",
-    img: "img/game6.png"
+    img: "images/image2.png"
+  },
+  {
+    id: 3,
+    name: "Codewars",
+    url: "https://www.codewars.com/",
+    emoji: "⚔️",
+    description: "Résoudre des énigmes avec du code pour sortir d'une pièce.",
+    img: "images/image3.png"
+  },
+  {
+    id: 4,
+    name: "Screeps",
+    url: "https://screeps.com/",
+    emoji: "🚀",
+    description: "Programmer les actions et trajectoires d'un vaisseau spatial.",
+    img: "images/image4.png"
+  },
+  {
+    id: 5,
+    name: "CheckiO",
+    url: "https://checkio.org/",
+    emoji: "🏙️",
+    description: "Créer des bâtiments et structures via des classes Java.",
+    img: "images/image5.png"
+  },
+  {
+    id: 6,
+    name: "CodeCombat",
+    url: "https://codecombat.com/",
+    emoji: "🕵️",
+    description: "Trouver et corriger des bugs pour résoudre des enquêtes.",
+    img: "images/image6.png"
   },
   {
     id: 7,
@@ -57,7 +57,7 @@ const GAMES = [
     url: "https://javarush.com/",
     emoji: "☕",
     description: "Apprendre Java à travers des mini-jeux et des quêtes interactives.",
-    img: "img/game7.png"
+    img: "images/image7.png"
   },
   {
     id: 8,
@@ -65,7 +65,7 @@ const GAMES = [
     url: "https://www.hackerrank.com/",
     emoji: "🏆",
     description: "Relever des défis de code Java pour grimper dans le classement mondial.",
-    img: "img/game8.png"
+    img: "images/image8.png"
   },
   {
     id: 9,
@@ -73,7 +73,7 @@ const GAMES = [
     url: "https://leetcode.com/",
     emoji: "🧩",
     description: "Résoudre des problèmes algorithmiques Java pour préparer tes entretiens.",
-    img: "img/game9.png"
+    img: "images/image9.png"
   },
   {
     id: 10,
@@ -81,7 +81,7 @@ const GAMES = [
     url: "https://codingbat.com/",
     emoji: "🦇",
     description: "Pratiquer Java avec des exercices courts et progressifs.",
-    img: "img/game10.png"
+    img: "images/image10.png"
   }
 ];
 
