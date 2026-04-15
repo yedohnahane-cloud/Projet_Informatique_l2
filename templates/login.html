@@ -54,12 +54,12 @@
 
    
 
-    <!-- Inputs -->
-    <input type="email" placeholder="Adresse email">
-    <input type="password" placeholder="Mot de passe">
+   <!-- Inputs -->
+<input type="email" id="email" placeholder="Adresse email">
+<input type="password" id="password" placeholder="Mot de passe">
 
-    <!-- Bouton -->
-    <button class="btn-login">Se connecter</button>
+<!-- Bouton -->
+<button class="btn-login" id="loginBtn">Se connecter</button>
 
     <!-- Inscription -->
     <p class="signup">
@@ -69,6 +69,43 @@
   </div>
 
 </div>
+
+
+<!-- 🔥 JS -->
+<script>
+document.getElementById("loginBtn").addEventListener("click", async function () {
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch("/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+
+        // 🔥 REDIRECTION SELON ROLE
+        if (data.role === "etudiant") {
+            window.location.href = "/coursprincipal.html";
+        } 
+        else if (data.role === "prof") {
+            window.location.href = "/action.html";
+        }
+
+    } else {
+        alert("Email ou mot de passe incorrect");
+    }
+});
+
+</script>
+
+
 
 </body>
 </html>
