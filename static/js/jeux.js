@@ -65,7 +65,7 @@ const GAMES = [
     url: "https://www.hackerrank.com/",
     emoji: "🏆",
     description: "Relever des défis de code Java pour grimper dans le classement mondial.",
-    img: "images/image8.png"
+    img: "/static/images/jeux/image8.png"
   },
   {
     id: 9,
@@ -73,7 +73,7 @@ const GAMES = [
     url: "https://leetcode.com/",
     emoji: "🧩",
     description: "Résoudre des problèmes algorithmiques Java pour préparer tes entretiens.",
-    img: "images/image9.png"
+    img: "/static/images/jeux/image9.png"
   },
   {
     id: 10,
@@ -81,7 +81,7 @@ const GAMES = [
     url: "https://codingbat.com/",
     emoji: "🦇",
     description: "Pratiquer Java avec des exercices courts et progressifs.",
-    img: "images/image10.png"
+    img: "/static/images/jeux/image10.png"
   }
 ];
 
