@@ -2,14 +2,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EditProfile</title>
-    <link rel="stylesheet" href="AjoutCours.css"/> 
+    <link rel="stylesheet" href="/static/css/AjoutCours.css"/> 
 </head>
 <body>
     <div class = "app-container">
         <aside class="sidebar">
             <div class="sidebar-top">
                 <div class="logo-container">
-                    <img src="logo.png" alt="JavaMastery AI" class="logo">
+                    <img src="/static/images/logo.png" alt="JavaMastery AI" class="logo">
                 </div>
 
                 <nav class="navigation">
@@ -29,7 +29,7 @@
             </div>
 
             <div class="sidebar-bottom">
-                <img src="chatbot.PNG" alt="Illustration" class="side-img">
+                <img src="/static/images/image-femme.png" alt="Illustration" class="side-img">
             </div>
         </aside>
 
@@ -53,7 +53,7 @@
                 <li>
                     <p>Déposez les slides du cours (format PDF)</p>
                     <div class = "droparea">
-                        <image src = "./icone.png" id = "icone"></image>
+                        <image src = "/static/images/prof-cours/icone.png" id = "icone"></image>
                         <p id = "instruct">Glissez et lâchez votre fichier</p>
                         <button id ="chercheur">Chercher un fichier</button>
                         <input type = "file" id = "formfile" accept="PDF" hidden>
@@ -65,5 +65,5 @@
             </form>
         </div>
     </div>
-    <script src = "./AjoutCours.js"></script>
+    <script src = "/static/js/AjoutCours.js"></script>
 </body>
