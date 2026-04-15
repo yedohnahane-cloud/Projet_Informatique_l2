@@ -60,6 +60,12 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-soft);
+
+  position: fixed;   /* 🔥 ajoute ça */
+  top: 14px;         /* pour respecter ton padding global */
+  left: 14px;        /* pour rester dans ton layout */
+  height: calc(100vh - 28px); /* prend toute la hauteur écran */
+  overflow: hidden;  /* évite débordement */
 }
 
 .logo {
@@ -134,6 +140,8 @@ a { text-decoration: none; color: inherit; }
   border-radius: 24px;
   padding: 36px 32px 48px;
   box-shadow: var(--shadow-soft);
+
+  margin-left: 280px; /* 👈 250px sidebar + marge */
   overflow-y: auto;
 }
 
