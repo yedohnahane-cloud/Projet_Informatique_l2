@@ -42,11 +42,7 @@ def chatbot_page(request):
 def subjects_list(request):
     user = request.user
 
-    if user.role != "student":
-        return JsonResponse(
-            {"error": "Accès réservé aux étudiants."},
-            status=403
-        )
+
 
     subjects = Subject.objects.filter(is_published=True).order_by("title")
 
@@ -89,11 +85,7 @@ def courses_list(request, subject_id):
         return JsonResponse({"courses": data}, status=200)
 
     # Étudiant uniquement à partir d’ici
-    if user.role != "student":
-        return JsonResponse(
-            {"error": "Accès non autorisé."},
-            status=403
-        )
+
 
     # Récupération progression existante
     progress_qs = StudentCourseProgress.objects.filter(
@@ -177,11 +169,7 @@ def course_detail_api(request, course_id):
             "attempt_count": 0,
         }, status=200)
 
-    if user.role != "student":
-        return JsonResponse(
-            {"error": "Accès non autorisé."},
-            status=403
-        )
+
 
     progress, created = StudentCourseProgress.objects.get_or_create(
         student=user,
