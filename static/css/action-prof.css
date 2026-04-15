@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  background: linear-gradient(120deg, #141935, #10152f);
+  color: white;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  padding: 14px;
+  gap: 18px;
+}
+
+/* SIDEBAR (inchangée) */
+.sidebar {
+  width: 250px;
+  background: linear-gradient(180deg, #4e1f68, #6a2f83);
+  border-radius: 24px;
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo img {
+  width: 100px;
+  margin: auto;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  color: white;
+}
+
+.menu-item.active {
+  background: #b178ff;
+  color: #3c1d54;
+}
+
+.sidebar-illustration {
+  margin-top: auto;
+}
+
+/* MAIN */
+.main-content {
+  flex: 1;
+  background: linear-gradient(90deg, #121739, #222753);
+  border-radius: 24px;
+  padding: 40px;
+}
+
+/* HEADER */
+.header h1 {
+  color: #ff8e35;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.header p {
+  color: #c7cce2;
+  margin-bottom: 40px;
+}
+
+/* CARDS */
+.cards {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+/* CARD STYLE */
+.card {
+  width: 280px;
+  height: 220px;
+  background: linear-gradient(180deg, rgba(30,36,77,0.7), rgba(25,30,67,0.9));
+  border: 1px solid rgba(186,112,255,0.3);
+  border-radius: 18px;
+  padding: 25px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(173,71,196,0.3);
+}
+
+.card h2 {
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #c7cce2;
+}
+
+/* ARROW */
+.arrow {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  color: orange;
+  font-size: 20px;
+}@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  background: linear-gradient(120deg, #141935, #10152f);
+  color: white;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  padding: 14px;
+  gap: 18px;
+}
+
+/* SIDEBAR (inchangée) */
+.sidebar {
+  width: 250px;
+  background: linear-gradient(180deg, #4e1f68, #6a2f83);
+  border-radius: 24px;
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo img {
+  width: 100px;
+  margin: auto;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  color: white;
+}
+
+.menu-item.active {
+  background: #b178ff;
+  color: #3c1d54;
+}
+
+.sidebar-illustration {
+  margin-top: auto;
+}
+
+/* MAIN */
+.main-content {
+  flex: 1;
+  background: linear-gradient(90deg, #121739, #222753);
+  border-radius: 24px;
+  padding: 40px;
+}
+
+/* HEADER */
+.header h1 {
+  color: #ff8e35;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.header p {
+  color: #c7cce2;
+  margin-bottom: 40px;
+}
+
+/* CARDS */
+.cards {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+/* CARD STYLE */
+.card {
+  width: 280px;
+  height: 220px;
+  background: linear-gradient(180deg, rgba(30,36,77,0.7), rgba(25,30,67,0.9));
+  border: 1px solid rgba(186,112,255,0.3);
+  border-radius: 18px;
+  padding: 25px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(173,71,196,0.3);
+}
+
+.card h2 {
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #c7cce2;
+}
+
+/* ARROW */
+.arrow {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  color: orange;
+  font-size: 20px;
+}
