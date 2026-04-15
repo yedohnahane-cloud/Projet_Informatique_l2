@@ -1,17 +1,11 @@
-# Python
+.env
+venv/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# Environnement virtuel
-venv/
-.env/
-
 # Django
 db.sqlite3
-<<<<<<< HEAD
+db_backup.sqlite3
 media/
-=======
-.envgit rm -r --cached venv
->>>>>>> feature/courses

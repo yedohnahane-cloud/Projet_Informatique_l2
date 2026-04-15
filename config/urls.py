@@ -16,6 +16,7 @@ urlpatterns = [
     path("courses/", include("courses.urls")),
     path("quiz/", include("quiz.urls")),
     path("api/", include("games.urls")),
+<<<<<<< HEAD
 
 
 
@@ -23,3 +24,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+=======
+    path("chatbot/", include("chatbot.urls")),
+]
+>>>>>>> feature/llm
