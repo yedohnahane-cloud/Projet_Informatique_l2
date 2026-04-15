@@ -57,7 +57,7 @@ const GAMES = [
     url: "https://javarush.com/",
     emoji: "☕",
     description: "Apprendre Java à travers des mini-jeux et des quêtes interactives.",
-    img: "images/image7.png"
+    img:"/static/images/jeux/image7.png"
   },
   {
     id: 8,
