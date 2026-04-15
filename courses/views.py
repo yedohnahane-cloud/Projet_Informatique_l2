@@ -66,21 +66,73 @@ def subjects_list(request):
 def courses_list(request, subject_id):
     user = request.user
 
-    if user.role != "student":
-        return JsonResponse(
-            {"error": "Accès réservé aux étudiants."},
-            status=403
-        )
-
     courses = Course.objects.filter(
         is_published=True,
         subject_id=subject_id
     ).order_by("order")
 
+    # Prof ou admin : tout est accessible
+    if user.is_superuser or user.role == "teacher":
+        data = [
+            {
+                "id": course.id,
+                "title": course.title,
+                "content": course.content,
+                "order": course.order,
+                "subject_id": course.subject_id,
+                "is_unlocked": True,
+                "is_completed": False,
+                "attempt_count": 0,
+            }
+            for course in courses
+        ]
+        return JsonResponse({"courses": data}, status=200)
+
+    # Étudiant uniquement à partir d’ici
+    if user.role != "student":
+        return JsonResponse(
+            {"error": "Accès non autorisé."},
+            status=403
+        )
+
+    # Récupération progression existante
+    progress_qs = StudentCourseProgress.objects.filter(
+        student=user,
+        course__subject_id=subject_id
+    ).select_related("course")
+
     progress_map = {
         progress.course_id: progress
-        for progress in StudentCourseProgress.objects.filter(student=user)
+        for progress in progress_qs
     }
+
+    # Si aucune progression n'existe encore pour ce subject,
+    # on l'initialise automatiquement
+    if not progress_map and courses.exists():
+        progress_objects = []
+
+        for course in courses:
+            progress_objects.append(
+                StudentCourseProgress(
+                    student=user,
+                    course=course,
+                    is_unlocked=(course.order == 1),
+                    is_completed=False,
+                    attempt_count=0,
+                )
+            )
+
+        StudentCourseProgress.objects.bulk_create(progress_objects)
+
+        progress_qs = StudentCourseProgress.objects.filter(
+            student=user,
+            course__subject_id=subject_id
+        ).select_related("course")
+
+        progress_map = {
+            progress.course_id: progress
+            for progress in progress_qs
+        }
 
     data = []
     for course in courses:
@@ -99,28 +151,47 @@ def courses_list(request, subject_id):
 
     return JsonResponse({"courses": data}, status=200)
 
-
 @login_required
 def course_detail_api(request, course_id):
     user = request.user
 
+    try:
+        course = Course.objects.get(id=course_id, is_published=True)
+    except Course.DoesNotExist:
+        return JsonResponse(
+            {"error": "Chapitre introuvable."},
+            status=404
+        )
+
+    # Prof ou admin : accès total
+    if user.is_superuser or user.role == "teacher":
+        return JsonResponse({
+            "id": course.id,
+            "title": course.title,
+            "content": course.content,
+            "pdf_file": course.pdf_file.url if course.pdf_file else None,
+            "order": course.order,
+            "is_published": course.is_published,
+            "is_unlocked": True,
+            "is_completed": False,
+            "attempt_count": 0,
+        }, status=200)
+
     if user.role != "student":
         return JsonResponse(
-            {"error": "Accès réservé aux étudiants."},
+            {"error": "Accès non autorisé."},
             status=403
         )
 
-    try:
-        progress = StudentCourseProgress.objects.select_related("course").get(
-            student=user,
-            course_id=course_id,
-            course__is_published=True
-        )
-    except StudentCourseProgress.DoesNotExist:
-        return JsonResponse(
-            {"error": "Cours introuvable ou progression inexistante."},
-            status=404
-        )
+    progress, created = StudentCourseProgress.objects.get_or_create(
+        student=user,
+        course=course,
+        defaults={
+            "is_unlocked": course.order == 1,
+            "is_completed": False,
+            "attempt_count": 0,
+        }
+    )
 
     if not progress.is_unlocked:
         return JsonResponse(
@@ -128,9 +199,7 @@ def course_detail_api(request, course_id):
             status=403
         )
 
-    course = progress.course
-
-    data = {
+    return JsonResponse({
         "id": course.id,
         "title": course.title,
         "content": course.content,
@@ -140,11 +209,7 @@ def course_detail_api(request, course_id):
         "is_unlocked": progress.is_unlocked,
         "is_completed": progress.is_completed,
         "attempt_count": progress.attempt_count,
-    }
-
-    return JsonResponse(data, status=200)
-
-
+    }, status=200)
 # =========================
 # API PROFESSEUR
 # =========================

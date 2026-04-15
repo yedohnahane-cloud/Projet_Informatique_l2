@@ -234,3 +234,17 @@ footer {
     justify-content: space-between;
     align-items: center;
 }
+header {
+    position: relative;
+    z-index: 1000;
+}
+
+.navbar {
+    position: relative;
+    z-index: 1001;
+}
+
+.btn-primary {
+    display: inline-block;
+    text-decoration: none;
+}

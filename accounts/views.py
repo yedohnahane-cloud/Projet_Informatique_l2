@@ -7,7 +7,7 @@ from .forms import SignUpForm
 
 def signup_view(request):
     if request.user.is_authenticated:
-        return redirect("home")
+        return redirect("subjects_page")
 
     form = SignUpForm()
 
@@ -23,7 +23,7 @@ def signup_view(request):
 
 def signin_view(request):
     if request.user.is_authenticated:
-        return redirect("home")
+        return redirect("subjects_page")
 
     if request.method == "POST":
         email = request.POST.get("email")
@@ -34,7 +34,7 @@ def signin_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Connexion réussie.")
-            return redirect("home")
+            return redirect("subjects_page")
 
         messages.error(request, "Email ou mot de passe incorrect.")
 

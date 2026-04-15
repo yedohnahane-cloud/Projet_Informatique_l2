@@ -1,212 +1,208 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaMastery AI</title>
-    <link rel="stylesheet" href="page-cours.css">
+    <link rel="stylesheet" href="{% static 'css/page-cours.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
 <div class="container">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="logo">
-            <img src="logo.png" alt="">
-            
+            <img src="{% static 'images/logo.png' %}" alt="Logo JavaMastery AI">
         </div>
 
         <nav class="menu">
-            <a href="#" class="menu-item active">
-                <img src="logo-cours.png" alt="">
+            <a href="{% url 'subjects_page' %}" class="menu-item active">
+                <img src="{% static 'images/logo-cours.png' %}" alt="">
                 <span>Mes cours</span>
             </a>
 
-            <a href="page-chatbot.html" class="menu-item">
-                <img src="logo-chatbot.png" alt="">
+            <a href="{% url 'chatbot_page' %}" class="menu-item">
+                <img src="{% static 'images/logo-chatbot.png' %}" alt="">
                 <span>Chatbot</span>
             </a>
 
             <a href="#" class="menu-item">
-                <img src="logo-jeu.png" alt="">
-                <span>Quizzz et jeux</span>
+                <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                <span>Quizs et jeux</span>
             </a>
         </nav>
 
         <div class="sidebar-illustration">
-            <img src="image.png" alt="">
+            <img src="{% static 'images/image.png' %}" alt="Illustration">
         </div>
     </aside>
 
-    <!-- CONTENU PRINCIPAL -->
     <main class="main">
 
-        <!-- ZONE COURS -->
         <section class="course-wrapper">
-
-            <!-- BOUTON QUIZZ -->
             <div class="quiz-top">
-                <button class="quiz-btn">
-                    <img src="icone-quiz.png" alt="">
+                <a href="#" class="quiz-btn" id="quizBtn">
+                    <img src="{% static 'images/icone-quiz.png' %}" alt="">
                     <span>Passer le quizz</span>
-                </button>
+                </a>
             </div>
 
-            <!-- SECTION COURS -->
-<div class="course-section" id="course-section">
-    <p>Chargement des cours...</p>
-</div>
+            <div class="course-section">
+                <div class="course-header">
+                    <div>
+                        <h1 id="courseTitle">Chargement du chapitre...</h1>
+                        <p id="courseMeta">Veuillez patienter</p>
+                    </div>
+                </div>
 
+                <div id="courseContent" class="course-content">
+                    <div class="loading-state">Chargement du cours...</div>
+                </div>
+            </div>
         </section>
 
-        <!-- CHATBOT -->
-        <div class="chatbot" id="chatbot">
-
-            <!-- HEADER -->
+        <aside class="chatbot" id="chatbot">
             <div class="chat-header">
-                <img src="retirer-chat.png" class="icon" alt="">
-                <img src="delete-chat.icon.png" class="icon" id="closeChat" alt="">
-            </div>
-
-            <!-- CONTENU -->
-            <div class="chat-body">
-                <img src="chat-box.icon.png" class="bot-icon" alt="">
-                <h1>Ton assistant de cours</h1>
-            </div>
-
-            <!-- INPUT -->
-            <div class="chat-input">
-                <button class="plus-btn">+</button>
-                <input type="text" placeholder="Posez une question">
-                <button class="mic-btn">
-                    <img src="vocal.icon.png" alt="">
+                <button class="header-icon" type="button">
+                    <i class="fa-regular fa-gear"></i>
+                </button>
+                <button class="header-icon" type="button">
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+                <button class="header-icon" type="button">
+                    <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-        </div>
+            <div class="chat-body">
+                <img src="{% static 'images/chat-box.icon.png' %}" class="bot-icon" alt="Bot">
+                <h2>Ton assistant de cours</h2>
+            </div>
+
+            <div class="chat-input">
+                <button class="plus-btn" id="uploadBtn" type="button">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+
+                <input type="file" id="fileInput" hidden>
+
+                <input type="text" id="messageInput" placeholder="Posez une question">
+
+                <button class="send-btn" id="sendBtn" type="button">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+            </div>
+        </aside>
 
     </main>
 
 </div>
+
 <script>
-const chatbot = document.getElementById("chatbot");
-const closeBtn = document.getElementById("closeChat");
+const courseId = "{{ course_id }}";
+const courseTitle = document.getElementById("courseTitle");
+const courseMeta = document.getElementById("courseMeta");
+const courseContent = document.getElementById("courseContent");
 
-closeBtn.onclick = () => {
-    chatbot.style.display = "none";
-};
+const uploadBtn = document.getElementById("uploadBtn");
+const fileInput = document.getElementById("fileInput");
+const messageInput = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
 
-const urlParams = new URLSearchParams(window.location.search);
-const subjectId = urlParams.get("subject_id");
-
-async function loadCourses() {
-    const container = document.getElementById("course-section");
-
-    if (!subjectId) {
-        container.innerHTML = "<p>Aucun cours sélectionné.</p>";
-        return;
-    }
-
-    try {
-        const response = await fetch(`/courses/api/student/courses/?subject_id=${subjectId}`);
-        const data = await response.json();
-
-        if (!response.ok) {
-            container.innerHTML = `<p>${data.error || "Erreur lors du chargement des chapitres."}</p>`;
-            return;
-        }
-
-        if (!data.courses || data.courses.length === 0) {
-            container.innerHTML = "<p>Aucun chapitre disponible.</p>";
-            return;
-        }
-
-        container.innerHTML = "";
-
-        data.courses.forEach(course => {
-            const card = document.createElement("div");
-
-container.classList.add("chapters-grid");
-
-data.courses.forEach(course => {
-    const card = document.createElement("div");
-    card.classList.add("chapter-card");
-
-    if (course.is_unlocked) {
-        card.classList.add("unlocked");
-    } else {
-        card.classList.add("locked");
-    }
-
-    const action = course.is_unlocked
-        ? `onclick="loadCourseDetail(${course.id})"`
-        : "";
-
-    card.innerHTML = `
-        <div class="chapter-card-inner" ${action}>
-            <div class="chapter-icon ${course.is_unlocked ? 'icon-active' : 'icon-locked'}">💡</div>
-
-            <div class="chapter-text">
-                <h3>${course.title}</h3>
-                <p>${course.is_completed ? "Chapitre terminé" : "Chapitre à parcourir"}</p>
-            </div>
-
-            <div class="chapter-number">${course.order}</div>
-
-            ${!course.is_unlocked ? '<div class="chapter-lock">🔒</div>' : ''}
-        </div>
-    `;
-
-    container.appendChild(card);
-});
-        });
-
-    } catch (error) {
-        container.innerHTML = "<p>Erreur serveur.</p>";
-        console.error(error);
-    }
-}
-
-async function loadCourseDetail(courseId) {
-    const container = document.getElementById("course-section");
-
+async function loadCourseDetail() {
     try {
         const response = await fetch(`/courses/api/student/courses/${courseId}/`);
         const data = await response.json();
-
+        // 👉 MET LE CONSOLE.LOG ICI
+        console.log("PDF URL:", data.pdf_file);
         if (!response.ok) {
-            container.innerHTML = `<p>${data.error || "Erreur lors du chargement du chapitre."}</p>`;
+            courseTitle.textContent = "Accès impossible";
+            courseMeta.textContent = "";
+            courseContent.innerHTML = `
+                <div class="error-state">
+                    ${data.error || "Impossible de charger ce chapitre."}
+                </div>
+            `;
             return;
         }
-        container.classList.remove("chapters-grid");
 
-        container.innerHTML = `
-            <div>
-                <h2>${data.title}</h2>
-                ${
-                    data.pdf_file
-                    ? `<iframe src="${data.pdf_file}" width="100%" height="600px" style="border:none;"></iframe>`
-                    : `<p>Aucun PDF disponible</p>`
-                }
-                <div style="margin-top: 16px;">
-                    <button onclick="loadCourses()">Retour</button>
-                    <button onclick="window.location.href='/courses/'">Tous les cours</button>
+        courseTitle.textContent = data.title;
+        courseMeta.textContent = `Chapitre ${data.order}`;
+
+        if (data.pdf_file) {
+            courseContent.innerHTML = `
+                <div class="pdf-toolbar">
+                    <a href="${data.pdf_file}" target="_blank" class="secondary-btn">
+                        Ouvrir le PDF
+                    </a>
                 </div>
-            </div>
-        `;
+                <div class="pdf-viewer-wrapper">
+                    <iframe
+                        class="pdf-viewer"
+                        src="${data.pdf_file}"
+                        title="${data.title}">
+                    </iframe>
+                </div>
+            `;
+        } else if (data.content) {
+            courseContent.innerHTML = `
+                <div class="text-course-content">
+                    ${data.content}
+                </div>
+            `;
+        } else {
+            courseContent.innerHTML = `
+                <div class="empty-state">
+                    Aucun contenu disponible pour ce chapitre.
+                </div>
+            `;
+        }
 
     } catch (error) {
-        container.innerHTML = "<p>Erreur serveur.</p>";
+        courseTitle.textContent = "Erreur";
+        courseMeta.textContent = "";
+        courseContent.innerHTML = `
+            <div class="error-state">
+                Une erreur réseau est survenue pendant le chargement du cours.
+            </div>
+        `;
         console.error(error);
     }
 }
 
-loadCourses();
+if (uploadBtn && fileInput) {
+    uploadBtn.addEventListener("click", () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener("change", () => {
+        const file = fileInput.files[0];
+        if (file) {
+            messageInput.value = file.name;
+        }
+    });
+}
+
+if (sendBtn && messageInput) {
+    sendBtn.addEventListener("click", () => {
+        const message = messageInput.value.trim();
+        if (message !== "") {
+            console.log("Message envoyé :", message);
+            messageInput.value = "";
+        }
+    });
+
+    messageInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            sendBtn.click();
+        }
+    });
+}
+
+loadCourseDetail();
 </script>
-
-
-
-
 
 </body>
 </html>
