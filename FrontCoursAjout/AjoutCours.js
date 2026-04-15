@@ -7,7 +7,9 @@ const button = document.getElementById('chercheur');
 const input = document.getElementById('formfile');
 
 
-button.addEventListener("click", ()=>{
+button.addEventListener("click", (evnt)=>{
+    evnt.preventDefault();
+    console.log("ça a cliqué chef !")
     input.click();
 })
 
@@ -29,6 +31,7 @@ droparea.addEventListener('drop', (evnt)=>{
     evnt.preventDefault();
     console.log("CA A ETE DROPP2 CHEF !")
     let file = evnt.dataTransfer.files[0];
+    console.log(file);
 
     FileisInputed(file);
 })
@@ -59,6 +62,7 @@ function FileisInputed(file){
             document.getElementById('icone').src = "./pdfLogo.png";
             instruText.innerText = file.name;
         }
+        console.log(file + " c'est le bon fichier !");
     } else {
         alert("Ceci n'est pas un PDF");
     }

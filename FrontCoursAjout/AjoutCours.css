@@ -52,7 +52,7 @@ body {
     flex-direction: column;
 }
 
-.droparea .active{
+.droparea.active{
     border: solid 2px;
 }
 
@@ -72,10 +72,11 @@ li{
 }
 
 .cours-form{
+    color : white;
     display: flex;
     margin : 20px;
     background: none;
-    border:#ffffff solid 2px;
+    border:#ffffff solid 0.1mm;
     border-radius: 10px;
     width : 50%;
     height :40px;
@@ -83,6 +84,7 @@ li{
 
 #description{
     height : 100px;
+    border:#ffffff solid 0.1mm;
 }
 
 #titr{
@@ -91,11 +93,22 @@ li{
 }
 
 #submitbutton{
-    background: linear-gradient(#c43e81, #000000);
+    background: linear-gradient(to right, #c43e81, #340d46) ;
     color : white;
-    border:white;
+    border:white solid 0.1mm;
     border-radius: 15px;
     width: 150px;
     height: 50px;
     align-self: flex-end;
+    margin: 5px;
+}
+
+#chercheur{
+    background: linear-gradient(to right, #2e1a66, #340d46) ;
+    color : white;
+    border:white solid 0.1mm;
+    border-radius: 15px;
+    width: 150px;
+    height: 50px;
+    margin: 5px;
 }
