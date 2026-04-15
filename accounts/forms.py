@@ -11,6 +11,11 @@ class SignUpForm(forms.ModelForm):
         label="Confirmer le mot de passe",
         widget=forms.PasswordInput
     )
+    profile_picture = forms.FileField(
+        label="Ajouter une photo de profile",
+        required=False,
+        widget=forms.ClearableFileInput
+    )
 
     class Meta:
         model = User

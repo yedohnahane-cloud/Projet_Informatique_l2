@@ -15,6 +15,9 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("courses/", include("courses.urls")),
     path("quiz/", include("quiz.urls")),
+    path("api/", include("games.urls")),
+
+
 ]
 
 if settings.DEBUG:

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework',
     'courses',
-    'quiz'
+    'quiz',
+    'games'
 ]
 
 MIDDLEWARE = [
