@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un quizz</title>
+    <link rel="stylesheet" href="/static/css/formulaire-question.css ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="page-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="/static/images/logo.png" alt="Logo JavaMastery AI">
+        </div>
+
+        <nav class="menu">
+            <a href="#" class="menu-item">
+                <img src="/static/images/icon-cours.png" alt="">
+                <span>Mes cours</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <img src="/static/images/logo-chatbot.png" alt="">
+                <span>Chatbot</span>
+            </a>
+
+            <a href="#" class="menu-item active">
+                <img src="/static/images/logo-jeu.png" alt="">
+                <span>Actions</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-illustration">
+            <img src="/static/images/image.png" alt="Illustration">
+        </div>
+    </aside>
+
+    <!-- CONTENU -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <h1>Formulaire d’ajout de quizz à un cours</h1>
+            <p class="subtitle">
+                Veuillez remplir ce formulaire et associer un quizz à un cours publié
+            </p>
+
+            <div class="course-select-block">
+                <label for="coursAssocie">Cours associé</label>
+                <div class="select-wrapper">
+                    <select id="coursAssocie">
+                        <option value="">Choisir un cours</option>
+                        <option>POO en Java</option>
+                        <option>Exceptions</option>
+                        <option>Les collections</option>
+                        <option>Interfaces et classes abstraites</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </div>
+
+            <div id="questionsContainer">
+                <!-- QUESTION 1 -->
+                <div class="question-card">
+                    <h2>Question 1</h2>
+
+                    <label>Énoncé de la question</label>
+                    <input type="text" class="question-input" placeholder="Écris la question ici">
+
+                    <p class="info-text">Clique sur la bonne réponse pour la sélectionner.</p>
+
+                    <div class="answers-grid">
+                        <div class="answer-box" data-group="0">
+                            <span class="answer-badge">Réponse 1</span>
+                            <input type="text" placeholder="Entrer la réponse 1">
+                        </div>
+
+                        <div class="answer-box" data-group="0">
+                            <span class="answer-badge">Réponse 2</span>
+                            <input type="text" placeholder="Entrer la réponse 2">
+                        </div>
+
+                        <div class="answer-box" data-group="0">
+                            <span class="answer-badge">Réponse 3</span>
+                            <input type="text" placeholder="Entrer la réponse 3">
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="correct-answer-input" value="">
+                </div>
+            </div>
+
+            <button id="addQuestionBtn" class="add-question-btn" type="button">
+                <span class="plus-circle"><i class="fa-solid fa-plus"></i></span>
+                Ajouter une question
+            </button>
+
+            <div class="publish-row">
+                <button class="publish-btn" type="button">Publier le quizz</button>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<script>
+    let questionIndex = 1;
+
+    function activateAnswerSelection(questionCard) {
+        const answerBoxes = questionCard.querySelectorAll(".answer-box");
+        const hiddenInput = questionCard.querySelector(".correct-answer-input");
+
+        answerBoxes.forEach((box, index) => {
+            box.addEventListener("click", (e) => {
+                if (e.target.tagName.toLowerCase() !== "input") {
+                    const inputInside = box.querySelector("input");
+                    if (inputInside) {
+                        inputInside.focus();
+                    }
+                }
+
+                answerBoxes.forEach(item => item.classList.remove("selected"));
+                box.classList.add("selected");
+
+                hiddenInput.value = index + 1;
+            });
+        });
+    }
+
+    const firstQuestion = document.querySelector(".question-card");
+    activateAnswerSelection(firstQuestion);
+
+    document.getElementById("addQuestionBtn").addEventListener("click", () => {
+        questionIndex++;
+
+        const container = document.getElementById("questionsContainer");
+
+        const questionCard = document.createElement("div");
+        questionCard.className = "question-card";
+
+        questionCard.innerHTML = `
+            <h2>Question ${questionIndex}</h2>
+
+            <label>Énoncé de la question</label>
+            <input type="text" class="question-input" placeholder="Écris la question ici">
+
+            <p class="info-text">Clique sur la bonne réponse pour la sélectionner.</p>
+
+            <div class="answers-grid">
+                <div class="answer-box" data-group="${questionIndex}">
+                    <span class="answer-badge">Réponse 1</span>
+                    <input type="text" placeholder="Entrer la réponse 1">
+                </div>
+
+                <div class="answer-box" data-group="${questionIndex}">
+                    <span class="answer-badge">Réponse 2</span>
+                    <input type="text" placeholder="Entrer la réponse 2">
+                </div>
+
+                <div class="answer-box" data-group="${questionIndex}">
+                    <span class="answer-badge">Réponse 3</span>
+                    <input type="text" placeholder="Entrer la réponse 3">
+                </div>
+            </div>
+
+            <input type="hidden" class="correct-answer-input" value="">
+        `;
+
+        container.appendChild(questionCard);
+        activateAnswerSelection(questionCard);
+    });
+</script>
+
+</body>
+</html>

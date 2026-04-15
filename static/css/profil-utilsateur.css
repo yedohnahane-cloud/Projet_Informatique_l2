@@ -1,0 +1,111 @@
+:root {
+    --bg-left: #0f1533;
+    --bg-right: #2c2f63;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.25);
+    --text-white: #ffffff;
+    --text-soft: #d8d9f1;
+    --purple-btn: linear-gradient(90deg, #c04d8f, #6c2d86);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(90deg, var(--bg-left), var(--bg-right));
+    color: var(--text-white);
+    min-height: 100vh;
+    padding: 50px;
+}
+
+/* PAGE */
+.page {
+    max-width: 800px;
+    margin: auto;
+}
+
+/* TITRES */
+h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--text-soft);
+    margin-bottom: 40px;
+}
+
+/* CARD */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+}
+
+.card h2 {
+    margin-bottom: 25px;
+}
+
+/* FORM */
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    flex: 1;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: var(--text-soft);
+}
+
+.input-group input {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: white;
+    padding: 0 10px;
+}
+
+/* BOUTON */
+.btn {
+    min-width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background: var(--purple-btn);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
