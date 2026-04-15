@@ -27,18 +27,29 @@ class Course(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField(blank=True, null=True)
     pdf_file = models.FileField(upload_to="courses/pdfs/", blank=True, null=True)
-    order = models.PositiveIntegerField(unique=True)
+    order = models.PositiveIntegerField()
     is_published = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    subject = models.ForeignKey(Subject,
-    on_delete=models.CASCADE,
-    related_name="courses",
-    null=True,
-    blank=True
-)
+    subject = models.ForeignKey(
+        Subject,
+        on_delete=models.CASCADE,
+        related_name="courses",
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        ordering = ["subject", "order"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["subject", "order"],
+                name="unique_order_per_subject"
+            )
+        ]
 
     def __str__(self):
         return f"{self.order} - {self.title}"
+
 
 class StudentCourseProgress(models.Model):
     student = models.ForeignKey(
@@ -64,5 +75,3 @@ class StudentCourseProgress(models.Model):
 
     def __str__(self):
         return f"{self.student.email} - {self.course.title}"
-    
-    #
