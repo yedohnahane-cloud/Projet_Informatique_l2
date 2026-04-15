@@ -1,86 +1,153 @@
 /* =============================================
    JAVAMASTERAI – QUIZZS ET JEUX  |  style.css
-   Colors: #53225e (dark purple), #ad47c4 (accent)
+   Sidebar identique au binôme + grille de jeux
    ============================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Nunito:wght@400;600;700&display=swap');
-
-/* ---------- RESET & BASE ---------- */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 
 :root {
-  --purple-dark:   #53225e;
-  --purple-mid:    #6b2d7e;
-  --accent:        #ad47c4;
-  --accent-light:  #cb6fe0;
-  --bg-card:       #3a1a48;
-  --bg-card-hover: #4a2260;
-  --text-main:     #f0e6f6;
-  --text-muted:    #c9a8dc;
-  --sidebar-w:     240px;
-  --radius-card:   16px;
-  --radius-btn:    10px;
-  --transition:    0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --bg-main: #141935;
+  --bg-secondary: #1d2145;
+  --sidebar-top: #4e1f68;
+  --sidebar-bottom: #6a2f83;
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(186, 112, 255, 0.28);
+  --active-purple: #b06cff;
+  --text-main: #ffffff;
+  --text-soft: #d6dbf5;
+  --text-muted: #c7cce2;
+  --accent: #ad47c4;
+  --accent-light: #cb6fe0;
+  --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.28);
+  --radius-xl: 22px;
+  --radius-lg: 18px;
+  --transition: 0.25s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
+  font-family: 'Nunito', "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(120deg, #161a39 0%, #10152f 100%);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+
+/* ---- LAYOUT ---- */
+.app-container {
   display: flex;
   min-height: 100vh;
-  background: #1e0d28;
-  font-family: 'Nunito', sans-serif;
-  color: var(--text-main);
-  overflow-x: hidden;
+  padding: 14px;
+  gap: 18px;
 }
 
-/* ---------- SIDEBAR ---------- */
+/* =====================
+   SIDEBAR — binôme exact
+   ===================== */
 .sidebar {
-    width: 250px;
-    background: linear-gradient(180deg, #53225E 0%, #AD47C4 100%);
-    border-radius: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 30px 15px;
-    flex-shrink: 0;
+  width: 250px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--sidebar-top), var(--sidebar-bottom));
+  border-radius: 24px;
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-soft);
 }
 
-.logo { max-width: 130px; margin-bottom: 30px; }
-.navigation { display: flex; flex-direction: column; gap: 5px; }
-.nav-link {
-    background: transparent; border: none; color: white;
-    padding: 12px 15px; border-radius: 12px; display: flex;
-    align-items: center; gap: 12px; font-size: 0.9rem; cursor: pointer;
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 28px;
+  padding-top: 10px;
 }
-.nav-link.active { background-color: rgba(255, 255, 255, 0.2); font-weight: bold; }
-.side-img { width: 100%; border-radius: 20px; }
 
+.logo img {
+  width: 105px;
+  height: auto;
+  object-fit: contain;
+}
 
-/* ---------- MAIN CONTENT ---------- */
+/* MENU */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 12px;
+  color: #f5ebff;
+  font-size: 1.05rem;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.menu-item img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.10);
+  transform: translateX(2px);
+}
+
+.menu-item.active {
+  background: #b178ff;
+  color: #3c1d54;
+  font-weight: 700;
+}
+
+/* Illustration bas sidebar */
+.sidebar-illustration {
+  margin-top: auto;
+  padding: 18px 6px 0;
+}
+
+.sidebar-illustration img {
+  width: 100%;
+  max-width: 185px;
+  margin: 0 auto;
+}
+
+/* =====================
+   MAIN CONTENT
+   ===================== */
 .main-content {
-  margin-left: var(--sidebar-w);
   flex: 1;
-  padding: 36px 40px 60px;
-  min-height: 100vh;
-
-  max-width: 1200px;   /* limite la largeur */
-  margin-right: auto;  /* centre */
+  min-width: 0;
+  background: linear-gradient(90deg, #121739 0%, #222753 100%);
+  border-radius: 24px;
+  padding: 36px 32px 48px;
+  box-shadow: var(--shadow-soft);
+  overflow-y: auto;
 }
 
+/* Page header */
 .page-header {
   margin-bottom: 32px;
 }
 
 .page-header h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--text-main);
   margin-bottom: 6px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
 }
 
 .page-header p {
@@ -88,20 +155,22 @@ body {
   font-size: 14px;
 }
 
-/* ---------- GAMES GRID ---------- */
+/* =====================
+   GAMES GRID
+   ===================== */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 280px));
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
   gap: 22px;
-
-  justify-content: center; /* 🔥 ça centre les cartes */
 }
 
-/* ---------- GAME CARD ---------- */
+/* =====================
+   GAME CARD
+   ===================== */
 .game-card {
-  background: var(--bg-card);
-  border-radius: var(--radius-card);
-  border: 1px solid rgba(173, 71, 196, 0.2);
+  background: linear-gradient(180deg, rgba(30, 36, 77, 0.72), rgba(25, 30, 67, 0.88));
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   cursor: pointer;
   text-decoration: none;
@@ -111,9 +180,9 @@ body {
 }
 
 .game-card:hover {
-  transform: translateY(-5px) scale(1.015);
-  border-color: rgba(173, 71, 196, 0.6);
-  box-shadow: 0 12px 40px rgba(173, 71, 196, 0.22);
+  transform: translateY(-5px);
+  border-color: rgba(173, 71, 196, 0.65);
+  box-shadow: 0 14px 36px rgba(173, 71, 196, 0.20);
 }
 
 /* Thumbnail */
@@ -122,7 +191,7 @@ body {
   aspect-ratio: 16 / 9;
   overflow: hidden;
   position: relative;
-  background: #2a0d38;
+  background: #1a0f28;
 }
 
 .card-thumb img {
@@ -137,20 +206,19 @@ body {
   transform: scale(1.06);
 }
 
-/* Thumb fallback (emoji / number) */
 .card-thumb-fallback {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 52px;
-  background: linear-gradient(135deg, var(--purple-dark) 0%, #2a0d38 100%);
+  font-size: 48px;
+  background: linear-gradient(135deg, var(--sidebar-top) 0%, #1a0f28 100%);
 }
 
 /* Card body */
 .card-body {
-  padding: 16px 18px 18px;
+  padding: 14px 16px 18px;
 }
 
 .card-label {
@@ -159,15 +227,14 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
 .card-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--text-main);
-  margin-bottom: 8px;
+  margin-bottom: 7px;
   line-height: 1.3;
 }
 
@@ -177,7 +244,7 @@ body {
   line-height: 1.55;
 }
 
-/* "Jouer" badge on hover */
+/* Play badge on hover */
 .card-play-badge {
   position: absolute;
   top: 10px;
@@ -201,31 +268,36 @@ body {
   transform: translateY(0);
 }
 
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 68px;
-    padding: 20px 8px;
+/* =====================
+   RESPONSIVE
+   ===================== */
+@media (max-width: 900px) {
+  .app-container {
+    flex-direction: column;
+    padding: 10px;
   }
-  .logo-text,
-  .nav-item span,
-  .sidebar-bottom {
+
+  .sidebar {
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .sidebar-illustration {
     display: none;
   }
-  .nav-item {
-    justify-content: center;
-    padding: 13px;
-  }
-  .logo-circle {
-    width: 44px;
-    height: 44px;
-  }
+
   .main-content {
-    margin-left: 68px;
-    padding: 24px 18px 40px;
+    padding: 24px 18px 32px;
   }
+
   .games-grid {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 14px;
   }
+}
+
+@media (max-width: 600px) {
+  .menu-item { font-size: 0.98rem; }
+  .games-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .page-header h1 { font-size: 20px; }
 }
