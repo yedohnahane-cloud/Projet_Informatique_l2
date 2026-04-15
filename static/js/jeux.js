@@ -9,7 +9,7 @@ const GAMES = [
     url: "https://www.codingame.com/start/",
     emoji: "🦖",
     description: "Écrire du code Java pour attaquer, se défendre et vaincre un monstre.",
-    img: "images/image1.png"
+    img: "/static/images/jeux/image1.png"
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const GAMES = [
     url: "https://robocode.sourceforge.io/",
     emoji: "🤖",
     description: "Programmer un robot pour exécuter des actions et combattre.",
-    img: "images/image2.png"
+    img: "/static/images/jeux/image3.png"
   },
   {
     id: 3,
@@ -25,7 +25,7 @@ const GAMES = [
     url: "https://www.codewars.com/",
     emoji: "⚔️",
     description: "Résoudre des énigmes avec du code pour sortir d'une pièce.",
-    img: "images/image3.png"
+    img: "/static/images/jeux/image4.png"
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ const GAMES = [
     url: "https://screeps.com/",
     emoji: "🚀",
     description: "Programmer les actions et trajectoires d'un vaisseau spatial.",
-    img: "images/image4.png"
+    img: "/static/images/jeux/image2.png"
   },
   {
     id: 5,
@@ -41,7 +41,7 @@ const GAMES = [
     url: "https://checkio.org/",
     emoji: "🏙️",
     description: "Créer des bâtiments et structures via des classes Java.",
-    img: "images/image5.png"
+    img: "/static/images/jeux/image5.png"
   },
   {
     id: 6,
@@ -49,7 +49,7 @@ const GAMES = [
     url: "https://codecombat.com/",
     emoji: "🕵️",
     description: "Trouver et corriger des bugs pour résoudre des enquêtes.",
-    img: "images/image6.png"
+    img: "/static/images/jeux/image6.png"
   },
   {
     id: 7,

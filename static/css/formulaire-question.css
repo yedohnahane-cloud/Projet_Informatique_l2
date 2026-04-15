@@ -44,13 +44,20 @@ a {
 
 /* SIDEBAR */
 .sidebar {
-    width: 205px;
-    background: linear-gradient(180deg, var(--sidebar-top), var(--sidebar-bottom));
-    border-radius: 0 24px 24px 0;
-    padding: 18px 14px;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
+  width: 250px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--sidebar-top), var(--sidebar-bottom));
+  border-radius: 24px;
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-soft);
+
+  position: fixed;   /* 🔥 ajoute ça */
+  top: 14px;         /* pour respecter ton padding global */
+  left: 14px;        /* pour rester dans ton layout */
+  height: calc(100vh - 28px); /* prend toute la hauteur écran */
+  overflow: hidden;  /* évite débordement */
 }
 
 .logo {
@@ -107,10 +114,17 @@ a {
 }
 
 /* MAIN */
+
 .main-content {
-    flex: 1;
-    padding: 48px 42px;
-    overflow-y: auto;
+  flex: 1;
+  min-width: 0;
+  background: linear-gradient(90deg, #121739 0%, #222753 100%);
+  border-radius: 24px;
+  padding: 36px 32px 48px;
+  box-shadow: var(--shadow-soft);
+
+  margin-left: 280px; /* 👈 250px sidebar + marge */
+  overflow-y: auto;
 }
 
 .content-wrapper {
