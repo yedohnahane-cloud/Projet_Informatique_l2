@@ -98,6 +98,28 @@ h1 {
     transform: translateY(-2px);
 }
 
+/* ===== SECTION SUPPRIMER COMPTE ===== */
+
+.danger-card {
+    margin-top: 40px;
+    border: 1px solid rgba(255, 80, 100, 0.4);
+}
+
+.danger-text {
+    color: var(--text-soft);
+    font-size: 14px;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+.danger-action {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.danger-btn {
+    background: linear-gradient(90deg, #ff4d6d, #c9184a);
+}
 /* RESPONSIVE */
 @media (max-width: 600px) {
     .form-row {

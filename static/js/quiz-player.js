@@ -14,7 +14,7 @@ async function loadQuiz() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (data.error && data.error.includes("Nombre maximal de tentatives atteint")) {
+            if (data.redirect_to_result) {
                 window.location.href = quizResultUrl;
                 return;
             }
@@ -27,9 +27,9 @@ async function loadQuiz() {
         quizData = data;
         renderQuestion();
     } catch (error) {
+        console.error("Erreur loadQuiz:", error);
         questionTextEl.textContent = "Erreur réseau.";
         nextBtn.disabled = true;
-        console.error(error);
     }
 }
 
@@ -43,9 +43,9 @@ function renderQuestion() {
 
     answersContainer.innerHTML = question.choices.map(choice => `
         <label class="answer">
-            <input 
-                type="radio" 
-                name="question_${question.id}" 
+            <input
+                type="radio"
+                name="question_${question.id}"
                 value="${choice.id}"
                 ${answers[question.id] == choice.id ? "checked" : ""}
             >
@@ -56,14 +56,12 @@ function renderQuestion() {
         </label>
     `).join("");
 
-    if (currentQuestionIndex === total - 1) {
-        nextBtn.textContent = "Terminer";
-    } else {
-        nextBtn.textContent = "Suivant";
-    }
+    nextBtn.textContent = currentQuestionIndex === total - 1 ? "Terminer" : "Suivant";
 }
 
 nextBtn.addEventListener("click", async () => {
+    if (!quizData) return;
+
     const question = quizData.questions[currentQuestionIndex];
     const selected = document.querySelector(`input[name="question_${question.id}"]:checked`);
 
@@ -84,7 +82,7 @@ nextBtn.addEventListener("click", async () => {
 
 async function submitQuiz() {
     try {
-        const response = await fetch(`/quiz/${quizId}/submit/`, {
+        const response = await fetch(quizSubmitUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -101,9 +99,9 @@ async function submitQuiz() {
         }
 
         localStorage.setItem("quizResult", JSON.stringify(data));
-        window.location.href = `/quiz/${quizId}/result/`;
+        window.location.href = quizResultUrl;
     } catch (error) {
-        console.error(error);
+        console.error("Erreur submitQuiz:", error);
         alert("Erreur réseau lors de la soumission.");
     }
 }

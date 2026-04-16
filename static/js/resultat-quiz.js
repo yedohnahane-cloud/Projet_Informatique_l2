@@ -15,6 +15,7 @@ const scoreText = document.getElementById("score-text");
 const attemptText = document.getElementById("attempt-text");
 const nextCourseBox = document.getElementById("next-course-box");
 const reviewBtn = document.getElementById("review-errors-btn");
+const backCourseBtn = document.getElementById("back-course-btn");
 const resetBtn = document.getElementById("reset-attempts-btn");
 const generateErrorsBtn = document.getElementById("generate-errors-btn");
 
@@ -34,12 +35,13 @@ if (storedResult) {
     const canReview = result.score >= 80 || result.attempt_count >= 3;
     const canReset = result.attempt_count >= 3 || result.score >= 80;
 
-    if (reviewBtn && !canReview) {
-        reviewBtn.style.opacity = "0.6";
-        reviewBtn.style.pointerEvents = "none";
-        reviewBtn.textContent = "Erreurs après 80% ou 3 essais";
+    if (canReview) {
+        reviewBtn.style.display = "inline-flex";
+        backCourseBtn.style.display = "none";
+    } else {
+        reviewBtn.style.display = "none";
+        backCourseBtn.style.display = "inline-flex";
     }
-
     if (resetBtn && canReset) {
         resetBtn.style.display = "inline-flex";
     }
@@ -53,20 +55,22 @@ if (storedResult) {
     if (nextCourseBox) {
         if (result.next_course_unlocked && result.next_course_id) {
             nextCourseBox.innerHTML = `
-                <p>Le chapitre suivant a été débloqué.</p>
                 <a href="/courses/chapters/${result.next_course_id}/view/" class="action-btn">
                     Aller au chapitre suivant
                 </a>
             `;
         } else if (result.attempt_count >= 3 && result.next_course_id) {
             nextCourseBox.innerHTML = `
-                <p>Vous avez atteint 3 essais. Vous pouvez réinitialiser vos essais ou passer au chapitre suivant.</p>
                 <a href="/courses/chapters/${result.next_course_id}/view/" class="action-btn">
                     Passer au chapitre suivant
                 </a>
             `;
         } else {
-            nextCourseBox.innerHTML = `<p>Continuez vos révisions pour progresser.</p>`;
+            nextCourseBox.innerHTML = `
+    <div class="info-message warning">
+        Continuez vos révisions pour progresser.
+    </div>
+`;
         }
     }
 } else {
