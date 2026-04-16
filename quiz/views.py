@@ -9,7 +9,7 @@ from .services import (
     create_quiz_attempt,
     update_progress_after_attempt,
 )
-from courses .views import StudentCourseProgress
+from courses.models import StudentCourseProgress
 
 @login_required
 def start_quiz(request, quiz_id):
@@ -97,7 +97,6 @@ def submit_quiz(request, quiz_id):
         "attempt_id": attempt.id,
         "score": score,
         "attempt_number": attempt.attempt_number,
-        "attempt_id": attempt.id,
         "is_completed": progress.is_completed,
         "attempt_count": progress.attempt_count,
         "errors": errors,
@@ -140,6 +139,7 @@ def review_attempt(request, quiz_id):
         "attempt_number": attempt.attempt_number,
         "score": attempt.score,
         "errors": attempt.error_summary,
+        "attempt_id": attempt.id,
         "created_at": attempt.created_at.strftime("%d/%m/%Y %H:%M"),
     })
 from django.contrib.auth.decorators import login_required

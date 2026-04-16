@@ -16,6 +16,7 @@ const attemptText = document.getElementById("attempt-text");
 const nextCourseBox = document.getElementById("next-course-box");
 const reviewBtn = document.getElementById("review-errors-btn");
 const resetBtn = document.getElementById("reset-attempts-btn");
+const generateErrorsBtn = document.getElementById("generate-errors-btn");
 
 const storedResult = localStorage.getItem("quizResult");
 
@@ -43,6 +44,12 @@ if (storedResult) {
         resetBtn.style.display = "inline-flex";
     }
 
+    if (generateErrorsBtn && !result.attempt_id) {
+        generateErrorsBtn.disabled = true;
+        generateErrorsBtn.style.opacity = "0.6";
+        generateErrorsBtn.style.pointerEvents = "none";
+    }
+
     if (nextCourseBox) {
         if (result.next_course_unlocked && result.next_course_id) {
             nextCourseBox.innerHTML = `
@@ -65,6 +72,12 @@ if (storedResult) {
 } else {
     if (scoreText) {
         scoreText.textContent = "Aucun résultat trouvé.";
+    }
+
+    if (generateErrorsBtn) {
+        generateErrorsBtn.disabled = true;
+        generateErrorsBtn.style.opacity = "0.6";
+        generateErrorsBtn.style.pointerEvents = "none";
     }
 }
 
@@ -93,6 +106,27 @@ if (resetBtn) {
             console.error("Erreur reset:", error);
             alert("Erreur réseau.");
         }
+    });
+}
+
+if (generateErrorsBtn) {
+    generateErrorsBtn.addEventListener("click", () => {
+        const storedResult = localStorage.getItem("quizResult");
+
+        if (!storedResult) {
+            alert("Aucun résultat de quiz trouvé.");
+            return;
+        }
+
+        const result = JSON.parse(storedResult);
+        const attemptId = result.attempt_id;
+
+        if (!attemptId) {
+            alert("Impossible de générer le quiz d'erreurs : tentative introuvable.");
+            return;
+        }
+
+        window.location.href = `/courses/chatbot/?attempt_id=${attemptId}`;
     });
 }
 
