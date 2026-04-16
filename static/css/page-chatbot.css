@@ -14,8 +14,7 @@ body {
 }
 
 /* LAYOUT */
-.container {
-    display: flex;
+.container {   display: flex;
     height: 100vh;
     padding: 10px;
     gap: 10px;
