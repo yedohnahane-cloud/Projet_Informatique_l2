@@ -5,6 +5,8 @@ from .models import Subject, Course, StudentCourseProgress
 import json
 from django.views.decorators.csrf import csrf_exempt
 from quiz.models import Quiz
+from django.shortcuts import render, get_object_or_404
+from quiz.models import QuizAttempt
 
 
 # =========================
@@ -32,8 +34,45 @@ def course_detail_page(request, course_id):
 
 @login_required
 def chatbot_page(request):
-    return render(request, "courses/page_chatbot.html")
+    prompt_prefill = ""
 
+    attempt_id = request.GET.get("attempt_id")
+
+    if attempt_id:
+        attempt = get_object_or_404(
+            QuizAttempt,
+            id=attempt_id,
+            student=request.user
+        )
+
+        errors = attempt.error_summary or []
+
+        if errors:
+            lines = []
+            for i, error in enumerate(errors, start=1):
+                question_text = error.get("question_text", "Question inconnue")
+                selected_choice = error.get("selected_choice") or "Aucune réponse"
+                correct_choice = error.get("correct_choice") or "Non disponible"
+
+                lines.append(
+                    f"{i}. Question : {question_text}\n"
+                    f"   Ma réponse : {selected_choice}\n"
+                    f"   Bonne réponse : {correct_choice}"
+                )
+
+            prompt_prefill = (
+                f"Je suis un étudiant qui apprend Java.\n"
+                f"J'ai fait des erreurs dans le quiz du cours '{attempt.quiz.course.title}'.\n"
+                f"Génère-moi un nouveau quiz de révision basé uniquement sur mes erreurs.\n"
+                f"Le quiz doit être en français, clair, progressif, et adapté à un débutant.\n"
+                f"Ajoute à la fin une courte correction expliquée pour chaque question.\n\n"
+                f"Voici mes erreurs :\n\n"
+                + "\n\n".join(lines)
+            )
+
+    return render(request, "courses/page_chatbot.html", {
+        "prompt_prefill": prompt_prefill
+    })
 
 # =========================
 # API ETUDIANT

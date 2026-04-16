@@ -97,6 +97,7 @@ def submit_quiz(request, quiz_id):
         "attempt_id": attempt.id,
         "score": score,
         "attempt_number": attempt.attempt_number,
+        "attempt_id": attempt.id,
         "is_completed": progress.is_completed,
         "attempt_count": progress.attempt_count,
         "errors": errors,
@@ -258,3 +259,4 @@ def reset_quiz_attempts(request, quiz_id):
 
     progress.attempt_count = 0
     progress.save(update_fields=["attempt_count"])
+

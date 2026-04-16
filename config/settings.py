@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+LOGIN_URL = "/accounts/signin/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -149,4 +150,6 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 

@@ -27,6 +27,7 @@ urlpatterns = [
     path("<int:subject_id>/chapters/", courses_page, name="courses_page"),
     path("chapters/<int:course_id>/view/", course_detail_page, name="course_detail_page"),
     path("chatbot/", chatbot_page, name="chatbot_page"),
+    
 
     # API étudiant
     path("api/subjects/", subjects_list, name="subjects_list"),
@@ -44,4 +45,5 @@ urlpatterns = [
     path("teacher/subjects/create/", create_subject_page, name="create_subject_page"),
     path("teacher/courses/create/", create_course_page, name="create_course_page"),
     path("teacher/my-courses/", teacher_courses_list_page, name="teacher_courses_list_page"),
+
 ]
