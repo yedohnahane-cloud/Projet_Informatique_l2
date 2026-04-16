@@ -1,0 +1,381 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaMastery AI</title>
+    <link rel="stylesheet" href="{% static 'css/page-chatbot.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        #messagesArea {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto 0 auto;
+            padding: 10px 20px 20px 20px;
+            box-sizing: border-box;
+            max-height: 55vh;
+            overflow-y: auto;
+        }
+
+        .user-message,
+        .bot-message {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 14px;
+            margin-bottom: 8px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: #7c5cff;
+            color: white;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background: #2a2f5a;
+            color: white;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.6;
+            animation: blink 1.2s infinite;
+        }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes blink {
+            0%, 80%, 100% { opacity: 0.3; transform: scale(1); }
+            40% { opacity: 1; transform: scale(1.15); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .chat-input input[type="text"] {
+            flex: 1;
+        }
+
+        .scroll-track {
+            position: absolute;
+            top: 120px;
+            right: 18px;
+            width: 6px;
+            height: 55%;
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .scroll-thumb {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.45);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo">
+        </div>
+
+        <nav class="menu">
+            <a href="{% url 'subjects_page' %}" class="menu-item">
+                <img src="{% static 'images/cours.png' %}" alt="">
+                <span>Mes cours</span>
+            </a>
+
+            <a href="{% url 'chatbot_page' %}" class="menu-item active">
+                <img src="{% static 'images/logo-chatbot.png' %}" alt="">
+                <span>Chatbot</span>
+            </a>
+
+            <a href="{% url 'games_page' %}" class="menu-item">
+                <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                <span>Quizzz et jeux</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-illustration">
+            <img src="" alt="">
+        </div>
+    </aside>
+
+    <main class="main">
+        <div class="chat-container" style="position: relative;">
+
+            <div class="settings">
+                <img src="" alt="">
+            </div>
+
+            <div class="chat-center" id="chatCenter">
+                <img src="{% static 'images/chat-box.icon.png' %}" class="bot-icon" alt="">
+                <h1>Ton assistant d'apprentissage de Java</h1>
+            </div>
+
+            <div id="messagesArea"></div>
+
+            <div class="scroll-track" id="scrollTrack">
+                <div class="scroll-thumb" id="scrollThumb"></div>
+            </div>
+
+            <div class="chat-input">
+                <button class="plus-btn" id="uploadBtn" type="button">+</button>
+                <input type="file" id="fileInput" style="display: none;">
+                <input type="text" id="messageInput" value="{{ prompt_prefill|default:'' }}" placeholder="Décris le quiz que tu veux générer">
+                <button class="mic-btn" id="sendBtn" type="button">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+</div>
+
+<script>
+const uploadBtn = document.getElementById("uploadBtn");
+const fileInput = document.getElementById("fileInput");
+const messageInput = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
+const messagesArea = document.getElementById("messagesArea");
+const chatCenter = document.getElementById("chatCenter");
+const scrollTrack = document.getElementById("scrollTrack");
+const scrollThumb = document.getElementById("scrollThumb");
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+const csrfToken = getCookie("csrftoken");
+
+let sessionId = null;
+
+function updateScrollbar() {
+    if (!messagesArea || !scrollTrack || !scrollThumb) return;
+
+    if (messagesArea.scrollHeight <= messagesArea.clientHeight) {
+        scrollTrack.style.opacity = "0";
+        return;
+    }
+
+    scrollTrack.style.opacity = "1";
+
+    const ratio = messagesArea.clientHeight / messagesArea.scrollHeight;
+    const thumbHeight = Math.max(30, ratio * scrollTrack.clientHeight);
+    const maxThumbTop = scrollTrack.clientHeight - thumbHeight;
+    const maxScrollTop = messagesArea.scrollHeight - messagesArea.clientHeight;
+    const thumbTop = maxScrollTop > 0
+        ? (messagesArea.scrollTop / maxScrollTop) * maxThumbTop
+        : 0;
+
+    scrollThumb.style.height = thumbHeight + "px";
+    scrollThumb.style.top = thumbTop + "px";
+}
+
+messagesArea.addEventListener("scroll", updateScrollbar);
+
+let isDragging = false;
+let dragStartY = 0;
+let dragStartScrollTop = 0;
+
+scrollThumb.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    dragStartY = e.clientY;
+    dragStartScrollTop = messagesArea.scrollTop;
+    e.preventDefault();
+});
+
+document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+
+    const delta = e.clientY - dragStartY;
+    const ratio = messagesArea.scrollHeight / scrollTrack.clientHeight;
+    messagesArea.scrollTop = dragStartScrollTop + delta * ratio;
+});
+
+document.addEventListener("mouseup", () => {
+    isDragging = false;
+});
+
+uploadBtn.addEventListener("click", () => {
+    fileInput.click();
+});
+
+fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+    if (file) {
+        messageInput.value = file.name;
+    }
+});
+
+function addMessage(sender, content) {
+    if (chatCenter) {
+        chatCenter.classList.add("hidden");
+    }
+
+    const div = document.createElement("div");
+    div.classList.add(sender === "user" ? "user-message" : "bot-message");
+    div.textContent = content;
+
+    messagesArea.appendChild(div);
+    messagesArea.scrollTop = messagesArea.scrollHeight;
+    updateScrollbar();
+}
+
+function addTypingIndicator() {
+    const div = document.createElement("div");
+    div.id = "typingIndicator";
+    div.classList.add("bot-message");
+    div.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+    messagesArea.appendChild(div);
+    messagesArea.scrollTop = messagesArea.scrollHeight;
+    updateScrollbar();
+}
+
+function removeTypingIndicator() {
+    const indicator = document.getElementById("typingIndicator");
+    if (indicator) {
+        indicator.remove();
+        updateScrollbar();
+    }
+}
+
+async function readJsonSafe(response) {
+    const text = await response.text();
+    console.log("Réponse brute du backend :", text);
+
+    if (!text) {
+        throw new Error(`Réponse vide du serveur (status ${response.status})`);
+    }
+
+    const contentType = response.headers.get("content-type") || "";
+    console.log("Content-Type :", contentType);
+
+    if (!contentType.includes("application/json")) {
+        throw new Error(`Le serveur a renvoyé du HTML ou autre chose au lieu de JSON (status ${response.status})`);
+    }
+
+    try {
+        return JSON.parse(text);
+    } catch (e) {
+        throw new Error(`JSON invalide reçu du serveur (status ${response.status})`);
+    }
+}
+async function createSession() {
+    const response = await fetch("/chatbot/create-session/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfToken
+        },
+        body: JSON.stringify({ role: "student" })
+    });
+
+    const data = await readJsonSafe(response);
+
+    if (!response.ok) {
+        throw new Error(data.error || `Erreur create_session (${response.status})`);
+    }
+
+    sessionId = data.session_id;
+    console.log("Session créée :", sessionId);
+}
+async function sendMessage() {
+    const message = messageInput.value.trim();
+    if (!message) return;
+
+    addMessage("user", message);
+    messageInput.value = "";
+    addTypingIndicator();
+
+    try {
+        if (!sessionId) {
+            await createSession();
+        }
+
+        const response = await fetch("/chatbot/send-message/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
+            },
+            body: JSON.stringify({
+                session_id: sessionId,
+                message: message
+            })
+        });
+
+        const data = await readJsonSafe(response);
+        removeTypingIndicator();
+
+        if (!response.ok) {
+            addMessage("assistant", data.error || "Erreur backend");
+            return;
+        }
+
+        addMessage("assistant", data.assistant_reply || "Pas de réponse reçue.");
+    } catch (error) {
+        removeTypingIndicator();
+        addMessage("assistant", "Erreur : " + error.message);
+        console.error(error);
+    }
+}
+
+sendBtn.addEventListener("click", sendMessage);
+
+messageInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+    }
+});
+
+window.addEventListener("load", updateScrollbar);
+window.addEventListener("resize", updateScrollbar);
+</script>
+
+</body>
+</html>
