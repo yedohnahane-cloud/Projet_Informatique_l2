@@ -343,7 +343,6 @@ a {
 }
 
 .mic-btn:active {
-<<<<<<< HEAD
   transform: scale(0.95);
 }
 
@@ -450,5 +449,4 @@ a {
         transform: translateX(0);
         opacity: 1;
     }
->>>>>>> integration-front-back
 }
