@@ -3,163 +3,73 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>JavaMastery AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaMastery AI – Chatbot</title>
     <link rel="stylesheet" href="{% static 'css/page-chatbot.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <style>
-        #messagesArea {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-            max-width: 900px;
-            margin: 20px auto 0 auto;
-            padding: 10px 20px 20px 20px;
-            box-sizing: border-box;
-            max-height: 55vh;
-            overflow-y: auto;
-        }
-
-        .user-message,
-        .bot-message {
-            max-width: 70%;
-            padding: 12px 16px;
-            border-radius: 14px;
-            margin-bottom: 8px;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .user-message {
-            align-self: flex-end;
-            background: #7c5cff;
-            color: white;
-        }
-
-        .bot-message {
-            align-self: flex-start;
-            background: #2a2f5a;
-            color: white;
-        }
-
-        .typing-dots {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .typing-dots span {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: white;
-            opacity: 0.6;
-            animation: blink 1.2s infinite;
-        }
-
-        .typing-dots span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-dots span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes blink {
-            0%, 80%, 100% { opacity: 0.3; transform: scale(1); }
-            40% { opacity: 1; transform: scale(1.15); }
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .chat-input input[type="text"] {
-            flex: 1;
-        }
-
-        .scroll-track {
-            position: absolute;
-            top: 120px;
-            right: 18px;
-            width: 6px;
-            height: 55%;
-            background: rgba(255,255,255,0.08);
-            border-radius: 10px;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-
-        .scroll-thumb {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255,255,255,0.45);
-            border-radius: 10px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
 
-<div class="container">
+<div class="app-container">
 
     <aside class="sidebar">
         <div class="logo">
-            <img src="{% static 'images/logo.png' %}" alt="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo JavaMastery AI">
         </div>
 
         <nav class="menu">
-            <a href="{% url 'subjects_page' %}" class="menu-item">
-                <img src="{% static 'images/cours.png' %}" alt="">
+            <a href="{% url 'subjects_page' %}" class="menu-item" id="nav-cours">
+                <img src="{% static 'images/icon-cours.png' %}" alt="">
                 <span>Mes cours</span>
             </a>
 
-            <a href="{% url 'chatbot_page' %}" class="menu-item active">
-                <img src="{% static 'images/logo-chatbot.png' %}" alt="">
+            <a href="{% url 'chatbot_page' %}" class="menu-item active" id="nav-chatbot">
+                <img src="{% static 'images/chat-box.icon.png' %}" alt="">
                 <span>Chatbot</span>
             </a>
 
-            <a href="{% url 'games_page' %}" class="menu-item">
-                <img src="{% static 'images/logo-jeu.png' %}" alt="">
-                <span>Quizzz et jeux</span>
+            <a href="{% url 'games_page' %}" class="menu-item" id="nav-jeux">
+                <img src="{% static 'images/icon-jeux.png' %}" alt="">
+                <span>Quizs et jeux</span>
             </a>
         </nav>
 
         <div class="sidebar-illustration">
-            <img src="" alt="">
+            <img src="{% static 'images/image-femme.png' %}" alt="Illustration apprentissage">
         </div>
     </aside>
 
-    <main class="main">
-        <div class="chat-container" style="position: relative;">
+    <main class="main-content">
+        <div class="chat-shell">
 
-            <div class="settings">
-                <img src="" alt="">
+            <div class="chat-container">
+
+                <div class="chat-center" id="chatCenter">
+                    <img src="{% static 'images/chat-box.icon.png' %}" class="bot-icon" alt="">
+                    <h1>Ton assistant d'apprentissage de Java</h1>
+                </div>
+
+                <div id="messagesArea"></div>
+
+                <div class="scroll-track" id="scrollTrack">
+                    <div class="scroll-thumb" id="scrollThumb"></div>
+                </div>
+
+                <div class="chat-input">
+                    <button class="plus-btn" id="uploadBtn" type="button">+</button>
+                    <input type="file" id="fileInput" style="display: none;">
+                    <input
+                        type="text"
+                        id="messageInput"
+                        value="{{ prompt_prefill|default:'' }}"
+                        placeholder="Décris le quiz que tu veux générer"
+                    >
+                    <button class="mic-btn" id="sendBtn" type="button">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+
             </div>
-
-            <div class="chat-center" id="chatCenter">
-                <img src="{% static 'images/chat-box.icon.png' %}" class="bot-icon" alt="">
-                <h1>Ton assistant d'apprentissage de Java</h1>
-            </div>
-
-            <div id="messagesArea"></div>
-
-            <div class="scroll-track" id="scrollTrack">
-                <div class="scroll-thumb" id="scrollThumb"></div>
-            </div>
-
-            <div class="chat-input">
-                <button class="plus-btn" id="uploadBtn" type="button">+</button>
-                <input type="file" id="fileInput" style="display: none;">
-                <input type="text" id="messageInput" value="{{ prompt_prefill|default:'' }}" placeholder="Décris le quiz que tu veux générer">
-                <button class="mic-btn" id="sendBtn" type="button">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
-            </div>
-
         </div>
     </main>
 
@@ -174,6 +84,7 @@ const messagesArea = document.getElementById("messagesArea");
 const chatCenter = document.getElementById("chatCenter");
 const scrollTrack = document.getElementById("scrollTrack");
 const scrollThumb = document.getElementById("scrollThumb");
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== "") {
@@ -190,7 +101,6 @@ function getCookie(name) {
 }
 
 const csrfToken = getCookie("csrftoken");
-
 let sessionId = null;
 
 function updateScrollbar() {
@@ -304,6 +214,7 @@ async function readJsonSafe(response) {
         throw new Error(`JSON invalide reçu du serveur (status ${response.status})`);
     }
 }
+
 async function createSession() {
     const response = await fetch("/chatbot/create-session/", {
         method: "POST",
@@ -323,6 +234,7 @@ async function createSession() {
     sessionId = data.session_id;
     console.log("Session créée :", sessionId);
 }
+
 async function sendMessage() {
     const message = messageInput.value.trim();
     if (!message) return;
