@@ -111,7 +111,7 @@
             <div class="message {{ message.tags }}">
                 {{ message }}
             </div>
-        {% endfor %}
+        {% endfor %}  
     </div>
 {% endif %}
 
@@ -141,7 +141,7 @@
         questionCard.className = "question-card";
 
         questionCard.innerHTML = `
-            <h2>Question ${questionIndex}</h2>
+            <h2>Question ${questionIndex}</h2>   
 
             <label>Énoncé de la question</label>
             <input type="text" name="question_text[]" class="question-input" placeholder="Écris la question ici">
