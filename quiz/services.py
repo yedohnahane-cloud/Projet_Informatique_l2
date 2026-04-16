@@ -94,26 +94,47 @@ def update_progress_after_attempt(student, quiz, score):
     unlocked_next_course = False
     next_course_id = None
 
+    print("=== DEBUG update_progress_after_attempt ===")
+    print("student:", student.email)
+    print("course:", quiz.course.id, quiz.course.title)
+    print("score:", score)
+    print("attempt_count before save:", progress.attempt_count)
+
     if score >= 80:
         progress.is_completed = True
         if not progress.completed_at:
             progress.completed_at = timezone.now()
+        progress.save()
 
+        print("quiz réussi, on débloque le suivant")
         unlocked_next_course, next_course_id = unlock_next_course(student, quiz.course)
 
     elif progress.attempt_count >= 3:
+        progress.save()
+
+        print("3 essais atteints, on débloque le suivant")
         unlocked_next_course, next_course_id = unlock_next_course(student, quiz.course)
 
-    progress.save()
+    else:
+        progress.save()
+        print("pas encore validé, pas de déblocage")
+
+    print("unlocked_next_course:", unlocked_next_course)
+    print("next_course_id:", next_course_id)
 
     return progress, unlocked_next_course, next_course_id
 
-
 def unlock_next_course(student, current_course):
     next_course = Course.objects.filter(
+        subject=current_course.subject,
         is_published=True,
         order__gt=current_course.order
     ).order_by("order").first()
+
+    print("=== DEBUG unlock_next_course ===")
+    print("current_course:", current_course.id, current_course.title, current_course.order)
+    print("subject:", current_course.subject_id)
+    print("next_course found:", next_course.id if next_course else None)
 
     if not next_course:
         return False, None
@@ -127,9 +148,14 @@ def unlock_next_course(student, current_course):
         }
     )
 
+    print("next_progress created:", created)
+    print("before unlock:", next_progress.is_unlocked)
+
     if not next_progress.is_unlocked:
         next_progress.is_unlocked = True
         next_progress.unlocked_at = timezone.now()
         next_progress.save()
+
+    print("after unlock:", next_progress.is_unlocked)
 
     return True, next_course.id

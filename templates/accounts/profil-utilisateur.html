@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil</title>
+    <link rel="stylesheet" href="{% static 'css/profil-utilsateur.css' %}">
+</head>
+<body>
+
+<div class="page">
+
+    <h1>Votre Profil</h1>
+    <p class="subtitle">
+        Gérez vos informations et modifiez votre mot de passe
+    </p>
+
+    <div class="card">
+
+        <h2>Informations personnelles</h2>
+
+        <!-- USERNAME -->
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label>Nom d'utilisateur</label>
+                    <input type="text" name="username" value="{{ request.user.username }}">
+                </div>
+
+                <button type="submit" name="update_username" class="btn">Modifier</button>
+            </div>
+
+            <!-- EMAIL -->
+            <div class="form-row">
+                <div class="input-group">
+                    <label>Adresse email</label>
+                    <input type="email" name="email" value="{{ request.user.email }}">
+                </div>
+
+                <button type="submit" name="update_email" class="btn">Modifier</button>
+            </div>
+
+        </form>
+
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+</div>
+
+</body>
+</html>

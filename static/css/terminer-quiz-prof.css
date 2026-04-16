@@ -252,3 +252,27 @@ a {
         min-width: unset;
     }
 }
+.review-errors {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.error-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 18px 20px;
+    color: white;
+}
+
+.error-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+}
+
+.error-card p {
+    margin: 8px 0;
+    line-height: 1.5;
+}

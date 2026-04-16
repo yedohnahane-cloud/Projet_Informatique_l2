@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révision du quiz - JavaMastery AI</title>
+    <link rel="stylesheet" href="{% static 'css/terminer-quiz-prof.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="page-container">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo JavaMastery AI">
+        </div>
+
+        <nav class="menu">
+            <a href="{% url 'subjects_page' %}" class="menu-item">
+                <img src="{% static 'images/logo-cours.png' %}" alt="">
+                <span>Mes cours</span>
+            </a>
+
+            <a href="{% url 'chatbot_page' %}" class="menu-item">
+                <img src="{% static 'images/logo-chatbot.png' %}" alt="">
+                <span>Chatbot</span>
+            </a>
+
+            <a href="{% url 'games_page' %}" class="menu-item active">
+                <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                <span>Quizs et jeux</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-illustration">
+            <img src="{% static 'images/image.png' %}" alt="Illustration">
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <section class="result-card">
+            <h1>
+                Révision du quiz :
+                <span>{{ quiz.title }}</span>
+            </h1>
+
+            <p id="review-score">Chargement du score...</p>
+            <p id="review-attempt-number"></p>
+
+            <div id="errors-container" class="review-errors">
+                <p>Chargement des erreurs...</p>
+            </div>
+
+            <div class="buttons-row" style="margin-top: 20px;">
+                <a href="{% url 'quiz_result_page' quiz.id %}" class="action-btn">Retour au résultat</a>
+                <a href="{% url 'quiz_page' quiz.id %}" class="action-btn">Recommencer</a>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+    const reviewUrl = "{% url 'review_attempt' quiz.id %}";
+</script>
+<script src="{% static 'js/review-attempt.js' %}"></script>
+
+</body>
+</html>

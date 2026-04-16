@@ -49,12 +49,16 @@
     <main class="main">
 
         <section class="course-wrapper">
-            <div class="quiz-top">
-                <a href="#" class="quiz-btn" id="quizBtn">
-                    <img src="{% static 'images/icone-quiz.png' %}" alt="">
-                    <span>Passer le quizz</span>
-                </a>
-            </div>
+<div class="quiz-top" id="quizActions">
+    <a href="#" class="quiz-btn" id="quizBtn">
+        <img src="{% static 'images/icone-quiz.png' %}" alt="">
+        <span>Passer le quizz</span>
+    </a>
+
+    <a href="#" class="quiz-btn" id="nextChapterBtn" hidden>
+        <span>Chapitre suivant</span>
+    </a>
+</div>
 
             <div class="course-section">
                 <div class="course-header">
@@ -118,6 +122,7 @@ const fileInput = document.getElementById("fileInput");
 const messageInput = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
 const quizBtn = document.getElementById("quizBtn");
+const nextChapterBtn = document.getElementById("nextChapterBtn");
 
 function escapeHtml(value) {
     const div = document.createElement("div");
@@ -183,7 +188,26 @@ async function loadCourseDetail() {
         courseMeta.textContent = `Chapitre ${data.order}`;
 
         if (quizBtn) {
-            quizBtn.href = "#";
+            if (data.quiz_id) {
+                quizBtn.href = `/quiz/${data.quiz_id}/play/`;
+                quizBtn.style.opacity = "1";
+                quizBtn.style.pointerEvents = "auto";
+                quizBtn.querySelector("span").textContent = "Passer le quizz";
+            } else {
+                quizBtn.href = "#";
+                quizBtn.style.opacity = "0.6";
+                quizBtn.style.pointerEvents = "none";
+                quizBtn.querySelector("span").textContent = "Aucun quiz disponible";
+            }
+        }
+
+        if (nextChapterBtn) {
+            if (data.is_completed && data.next_course_id) {
+                nextChapterBtn.href = `/courses/chapters/${data.next_course_id}/view/`;
+                nextChapterBtn.hidden = false;
+            } else {
+                nextChapterBtn.hidden = true;
+            }
         }
 
         if (data.pdf_file) {

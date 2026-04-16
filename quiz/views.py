@@ -9,7 +9,7 @@ from .services import (
     create_quiz_attempt,
     update_progress_after_attempt,
 )
-
+from courses .views import StudentCourseProgress
 
 @login_required
 def start_quiz(request, quiz_id):
@@ -27,7 +27,10 @@ def start_quiz(request, quiz_id):
     allowed, result = can_start_quiz(request.user, quiz)
 
     if not allowed:
-        return JsonResponse({"error": result}, status=403)
+        return JsonResponse({
+            "error": result,
+            "redirect_to_result": result == "Nombre maximal de tentatives atteint."
+        }, status=403)
 
     questions_data = []
     for question in quiz.questions.all():
@@ -52,7 +55,6 @@ def start_quiz(request, quiz_id):
     })
 
 
-@csrf_exempt
 @login_required
 def submit_quiz(request, quiz_id):
     if request.method != "POST":
@@ -71,7 +73,10 @@ def submit_quiz(request, quiz_id):
 
     allowed, result = can_start_quiz(request.user, quiz)
     if not allowed:
-        return JsonResponse({"error": result}, status=403)
+        return JsonResponse({
+            "error": result,
+            "redirect_to_result": result == "Nombre maximal de tentatives atteint."
+        }, status=403)
 
     try:
         body = json.loads(request.body)
@@ -110,9 +115,23 @@ def review_attempt(request, quiz_id):
         return JsonResponse({"error": "Quiz introuvable."}, status=404)
 
     attempt = quiz.attempts.filter(student=request.user).order_by("-attempt_number").first()
-
     if not attempt:
         return JsonResponse({"error": "Aucune tentative trouvée."}, status=404)
+
+    try:
+        progress = StudentCourseProgress.objects.get(
+            student=request.user,
+            course=quiz.course
+        )
+    except StudentCourseProgress.DoesNotExist:
+        return JsonResponse({"error": "Progression introuvable."}, status=404)
+
+    can_review = attempt.score >= 80 or progress.attempt_count >= 3
+
+    if not can_review:
+        return JsonResponse({
+            "error": "Vous pourrez voir vos erreurs après avoir obtenu au moins 80% ou après 3 tentatives."
+        }, status=403)
 
     return JsonResponse({
         "quiz_id": quiz.id,
@@ -120,7 +139,7 @@ def review_attempt(request, quiz_id):
         "attempt_number": attempt.attempt_number,
         "score": attempt.score,
         "errors": attempt.error_summary,
-        "created_at": attempt.created_at,
+        "created_at": attempt.created_at.strftime("%d/%m/%Y %H:%M"),
     })
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -167,3 +186,75 @@ def create_quiz_page(request):
         form = QuizForm()
 
     return render(request, "quiz/formulaire-question.html", {"form": form})
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Quiz
+
+
+@login_required
+def quiz_page(request, quiz_id):
+    if request.user.role != "student":
+        return redirect("subjects_page")
+
+    quiz = get_object_or_404(Quiz, id=quiz_id, is_published=True)
+
+    return render(request, "quiz/quiz-debut.html", {
+        "quiz": quiz
+    })
+
+
+@login_required
+def quiz_result_page(request, quiz_id):
+    if request.user.role != "student":
+        return redirect("subjects_page")
+
+    quiz = get_object_or_404(Quiz, id=quiz_id)
+
+    return render(request, "quiz/terminer-quiz-prof.html", {
+        "quiz": quiz
+    })
+
+@login_required
+def review_attempt_page(request, quiz_id):
+    if request.user.role != "student":
+        return redirect("subjects_page")
+
+    quiz = Quiz.objects.filter(id=quiz_id).first()
+    if not quiz:
+        return redirect("subjects_page")
+
+    return render(request, "quiz/review-attempt.html", {
+        "quiz": quiz
+    })
+
+from django.views.decorators.http import require_POST
+from courses.models import StudentCourseProgress
+
+
+@login_required
+@require_POST
+def reset_quiz_attempts(request, quiz_id):
+    if request.user.role != "student":
+        return JsonResponse({"error": "Accès réservé aux étudiants."}, status=403)
+
+    quiz = Quiz.objects.filter(id=quiz_id).first()
+    if not quiz:
+        return JsonResponse({"error": "Quiz introuvable."}, status=404)
+
+    try:
+        progress = StudentCourseProgress.objects.get(
+            student=request.user,
+            course=quiz.course
+        )
+    except StudentCourseProgress.DoesNotExist:
+        return JsonResponse({"error": "Progression introuvable."}, status=404)
+
+    # autorisé après 3 essais OU quiz validé
+    if progress.attempt_count < 3 and not progress.is_completed:
+        return JsonResponse({
+            "error": "La réinitialisation n’est disponible qu’après 3 essais ou validation du quiz."
+        }, status=403)
+
+    progress.attempt_count = 0
+    progress.save(update_fields=["attempt_count"])

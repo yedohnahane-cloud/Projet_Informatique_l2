@@ -1,101 +1,71 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Quiz - JavaMastery AI</title>
-    <link rel="stylesheet" href="/static/css/quiz.css">
+    <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
 </head>
 <body>
 
 <div class="container">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="logo">
-            <img src="/static/images/logo.png" alt="">
+            <img src="{% static 'images/logo.png' %}" alt="">
         </div>
 
         <nav class="menu">
-            <a href="coursprincipal.html" class="menu-item active ">
-                <img src="/static/images/cours.png" alt="">
+            <a href="{% url 'subjects_page' %}" class="menu-item">
+                <img src="{% static 'images/logo-cours.png' %}" alt="">
                 <span>Mes cours</span>
             </a>
 
-            <a href="page-chatbot.html" class="menu-item">
-                <img src="/static/images/chatbot.png" alt="">
+            <a href="{% url 'chatbot_page' %}" class="menu-item">
+                <img src="{% static 'images/logo-chatbot.png' %}" alt="">
                 <span>Chatbot</span>
             </a>
 
-            <a href="quiz-fin.html" class="menu-item ">
-                <img src="/static/images/logo-jeu.png" alt="menu-item ">
-                <span>Quizzz et jeux</span>
+            <a href="{% url 'games_page' %}" class="menu-item active">
+                <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                <span>Quizs et jeux</span>
             </a>
         </nav>
 
         <div class="sidebar-illustration">
-            <img src="/static/images/image-femme.png" alt="">
+            <img src="{% static 'images/image-femme.png' %}" alt="">
         </div>
     </aside>
 
-    <!-- MAIN -->
     <main class="main">
-
         <div class="quiz-container">
 
-            <!-- HEADER -->
             <div class="quiz-header">
-
-                <div class="progress">1/10</div>
+                <div class="progress" id="progress">1/1</div>
 
                 <div class="quiz-header-text">
-                    <h2>Question <span>01</span></h2>
-                    <p>
-                        Quelle boucle est utilisée lorsque le
-                        nombre d’itérations est connu à l’avance ?
-                    </p>
+                    <h2>Question <span id="question-number">01</span></h2>
+                    <p id="question-text">Chargement...</p>
                 </div>
-
             </div>
 
-            <!-- ANSWERS -->
-            <div class="answers">
+            <div class="answers" id="answers-container"></div>
 
-                <label class="answer">
-                    <input type="radio" name="q1">
-                    <div class="answer-content">
-                        <span>While</span>
-                        <div class="circle"></div>
-                    </div>
-                </label>
-
-                <label class="answer">
-                    <input type="radio" name="q1">
-                    <div class="answer-content">
-                        <span>Do ... while</span>
-                        <div class="circle"></div>
-                    </div>
-                </label>
-
-                <label class="answer">
-                    <input type="radio" name="q1">
-                    <div class="answer-content">
-                        <span>For</span>
-                        <div class="circle"></div>
-                    </div>
-                </label>
-
-            </div>
-
-            <!-- FOOTER -->
             <div class="quiz-footer">
-                <button class="btn-next">Suivant</button>
+                <button id="next-btn" class="btn-next">Suivant</button>
             </div>
 
         </div>
-
     </main>
 
 </div>
+
+<script>
+    const quizStartUrl = "{% url 'start_quiz' quiz.id %}";
+    const quizSubmitUrl = "{% url 'submit_quiz' quiz.id %}";
+    const quizResultUrl = "{% url 'quiz_result_page' quiz.id %}";
+</script>
+<script src="{% static 'js/quiz-player.js' %}"></script>
 
 </body>
 </html>

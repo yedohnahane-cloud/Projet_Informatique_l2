@@ -51,3 +51,29 @@ def leo_choisi_view(request):
 
 def lucie_choisi_view(request):
     return render(request, "accounts/lucie_choisi.html")
+
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def profile_view(request):
+    user = request.user
+
+    if request.method == "POST":
+
+        # Modifier username
+        if "update_username" in request.POST:
+            username = request.POST.get("username")
+            user.username = username
+            user.save()
+            messages.success(request, "Nom d'utilisateur mis à jour.")
+
+        # Modifier email
+        if "update_email" in request.POST:
+            email = request.POST.get("email")
+            user.email = email
+            user.save()
+            messages.success(request, "Email mis à jour.")
+
+        return redirect("profile")
+
+    return render(request, "accounts/profil-utilisateur.html")

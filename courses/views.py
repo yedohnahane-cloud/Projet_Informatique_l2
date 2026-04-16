@@ -4,6 +4,7 @@ from django.shortcuts import render
 from .models import Subject, Course, StudentCourseProgress
 import json
 from django.views.decorators.csrf import csrf_exempt
+from quiz.models import Quiz
 
 
 # =========================
@@ -155,6 +156,14 @@ def course_detail_api(request, course_id):
             status=404
         )
 
+    quiz = Quiz.objects.filter(course=course, is_published=True).first()
+
+    next_course = Course.objects.filter(
+        subject=course.subject,
+        is_published=True,
+        order__gt=course.order
+    ).order_by("order").first()
+
     # Prof ou admin : accès total
     if user.is_superuser or user.role == "teacher":
         return JsonResponse({
@@ -167,9 +176,9 @@ def course_detail_api(request, course_id):
             "is_unlocked": True,
             "is_completed": False,
             "attempt_count": 0,
+            "quiz_id": quiz.id if quiz else None,
+            "next_course_id": next_course.id if next_course else None,
         }, status=200)
-
-
 
     progress, created = StudentCourseProgress.objects.get_or_create(
         student=user,
@@ -197,6 +206,8 @@ def course_detail_api(request, course_id):
         "is_unlocked": progress.is_unlocked,
         "is_completed": progress.is_completed,
         "attempt_count": progress.attempt_count,
+        "quiz_id": quiz.id if quiz else None,
+        "next_course_id": next_course.id if next_course else None,
     }, status=200)
 # =========================
 # API PROFESSEUR
