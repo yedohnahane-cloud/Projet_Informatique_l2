@@ -112,3 +112,50 @@ li{
     height: 50px;
     margin: 5px;
 }
+.messages-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    padding: 14px 18px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    animation: slideIn 0.4s ease;
+}
+
+/* Types de messages */
+.message.success {
+    background: linear-gradient(135deg, #28c76f, #48da89);
+}
+
+.message.error {
+    background: linear-gradient(135deg, #ea5455, #ff7676);
+}
+
+.message.warning {
+    background: linear-gradient(135deg, #ff9f43, #ffc371);
+}
+
+.message.info {
+    background: linear-gradient(135deg, #00cfe8, #4facfe);
+}
+
+/* Animation */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

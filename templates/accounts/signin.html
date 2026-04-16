@@ -27,11 +27,7 @@
   <div class="right">
     <h2><span>Bienvenue</span> à nouveau</h2>
 
-    {% if messages %}
-      {% for message in messages %}
-        <p>{{ message }}</p>
-      {% endfor %}
-    {% endif %}
+
 
     <form method="POST">
       {% csrf_token %}
@@ -46,6 +42,14 @@
   </div>
 
 </div>
-
+{% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 </body>
 </html>

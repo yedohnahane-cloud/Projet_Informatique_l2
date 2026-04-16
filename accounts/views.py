@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import SignUpForm
 
 
-def signup_view(request):
+def signup_view(request, selected_character="Lucie"):
     if request.user.is_authenticated:
         return redirect("subjects_page")
 
@@ -13,13 +13,29 @@ def signup_view(request):
 
     if request.method == "POST":
         form = SignUpForm(request.POST)
+        selected_character = request.POST.get("selected_character", selected_character)
+
         if form.is_valid():
             form.save()
             messages.success(request, "Votre compte a été créé avec succès.")
             return redirect("signin")
 
-    return render(request, "accounts/signup.html", {"form": form})
+    return render(request, "accounts/signup.html", {
+        "form": form,
+        "selected_character": selected_character
+    })
 
+
+def signup_default_view(request):
+    return signup_view(request, selected_character="Lucie")
+
+
+def leo_choisi_view(request):
+    return signup_view(request, selected_character="Leo")
+
+
+def lucie_choisi_view(request):
+    return signup_view(request, selected_character="Lucie")
 
 def signin_view(request):
     if request.user.is_authenticated:
@@ -77,3 +93,4 @@ def profile_view(request):
         return redirect("profile")
 
     return render(request, "accounts/profil-utilisateur.html")
+

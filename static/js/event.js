@@ -1,4 +1,3 @@
-
 const personnages = [
   {
     nom: "Lucie",
@@ -14,43 +13,50 @@ const personnages = [
 
 let index = 0;
 
-// éléments
 const nomPerso = document.querySelector(".nom-perso");
 const imagePerso = document.querySelector(".perso img");
 const stats = document.querySelectorAll(".stat-nom");
+const choisirBtn = document.getElementById("choisirBtn");
+const titrePerso = document.getElementById("titrePerso");
+const texteChoix = document.getElementById("texteChoix");
+const selectedCharacterInput = document.getElementById("selectedCharacterInput");
 
-// ===== BOUTON DROITE =====
 document.querySelector(".droite-fleche").addEventListener("click", () => {
   index = (index + 1) % personnages.length;
   updatePerso();
 });
 
-// ===== BOUTON GAUCHE =====
 document.querySelector(".gauche-fleche").addEventListener("click", () => {
   index = (index - 1 + personnages.length) % personnages.length;
   updatePerso();
 });
 
-// ===== UPDATE =====
-function updatePerso(){
+function updatePerso() {
   nomPerso.textContent = personnages[index].nom;
   imagePerso.src = personnages[index].image;
 
   stats.forEach((stat, i) => {
     stat.textContent = personnages[index].stats[i];
   });
+
+  if (selectedCharacterInput) {
+    selectedCharacterInput.value = personnages[index].nom;
+  }
 }
 
-
-const choisirBtn = document.getElementById("choisirBtn");
-
 choisirBtn.addEventListener("click", () => {
+  const personnageActuel = personnages[index].nom;
 
-  if(personnages[index].nom === "Lucie"){
-    window.location.href = "lucie_choisi.html";
-  }
-  else if(personnages[index].nom === "Leo"){
-    window.location.href = "leo_choisi.html";
-  }
+  titrePerso.innerHTML = `Vous avez choisi <span>${personnageActuel}</span>`;
+  texteChoix.style.display = "block";
+  texteChoix.innerHTML = `Clique sur <strong>Créer un compte</strong> et code avec <span>${personnageActuel}</span>`;
+  choisirBtn.style.display = "none";
 
+  localStorage.setItem("personnageChoisi", personnageActuel);
+
+  if (selectedCharacterInput) {
+    selectedCharacterInput.value = personnageActuel;
+  }
 });
+
+updatePerso();

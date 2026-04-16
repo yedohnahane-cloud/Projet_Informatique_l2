@@ -47,11 +47,32 @@
         </aside>
 
         <main class="main-content">
-            <div class="topbar">
-                <button class="topbar-btn" aria-label="Ouvrir le menu">
-                    <i class="fa-solid fa-book-open"></i>
-                </button>
-            </div>
+<div class="topbar">
+    <button class="topbar-btn" id="menuBtn" type="button">
+        <i class="fa-solid fa-chevron-down"></i>
+    </button>
+
+    <div class="dropdown-menu" id="dropdownMenu">
+        <div class="user-info">
+            <strong>
+                {{ request.user.first_name }} {{ request.user.last_name }}
+            </strong>
+            <span>{{ request.user.email }}</span>
+        </div>
+
+        <hr>
+
+        <a href="{% url 'profile' %}" class="dropdown-item">
+            <i class="fa-regular fa-user"></i>
+            Profil
+        </a>
+
+        <a href="{% url 'logout' %}" class="dropdown-item">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Se déconnecter
+        </a>
+    </div>
+</div>
 
             <div class="scroll-area">
                 <h1 class="page-title">Choisir un cours</h1>
@@ -60,8 +81,33 @@
         </main>
 
     </div>
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
     <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        if (menuBtn && dropdownMenu) {
+            menuBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle("show");
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!dropdownMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    dropdownMenu.classList.remove("show");
+                }
+            });
+        }
+
         const grid = document.getElementById("subjects-grid");
 
         async function loadSubjects() {

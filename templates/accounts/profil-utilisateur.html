@@ -1,10 +1,9 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Profil</title>
-    <link rel="stylesheet" href="{% static 'css/profil-utilsateur.css' %}">
+    <link rel="stylesheet" href="/static/css/profil-utilsateur.css">
 </head>
 <body>
 
@@ -12,45 +11,48 @@
 
     <h1>Votre Profil</h1>
     <p class="subtitle">
-        Gérez vos informations et modifiez votre mot de passe
+        Gérez vos information et modifiez votre mot de passe
     </p>
 
+    <!-- CARD -->
     <div class="card">
 
         <h2>Informations personnelles</h2>
 
-        <!-- USERNAME -->
-        <form method="POST">
-            {% csrf_token %}
-
-            <div class="form-row">
-                <div class="input-group">
-                    <label>Nom d'utilisateur</label>
-                    <input type="text" name="username" value="{{ request.user.username }}">
-                </div>
-
-                <button type="submit" name="update_username" class="btn">Modifier</button>
+        <div class="form-row">
+            <div class="input-group">
+                <label>Nom d'utilisateur</label>
+                <input type="text" value="Sait">
             </div>
 
-            <!-- EMAIL -->
-            <div class="form-row">
-                <div class="input-group">
-                    <label>Adresse email</label>
-                    <input type="email" name="email" value="{{ request.user.email }}">
-                </div>
+            <button class="btn">Modifier</button>
+        </div>
 
-                <button type="submit" name="update_email" class="btn">Modifier</button>
+        <div class="form-row">
+            <div class="input-group">
+                <label>Adresse email</label>
+                <input type="email" value="hayatsait@gmail.com">
             </div>
 
-        </form>
+            <button class="btn">Modifier</button>
+        </div>
 
     </div>
-    {% if messages %}
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-{% endif %}
+    <!-- SUPPRIMER COMPTE -->
+<div class="card danger-card">
 
+    <h2>Supprimer mon compte :</h2>
+
+    <p class="danger-text">
+        La suppression de votre compte est définitive. Toutes vos informations
+        et vos actions passées seront perdues et ne pourront pas être récupérées.
+    </p>
+
+    <div class="danger-action">
+        <button class="btn danger-btn">Supprimer mon compte</button>
+    </div>
+
+</div>
 </div>
 
 </body>
