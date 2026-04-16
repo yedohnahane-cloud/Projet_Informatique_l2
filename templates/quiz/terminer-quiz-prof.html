@@ -72,10 +72,9 @@
 
     </div>
 
-<script>
-    const quizId = "{{ quiz.id }}";
-    const resetAttemptsUrl = "{% url 'reset_quiz_attempts' quiz.id %}";
-</script>
+    <script>
+        const quizId = "{{ quiz.id }}";
+    </script>
     <script src="{% static 'js/resultat-quiz.js' %}"></script>
 </body>
 </html>
