@@ -44,7 +44,7 @@
             <p class="subtitle">Veuillez remplir ce formulaire et associer un quiz à un chapitre publié.</p>
 
             <form method="POST">
-                {% csrf_token %}
+                {% csrf_token %}  
 
                 <div class="course-select-block">
                     <label for="{{ form.course.id_for_label }}">Chapitre associé</label>
