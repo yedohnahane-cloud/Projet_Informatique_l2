@@ -34,10 +34,10 @@
                         <span>Actions</span>
                     </a>
                 {% else %}
-                    <a href="#" class="menu-item">
-                        <img src="{% static 'images/logo-jeu.png' %}" alt="">
-                        <span>Quizs et jeux</span>
-                    </a>
+<a href="{% url 'games_page' %}" class="menu-item">
+    <img src="{% static 'images/logo-jeu.png' %}" alt="">
+    <span>Quizs et jeux</span>
+</a>
                 {% endif %}
             </nav>
 

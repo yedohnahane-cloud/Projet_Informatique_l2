@@ -17,7 +17,8 @@ from .views import (
     teacher_actions_page,
     create_subject_page,
     create_course_page,
-    teacher_courses_list_page
+    teacher_courses_list_page,
+    games_page
 )
 
 urlpatterns = [
@@ -31,6 +32,7 @@ urlpatterns = [
     path("api/subjects/", subjects_list, name="subjects_list"),
     path("api/subjects/<int:subject_id>/courses/", courses_list, name="courses_list"),
     path("api/student/courses/<int:course_id>/", course_detail_api, name="course_detail_api"),
+    path("games/", games_page, name="games_page"),
 
     # API professeur
     path("teacher/", teacher_courses_list, name="teacher_courses_list"),

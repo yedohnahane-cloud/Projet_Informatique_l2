@@ -447,3 +447,9 @@ def teacher_courses_list_page(request):
 
     courses = Course.objects.filter(teacher=request.user).select_related("subject").order_by("subject__title", "order")
     return render(request, "courses/subject_list.html", {"courses": courses})
+
+@login_required
+def games_page(request):
+    if request.user.role != "student":
+        return redirect("home")
+    return render(request, "courses/jeux.html")
