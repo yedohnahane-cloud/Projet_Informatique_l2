@@ -72,7 +72,7 @@
 <script>
     const quizId = "{{ quiz.id }}";
     const quizStartUrl = "{% url 'start_quiz' quiz.id %}";
-    const quizSubmitUrl = "{% url 'submit_quiz' quiz.id %}";
+    const quizSubmitUrl = "{% url 'submit_quiz' quiz.id %}"; 
     const quizResultUrl = "{% url 'quiz_result_page' quiz.id %}";
 </script>
 <script src="{% static 'js/quiz-player.js' %}"></script>
