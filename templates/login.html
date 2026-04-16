@@ -84,7 +84,7 @@ document.getElementById("loginBtn").addEventListener("click", async function () 
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password })  
     });
 
     const data = await res.json();
