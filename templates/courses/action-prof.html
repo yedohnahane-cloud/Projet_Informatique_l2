@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Actions</title>
+  <link rel="stylesheet" href="{% static 'css/action-prof.css' %}">
+</head>
+
+<body>
+<div class="app-container">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo JavaMastery AI">
+        </div>
+
+        <nav class="menu">
+            <a href="{% url 'subjects_page' %}" class="menu-item">
+                <img src="{% static 'images/icon-cours.png' %}" alt="">
+                <span>Mes cours</span>
+            </a>
+
+            <a href="{% url 'chatbot_page' %}" class="menu-item">
+                <img src="{% static 'images/logo-chatbot.png' %}" alt="">
+                <span>Chatbot</span>
+            </a>
+
+            <a href="{% url 'teacher_actions_page' %}" class="menu-item active">
+                <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                <span>Actions</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-illustration">
+            <img src="{% static 'images/image.png' %}" alt="Illustration">
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="content-wrapper">
+
+            <div class="header">
+                <h1>Que voulez-vous créer aujourd’hui ?</h1>
+                <p>Créez un nouveau subject, ajoutez un chapitre ou concevez un quiz pour évaluer vos étudiants</p>
+            </div>
+
+            <div class="cards">
+
+                <div class="card" onclick="window.location.href='{% url 'create_subject_page' %}'">
+                    <h2>Ajouter un subject</h2>
+                    <p>Cliquez ici pour créer un nouveau cours principal visible dans la liste des matières.</p>
+                    <span class="arrow">➜</span>
+                </div>
+
+                <div class="card" onclick="window.location.href='{% url 'create_course_page' %}'">
+                    <h2>Ajouter un chapitre</h2>
+                    <p>Cliquez ici pour créer un nouveau chapitre et l’associer à un subject existant.</p>
+                    <span class="arrow">➜</span>
+                </div>
+
+                <div class="card" onclick="window.location.href='{% url 'create_quiz_page' %}'">
+                    <h2>Ajouter un quizz</h2>
+                    <p>Cliquez ici pour créer un quiz et associer chaque quizz à un chapitre.</p>
+                    <span class="arrow">➜</span>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

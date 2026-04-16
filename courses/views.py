@@ -393,3 +393,57 @@ def delete_course(request, course_id):
     return JsonResponse({
         "message": "Chapitre supprimé avec succès."
     }, status=200)
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .forms import SubjectForm, CourseForm
+
+
+@login_required
+def teacher_actions_page(request):
+    if request.user.role != "teacher":
+        return redirect("home")
+    return render(request, "courses/action-prof.html")
+
+
+@login_required
+def create_subject_page(request):
+    if request.user.role != "teacher":
+        return redirect("home")
+
+    if request.method == "POST":
+        form = SubjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("teacher_actions_page")
+    else:
+        form = SubjectForm()
+
+    return render(request, "courses/create_subject.html", {"form": form})
+
+
+@login_required
+def create_course_page(request):
+    if request.user.role != "teacher":
+        return redirect("home")
+
+    if request.method == "POST":
+        form = CourseForm(request.POST, request.FILES)
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.teacher = request.user
+            course.save()
+            return redirect("teacher_actions_page")
+    else:
+        form = CourseForm()
+
+    return render(request, "courses/AjoutCours.html", {"form": form})
+
+
+@login_required
+def teacher_courses_list_page(request):
+    if request.user.role != "teacher":
+        return redirect("home")
+
+    courses = Course.objects.filter(teacher=request.user).select_related("subject").order_by("subject__title", "order")
+    return render(request, "courses/subject_list.html", {"courses": courses})

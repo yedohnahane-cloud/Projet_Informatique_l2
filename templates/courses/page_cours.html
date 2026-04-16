@@ -28,10 +28,17 @@
                 <span>Chatbot</span>
             </a>
 
-            <a href="#" class="menu-item">
-                <img src="{% static 'images/logo-jeu.png' %}" alt="">
-                <span>Quizs et jeux</span>
-            </a>
+            {% if request.user.role == "teacher" %}
+                <a href="{% url 'teacher_actions_page' %}" class="menu-item">
+                    <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                    <span>Actions</span>
+                </a>
+            {% else %}
+                <a href="#" class="menu-item">
+                    <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                    <span>Quizs et jeux</span>
+                </a>
+            {% endif %}
         </nav>
 
         <div class="sidebar-illustration">
@@ -110,19 +117,63 @@ const uploadBtn = document.getElementById("uploadBtn");
 const fileInput = document.getElementById("fileInput");
 const messageInput = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
+const quizBtn = document.getElementById("quizBtn");
+
+function escapeHtml(value) {
+    const div = document.createElement("div");
+    div.textContent = value || "";
+    return div.innerHTML;
+}
+
+function renderPdfViewer(pdfUrl, title) {
+    const encodedPdfUrl = encodeURI(pdfUrl);
+    const iframeUrl = `${encodedPdfUrl}#zoom=page-width&toolbar=1&navpanes=0&scrollbar=1&view=FitH`;
+    courseContent.innerHTML = `
+        <div class="pdf-toolbar-custom">
+            <a href="${encodedPdfUrl}" target="_blank" class="secondary-btn">
+                Ouvrir le PDF
+            </a>
+            <a href="${encodedPdfUrl}" download class="secondary-btn">
+                Télécharger le PDF
+            </a>
+        </div>
+
+        <div class="pdf-viewer-wrapper">
+            <iframe
+                class="pdf-viewer"
+                src="${iframeUrl}"
+                title="${escapeHtml(title)}"
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <div class="pdf-fallback-note">
+            Si le PDF s’affiche mal dans l’aperçu, utilisez “Ouvrir le PDF”.
+        </div>
+    `;
+}
+
+function renderTextContent(content) {
+    courseContent.innerHTML = `
+        <div class="text-course-content">
+            ${escapeHtml(content).replace(/\n/g, "<br>")}
+        </div>
+    `;
+}
 
 async function loadCourseDetail() {
     try {
         const response = await fetch(`/courses/api/student/courses/${courseId}/`);
         const data = await response.json();
-        // 👉 MET LE CONSOLE.LOG ICI
+
         console.log("PDF URL:", data.pdf_file);
+
         if (!response.ok) {
             courseTitle.textContent = "Accès impossible";
             courseMeta.textContent = "";
             courseContent.innerHTML = `
                 <div class="error-state">
-                    ${data.error || "Impossible de charger ce chapitre."}
+                    ${escapeHtml(data.error || "Impossible de charger ce chapitre.")}
                 </div>
             `;
             return;
@@ -131,27 +182,14 @@ async function loadCourseDetail() {
         courseTitle.textContent = data.title;
         courseMeta.textContent = `Chapitre ${data.order}`;
 
+        if (quizBtn) {
+            quizBtn.href = "#";
+        }
+
         if (data.pdf_file) {
-            courseContent.innerHTML = `
-                <div class="pdf-toolbar">
-                    <a href="${data.pdf_file}" target="_blank" class="secondary-btn">
-                        Ouvrir le PDF
-                    </a>
-                </div>
-                <div class="pdf-viewer-wrapper">
-                    <iframe
-                        class="pdf-viewer"
-                        src="${data.pdf_file}"
-                        title="${data.title}">
-                    </iframe>
-                </div>
-            `;
+            renderPdfViewer(data.pdf_file, data.title);
         } else if (data.content) {
-            courseContent.innerHTML = `
-                <div class="text-course-content">
-                    ${data.content}
-                </div>
-            `;
+            renderTextContent(data.content);
         } else {
             courseContent.innerHTML = `
                 <div class="empty-state">

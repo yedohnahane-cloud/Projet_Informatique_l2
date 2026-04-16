@@ -3,7 +3,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Ajouter un chapitre</title>
+    <title>Ajouter un subject</title>
     <link rel="stylesheet" href="{% static 'css/AjoutCours.css' %}">
 </head>
 <body>
@@ -33,35 +33,20 @@
     </aside>
 
     <div class="main-content">
-        <h3 id="titr">Formulaire d’ajout de chapitre</h3>
-        <p>Veuillez remplir ce formulaire et associer ce chapitre à un subject existant.</p>
+        <h3 id="titr">Formulaire d’ajout de subject</h3>
+        <p>Veuillez remplir ce formulaire pour créer un nouveau subject.</p>
 
-        <form method="POST" enctype="multipart/form-data" class="insert-cours">
+        <form method="POST" class="insert-cours">
             {% csrf_token %}
 
             <li>
-                <label for="{{ form.subject.id_for_label }}">Subject associé</label>
-                {{ form.subject }}
-            </li>
-
-            <li>
-                <label for="{{ form.order.id_for_label }}">Numéro du chapitre</label>
-                {{ form.order }}
-            </li>
-
-            <li>
-                <label for="{{ form.title.id_for_label }}">Titre du chapitre</label>
+                <label for="{{ form.title.id_for_label }}">Titre du subject</label>
                 {{ form.title }}
             </li>
 
             <li>
-                <label for="{{ form.content.id_for_label }}">Contenu du chapitre</label>
-                {{ form.content }}
-            </li>
-
-            <li>
-                <label for="{{ form.pdf_file.id_for_label }}">Slides du chapitre (PDF)</label>
-                {{ form.pdf_file }}
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
             </li>
 
             <li>

@@ -28,10 +28,17 @@
                     <span>Chatbot</span>
                 </a>
 
-                <a href="#" class="menu-item">
-                    <img src="{% static 'images/logo-jeu.png' %}" alt="">
-                    <span>Quizs et jeux</span>
-                </a>
+                {% if request.user.role == "teacher" %}
+                    <a href="{% url 'teacher_actions_page' %}" class="menu-item">
+                        <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                        <span>Actions</span>
+                    </a>
+                {% else %}
+                    <a href="#" class="menu-item">
+                        <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                        <span>Quizs et jeux</span>
+                    </a>
+                {% endif %}
             </nav>
 
             <div class="sidebar-illustration">

@@ -321,3 +321,111 @@ body {
     align-items: center;
     padding: 10px;
 }
+.pdf-toolbar-custom {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.course-content {
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+.pdf-toolbar-custom {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    padding: 0 4px;
+}
+
+.pdf-viewer-wrapper {
+    width: 100%;
+    height: 82vh;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #1b1f44;   /* même vibe que ton thème */
+    box-shadow: none;
+    padding: 0;
+}
+
+.pdf-viewer {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    background: #1b1f44;
+}
+.course-header h1,
+#courseTitle {
+    color: #ffffff !important;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.course-header p,
+#courseMeta {
+    color: #cfd3ff !important;
+    margin-top: 8px;
+    font-size: 1rem;
+}
+
+.course-section {
+    background: transparent !important;
+}
+
+.course-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* avant c'était trop grand */
+}
+
+.course-header {
+    margin-bottom: 4px;
+}
+
+#courseTitle {
+    font-size: 1.5rem;
+    margin-bottom: 3px;
+}
+
+#courseMeta {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+}
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 11px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(135deg, #7a3c8c, #7a3c8c);
+    box-shadow: 0 8px 20px rgba(123, 44, 191, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.secondary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(123, 44, 191, 0.36);
+    opacity: 0.98;
+}
+
+.secondary-btn:active {
+    transform: translateY(0);
+}
+
+.pdf-toolbar-custom {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}

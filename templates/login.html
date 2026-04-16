@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login UI</title>
+
+  <!-- Police Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Lien CSS -->
+  <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ===== LEFT ===== -->
+  <div class="left">
+    <div class="left-content">
+
+      <!-- Texte principal -->
+      <h1>
+        Continue à apprendre <span>Java</span><br>
+        en relevant des défis<br>
+        niveau après niveau
+      </h1>
+
+      <!-- Illustration (remplace par ton image si besoin) -->
+      <img src="/static/images/image1.png" alt="illustration">
+
+    </div>
+  </div>
+
+  <!-- ===== RIGHT ===== -->
+  <div class="right">
+
+    <!-- Titre -->
+    <h2><span>Bienvenue</span> à nouveau</h2>
+
+    <!-- Boutons -->
+    <div class="social">
+
+      <!-- Google -->
+      <button class="btn-google">
+        <span class="g-icon">G</span>
+        Se connecter avec google
+      </button>
+
+      <!-- Facebook -->
+      <button class="btn-facebook"></button>
+
+    </div>
+
+   
+
+   <!-- Inputs -->
+<input type="email" id="email" placeholder="Adresse email">
+<input type="password" id="password" placeholder="Mot de passe">
+
+<!-- Bouton -->
+<button class="btn-login" id="loginBtn">Se connecter</button>
+
+    <!-- Inscription -->
+    <p class="signup">
+      Première fois ici ? <a href="/templates/SignIn.html">Inscrivez vous maintenant</a>
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- 🔥 JS -->
+<script>
+document.getElementById("loginBtn").addEventListener("click", async function () {
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch("/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+
+        // 🔥 REDIRECTION SELON ROLE
+        if (data.role === "etudiant") {
+            window.location.href = "/coursprincipal.html";
+        } 
+        else if (data.role === "prof") {
+            window.location.href = "/action.html";
+        }
+
+    } else {
+        alert("Email ou mot de passe incorrect");
+    }
+});
+
+</script>
+
+
+
+</body>
+</html>

@@ -122,3 +122,48 @@ def review_attempt(request, quiz_id):
         "errors": attempt.error_summary,
         "created_at": attempt.created_at,
     })
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .forms import QuizForm
+from .models import Quiz, Question, Choice
+
+
+@login_required
+def create_quiz_page(request):
+    if request.user.role != "teacher":
+        return redirect("home")
+
+    if request.method == "POST":
+        form = QuizForm(request.POST)
+
+        if form.is_valid():
+            quiz = form.save()
+
+            question_texts = request.POST.getlist("question_text[]")
+            correct_answers = request.POST.getlist("question_correct[]")
+
+            for index, question_text in enumerate(question_texts, start=1):
+                if not question_text.strip():
+                    continue
+
+                question = Question.objects.create(
+                    quiz=quiz,
+                    text=question_text,
+                    order=index
+                )
+
+                choice_values = request.POST.getlist(f"question_{index}_choice[]")
+                correct_position = int(correct_answers[index - 1]) if index - 1 < len(correct_answers) else 1
+
+                for choice_index, choice_text in enumerate(choice_values, start=1):
+                    Choice.objects.create(
+                        question=question,
+                        text=choice_text,
+                        is_correct=(choice_index == correct_position)
+                    )
+
+            return redirect("teacher_actions_page")
+    else:
+        form = QuizForm()
+
+    return render(request, "quiz/formulaire-question.html", {"form": form})

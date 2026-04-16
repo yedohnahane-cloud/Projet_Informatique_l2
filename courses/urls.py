@@ -14,6 +14,10 @@ from .views import (
     teacher_course_detail,
     update_course,
     delete_course,
+    teacher_actions_page,
+    create_subject_page,
+    create_course_page,
+    teacher_courses_list_page
 )
 
 urlpatterns = [
@@ -34,4 +38,8 @@ urlpatterns = [
     path("teacher/<int:course_id>/", teacher_course_detail, name="teacher_course_detail"),
     path("teacher/<int:course_id>/update/", update_course, name="update_course"),
     path("teacher/<int:course_id>/delete/", delete_course, name="delete_course"),
+    path("teacher/actions/", teacher_actions_page, name="teacher_actions_page"),
+    path("teacher/subjects/create/", create_subject_page, name="create_subject_page"),
+    path("teacher/courses/create/", create_course_page, name="create_course_page"),
+    path("teacher/my-courses/", teacher_courses_list_page, name="teacher_courses_list_page"),
 ]

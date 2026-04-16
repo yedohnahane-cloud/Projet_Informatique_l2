@@ -28,10 +28,17 @@
                     <span>Chatbot</span>
                 </a>
 
-                <a href="#" class="menu-item">
-                    <img src="{% static 'images/logo-jeu.png' %}" alt="">
-                    <span>Quizs et jeux</span>
-                </a>
+                {% if request.user.role == "teacher" %}
+                    <a href="{% url 'teacher_actions_page' %}" class="menu-item">
+                        <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                        <span>Actions</span>
+                    </a>
+                {% else %}
+                    <a href="#" class="menu-item">
+                        <img src="{% static 'images/logo-jeu.png' %}" alt="">
+                        <span>Quizs et jeux</span>
+                    </a>
+                {% endif %}
             </nav>
 
             <div class="sidebar-illustration">
@@ -46,13 +53,10 @@
                 </button>
             </div>
 
-<div class="scroll-area">
-
-    <h1 class="page-title">Choisir un cours</h1>
-
-    <div id="subjects-grid" class="courses-grid"></div>
-
-</div>
+            <div class="scroll-area">
+                <h1 class="page-title">Choisir un cours</h1>
+                <div id="subjects-grid" class="courses-grid"></div>
+            </div>
         </main>
 
     </div>
