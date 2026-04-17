@@ -9,7 +9,7 @@ Participants : Équipe du projet + enseignant
 
 Faire le point sur l’avancement du projet, valider les pages front-end déjà réalisées 
 et définir l’organisation finale du travail.
-
+  
 2️⃣ Points abordés
 
 -Présentation et validation des pages front-end déjà développées.
